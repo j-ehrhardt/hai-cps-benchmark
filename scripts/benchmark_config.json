@@ -1,0 +1,31 @@
+{  "ds1": {
+    "model": {
+      "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["mixer_partial0"],
+    "ProdIn": [],
+    "ProdOut": []
+  },
+  "ds4": {
+    "model": {
+      "nodes": ["bottling_partial0", "source0",  "sink0"],
+      "edges": [["source0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["bottling_partial0"],
+    "ProdIn": [],
+    "ProdOut": []
+  },
+  "ds3": {
+   "model": {
+      "nodes": ["filter_partial0", "source0",  "sink0"],
+      "edges": [["source0", "filter_partial0"], ["filter_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["filter_partial0"],
+    "ProdIn": [],
+    "ProdOut": []
+  }
+}
