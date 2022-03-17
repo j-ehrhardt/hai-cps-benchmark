@@ -1,5 +1,8 @@
 # Benchmark for Reconfiguration and Planning 
 
+The state of the paper is in overleaf: [https://www.overleaf.com/9292148377npqtdvkzspjm](https://www.overleaf.com/9292148377npqtdvkzspjm)
+
+Preliminary dataset samples can be accessed here: [https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing](https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing)
 
 ## Requirements
 
