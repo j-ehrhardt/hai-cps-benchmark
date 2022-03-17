@@ -32,3 +32,9 @@ Each Module (source, sink, filter, mixer, distill, bottling) is defined in a mod
 To run the modules individually in OM Edit, the models have to be connected to a source and a sink in a separate (process_plant.mo) file. 
 Pump velocity has to be adapted regarding the comments in the `source_superModel.mo`.
 Errors (leaking, clogging or both) can be injected in the module's supermodel. 
+
+## Data
+
+The datasets are recorded for 4000s with a sampling rate of 10 samples/s. 
+At t = 2000s either one or two faults are injected (cf. dataset title: c = clogging, l = leaking). 
+
