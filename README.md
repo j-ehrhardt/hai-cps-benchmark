@@ -1,4 +1,4 @@
-# AI Benchmark for Diagnosis Reconfiguration and Planning
+# AI Benchmark for Diagnosis, Reconfiguration, and Planning
 
 This repository contains the simulation models for the AI Benchmark for Diagnosis, Reconfiguration and Planning (BeRfiPl). 
 
