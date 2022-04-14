@@ -8,7 +8,7 @@ To improve the autonomy of Cyber-Physical Production Systems (CPPS), a growing n
 However, implementations of such approaches are often validated on individual use-cases, offering little to no comparability. 
 Though CPPS automation includes a variety of problem domains, existing benchmarks usually focus on single or partial problems. 
 Additionally, they often neglect to test for AI-specific performance indicators, like asymptotic complexity scenarios or runtimes. 
-Within this paper we identify minimum common set requirements for AI benchmarks in the domain of CPPS and introduce a comprehensive benchmark, offering applicability on diagnosis, reconfiguration, and planning approaches from AI. 
+We introduce a comprehensive benchmark, offering applicability on diagnosis, reconfiguration, and planning approaches from AI. 
 The benchmark consists of a grid of datasets derived from 16 simulations of modular CPPS from process engineering, featuring multiple functionalities, complexities, and individual and superposed faults.
 
 
