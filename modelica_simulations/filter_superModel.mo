@@ -19,6 +19,6 @@ equation
   pump_P101_simulator = 150;
   
   // error induction
-  valve_leaking_simulator = if time >= 2000 then 0.001 else 0; // leaking
-  valve_clogging_simulator = if time >= 2000 then 0.8 else 1; // clogging
+  valve_leaking_simulator = if time >= 2000 then 0.0001 else 0; // leaking
+  valve_clogging_simulator = if time >= 2000 then 0.01 else 1; // clogging
 end filter_superModel;

@@ -36,19 +36,19 @@ def create_process_plant(config_ds: dict):
     The file is saved as process_plant.mo
     """
 
-    intro = ""\
-            "model process_plant\n" \
-            "inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);\n" \
-            "replaceable package Medium = Modelica.Media.Water.StandardWater;\n\n"
-    models = ""
-    equations = "\nequation\n"
-    outro = "end process_plant;\n"
+    intro = ''\
+            'model process_plant\n' \
+            'inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, momentumDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa"));\n' \
+            'replaceable package Medium = Modelica.Media.Water.StandardWater;\n\n'
+    models = ''
+    equations = '\nequation\n'
+    outro = 'end process_plant;\n'
 
     mod_list = config_ds["model"]["nodes"]
     equ_list = config_ds["model"]["edges"]
 
     for i in mod_list:
-        models = models + (i[:-1] + " " + i + "(replaceable package Medium = Medium);\n")
+        models = models + (i[:-1] + " " + i + ";\n") #"(replaceable package Medium = Medium);\n")
 
     l, m = 1, 1
     for j in equ_list:
@@ -58,7 +58,7 @@ def create_process_plant(config_ds: dict):
         if "still" in j[0]:
             equations = equations + ("connect(" + str(j[0]) + ".port_out" + str(m) + ", " + str(j[1]) + ".port_in);\n")
             m += 1
-        else:
+        if "mixer" not in j[1] and "still" not in j[0]:
             equations = equations + ("connect(" + str(j[0]) + ".port_out, " + str(j[1]) + ".port_in);\n")
 
     with open("../modelica_simulations/process_plant.mo", "w") as f:
@@ -72,13 +72,12 @@ def create_supermodel(faulty_module: str, fault: str):
     """
     Within the supermodels fault induction can be turned off and on.
     Hence, for each fault setup a separate supermodel must be created.
-    TODO Adapt source flows!
     """
     str_superModel = "../modelica_simulations/" + faulty_module[:-9] + "_superModel.mo"
-    ok_str1 = "valve_leaking_simulator = if time >= 4000 then 0.001 else 0; // leaking"
-    nok_str1 = "valve_leaking_simulator = if time >= 2000 then 0.001 else 0; // leaking"
-    ok_str2 = "valve_clogging_simulator = if time >= 4000 then 0.8 else 1; // clogging"
-    nok_str2 = "valve_clogging_simulator = if time >= 2000 then 0.8 else 1; // clogging"
+    ok_str1 = "valve_leaking_simulator = if time >= 4000 then 0.0001 else 0; // leaking"
+    nok_str1 = "valve_leaking_simulator = if time >= 2000 then 0.0001 else 0; // leaking"
+    ok_str2 = "valve_clogging_simulator = if time >= 4000 then 0.01 else 1; // clogging"
+    nok_str2 = "valve_clogging_simulator = if time >= 2000 then 0.01 else 1; // clogging"
 
     # read mode
     file = open(str_superModel, "r")
@@ -133,7 +132,7 @@ def clean_ds(setup: str, fault: str):
     reading csv as df and cleaning everything unnecessary
     """
     csv_file = "../datasets/" + setup + "/" + setup + fault + ".csv"
-    channels_of_interest = ["m_flow", "v_flow", "fluidVolume", "level", "N_in", "opening", "heatTransfer.Ts", "medium.t", "port_a.p", "port_b.p"]
+    channels_of_interest = ["time", "v_flow", "level", "m_flow", "fluidVolume", "N_in", "opening", "heatTransfer.Ts", "medium.t", "port_a.p", "port_b.p"]
 
     df = pd.read_csv(csv_file)
 
@@ -147,6 +146,17 @@ def clean_ds(setup: str, fault: str):
 
     df.to_csv(csv_file)
     print("dataset " + csv_file + " was created ...\n")
+    return
+
+def save_connection_model(config_dict: dict, setup: str):
+    """
+    saves the simulation configuration as .txt file in dataset directory
+    """
+    file = "../datasets/" + setup + "/" + setup + "_config.json"
+    with open(file, "w") as json_file:
+        json.dump(config_dict, json_file)
+
+    print("Saved config-file ... \n")
     return
 
 def create_dataset(config_ds: dict, setup: str):
@@ -173,6 +183,10 @@ def create_dataset(config_ds: dict, setup: str):
         create_supermodel(faulty_module, fault)     # creating a supermodel inducing the fault "fault"
         run_simulation(setup, fault)                # running the om simulation
         clean_ds(setup, fault)                      # cleaning resulting ds from unnecessary values
+        print("simulation run " + str(setup) + str(fault) + " finished ... \n")
+    save_connection_model(config_ds, setup)         # saving the connection model and simulation setup as file in ds-directory
+
+
     return
 
 

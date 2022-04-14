@@ -1,40 +1,67 @@
-# Benchmark for Reconfiguration and Planning 
+# AI Benchmark for Diagnosis Reconfiguration and Planning
 
-The state of the paper is in overleaf: [https://www.overleaf.com/9292148377npqtdvkzspjm](https://www.overleaf.com/9292148377npqtdvkzspjm)
+This repository contains the simulation models for the AI Benchmark for Diagnosis, Reconfiguration and Planning (BeRfiPl). 
 
-Preliminary dataset samples can be accessed here: [https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing](https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing)
+## Motivation 
+
+To improve the autonomy of Cyber-Physical Production Systems (CPPS), a growing number of approaches in Artificial Intelligence (AI) is being developed.
+However, implementations of such approaches are often validated on individual use-cases, offering little to no comparability. 
+Though CPPS automation includes a variety of problem domains, existing benchmarks usually focus on single or partial problems. 
+Additionally, they often neglect to test for AI-specific performance indicators, like asymptotic complexity scenarios or runtimes. 
+Within this paper we identify minimum common set requirements for AI benchmarks in the domain of CPPS and introduce a comprehensive benchmark, offering applicability on diagnosis, reconfiguration, and planning approaches from AI. 
+The benchmark consists of a grid of datasets derived from 16 simulations of modular CPPS from process engineering, featuring multiple functionalities, complexities, and individual and superposed faults.
+
 
 ## Requirements
+A virtual environment with the requirements to run the python scripts can be generated from the `requirements.txt` file. 
+Additionally, Modelica has to be installed.
 
-``== Modelica 3.2.3``
+`Modelica=3.2.3`
 
-``>= Python 3.9``
+(`OMEdit`)
 
-``~ pandas 1.4.1``
+`Python~=3.8`
 
+`pandas~=1.4.1`
+
+`plotly~=5.6.0`
 
 
 ## Quickrun 
 
-Run ``/scripts/create_benchmark.py`` in your terminal.
-The datasets will be saved into the ``/datasets`` directory.
+Run `./scripts/create_benchmark.py` in your terminal.
+The datasets will be saved into the `./datasets` directory.
 
-**or**
+**or** 
 
-Open and run models in OM Edit individually
+Open single models and superModels in OMEdit and run the simulation manually.
 
 
-## Models
+# Models
 
-Modelica Models are saved in `/modelica simulations`. 
-Each Module (source, sink, filter, mixer, distill, bottling) is defined in a model.mo and a superModel.mo file.
+The benchmark consists of four different component modules (mixer, filter, distill, bottling) with different functionalities (cf. Fig.1).
+The modules can be interchangeably combined to simulate modular process plants with differing functionalities.
 
-To run the modules individually in OM Edit, the models have to be connected to a source and a sink in a separate (process_plant.mo) file. 
-Pump velocity has to be adapted regarding the comments in the `source_superModel.mo`.
-Errors (leaking, clogging or both) can be injected in the module's supermodel. 
+![modules](./images/berfiple_modules.drawio(1).png)
 
-## Data
+*Fig.1: Four modules with different functionalities: a) filter, b) mixer, c) distill, d) bottling*
 
-The datasets are recorded for 4000s with a sampling rate of 10 samples/s. 
-At t = 2000s either one or two faults are injected (cf. dataset title: c = clogging, l = leaking). 
+For the benchmark, connection models of 16 different CPPS are predefined in `benchmark_config.json`, forming a comprehensive selection of datasets for validating AI algorithms on diagnosis, reconfiguration and planning (cf. Fig. 2).
 
+![cpps](./images/cppsSetups.drawio.png)
+
+*Fig.2: CPPS combinations for the benchmark*
+
+
+## Information
+
+This benchmark was developed at the chair if Informatics in Engineering at Helmut-Schmidt-University, Hamburg. 
+For questions please contact: **jonas.ehrhardt(at)hsu-hh.de**.
+
+
+## LICENSE
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use it except in compliance with the License. A copy of the License is included in the project, see the file LICENSE.**
+
+
+<img src="./images/IMB.png" alt="logo" width="100"/>
+<img src="./images/BeRfiPl.jpeg" alt="hello" width="100"/>

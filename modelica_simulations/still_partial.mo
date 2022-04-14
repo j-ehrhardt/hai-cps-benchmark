@@ -1,382 +1,199 @@
 model still_partial
-  extends Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses;
   extends still_superModel;
-  replaceable package Medium = Modelica.Media.Water.StandardWater;
-
-  Modelica.Fluid.Sources.FixedBoundary sink(
-      redeclare package Medium = Medium, 
-      nPorts = 1, 
-      p = system.p_ambient) 
-      annotation(
-      Placement(visible = true, transformation(origin = {-40, -170}, extent = {{10, 10}, {-10, -10}}, rotation = -90))); 
-
-  Modelica.Fluid.Vessels.OpenTank input_reservoir(
-    redeclare package Medium = Medium,
-    crossArea = 10,
-    height = 10,
-    nPorts = 2,
-    portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011),
-    Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) 
-    annotation(
-    Placement(visible = true, transformation(origin = {70, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B102(
-    redeclare package Medium = Medium, V0 = 0.0001, 
-    crossArea = 1, 
-    height = .2, level(fixed = true, start = 0.01), level_start = 0.01, 
-    nPorts = 2,
-    nTopPorts = 1, 
-    portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011), Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) 
-    annotation(
-    Placement(visible = true, transformation(origin = {62, -52}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor tank_B101(
-    redeclare package Medium = Medium, 
-    V0 = 0.001, 
-    bottom_pipeArea = {0.0001, 0.0001}, 
-    crossArea = .0177, 
-    height = .13, 
-    initType = Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init.InitialValues, 
-    level_start = 0.0009, 
-    min_level_for_heating = .0001, 
-    n_BottomPorts = 2, 
-    n_SidePorts = 1, 
-    n_TopPorts = 1, 
-    side_pipeArea = {0.0001}, 
-    top_pipeArea = {0.0001}) 
-    annotation(
-    Placement(visible = true, transformation(origin = {20, -38}, extent = {{-40, -18}, {40, 18}}, rotation = 0)));
-  inner Modelica.Fluid.System system annotation(
-    Placement(visible = true, transformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts output_reservoir(
-    redeclare package Medium = Medium,
-    V0 = 0.0001,
-    crossArea = 1,
-    height = .2, level(fixed = true, start = 0.01), level_start = 0.01,
-    nPorts = 2,
-    nTopPorts = 1,
-    portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011), Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) 
-    annotation(
-    Placement(visible = true, transformation(origin = {0, -150}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow 
-    annotation(
-    Placement(visible = true, transformation(origin = {-70, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Fluid.Valves.ValveDiscrete valveDiscrete(
-    redeclare package Medium = Medium, 
-    dp_nominal(displayUnit = "Pa") = 100, 
-    m_flow_nominal = 1) 
-    annotation(
-    Placement(visible = true, transformation(origin = {0, 2}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
-
-  Modelica.Fluid.Machines.PrescribedPump pump(
-    redeclare function flowCharacteristic = Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(V_flow_nominal = {0, 0.1e-3, 0.15e-3}, head_nominal = {10, 5, 0}), 
-    redeclare package Medium = Medium, 
-    N_nominal = 200, 
-    V = 9.999999999999999e-05, 
-    checkValve = true, 
-    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, 
-    m_flow_start = 0.1, 
-    massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, 
-    p_a_start = 100000, 
-    p_b_start = 100000, 
-    use_N_in = true) 
-    annotation(
-    Placement(visible = true, transformation(origin = {50, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Logical.Less less_fillingValve 
-    annotation(
-    Placement(visible = true, transformation(origin = {-310, -26}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Sources.RealExpression evap_level_max_ref(
-    y = tank_B101.height) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-410, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Logical.TriggeredTrapezoid triggeredTrapezoid(
-    amplitude = 2000,
-    falling = 3,
-    rising = 3) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-104, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.MathBoolean.OnDelay onDelay(
-    delayTime = 50) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-128, -38}, extent = {{-4, -4}, {4, 4}}, rotation = 0)));
-
-
-  Modelica.Blocks.Sources.RealExpression tank_B101_crossArea(
-    y = tank_B101.crossArea) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-410, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product product1 
-    annotation(
-    Placement(visible = true, transformation(origin = {-382, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product evapTank_refMaxV 
-    annotation(
-    Placement(visible = true, transformation(origin = {-350, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product evapTank_refMinV 
-    annotation(
-    Placement(visible = true, transformation(origin = {-350, -62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Sources.RealExpression tank_B102_crossArea(
-    y = tank_B102.crossArea) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-266, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Sources.RealExpression tank_B102_height(
-    y = tank_B102.height) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-266, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product product5 
-    annotation(
-    Placement(visible = true, transformation(origin = {-226, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product condensedTank_refMaxV 
-    annotation(
-    Placement(visible = true, transformation(origin = {-196, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Sources.RealExpression tank_B102_level(
-    y = tank_B102.level) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-266, -12}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product condensedTank_V 
-    annotation(
-    Placement(visible = true, transformation(origin = {-226, -18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Sources.RealExpression evapTank_level(
-    y = tank_B101.level) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-382, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Blocks.Math.Product evapTank_V 
-    annotation(
-    Placement(visible = true, transformation(origin = {-350, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.InitialStep initialStep 
-    annotation(
-    Placement(visible = true, transformation(origin = {-408, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot 
-    annotation(
+  inner Modelica.Fluid.System system(allowFlowReversal = true, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, momentumDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa")) annotation(
     Placement(visible = true, transformation(origin = {-70, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.Step step_filling 
-    annotation(
-    Placement(visible = true, transformation(origin = {-348, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.Step step_evap 
-    annotation(
-    Placement(visible = true, transformation(origin = {-288, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.TransitionWithSignal transition_evapFull_and_condensedNotFull 
-    annotation(
-    Placement(visible = true, transformation(origin = {-318, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.TransitionWithSignal transition_inputReservoirIsNotEmpty 
-    annotation(
-    Placement(visible = true, transformation(origin = {-378, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.TransitionWithSignal transition_evapIsEmpty 
-    annotation(
-    Placement(visible = true, transformation(origin = {-258, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Fluid.Valves.ValveDiscrete valve_V101(
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit = "Pa") = 100,
-    m_flow_nominal = 1) 
-    annotation(
-    Placement(visible = true, transformation(origin = {0, -74}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
-
-  Modelica.Fluid.Valves.ValveLinear valve_leaking(
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit = "Pa") = 100,
-    m_flow_nominal = 1) 
-    annotation(
-    Placement(visible = true, transformation(origin = {-40, -140}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
-
-  Modelica.Fluid.Valves.ValveLinear valve_clogging(
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit = "Pa") = 100,
-    m_flow_nominal = 1) 
-    annotation(
-    Placement(visible = true, transformation(origin = {20, 30}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-
-
-  Modelica.StateGraph.Step step_output 
-    annotation(
-    Placement(visible = true, transformation(origin = {-228, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.StateGraph.TransitionWithSignal transition_evapLevelIsZero 
-    annotation(
-    Placement(visible = true, transformation(origin = {-198, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Fluid.Pipes.DynamicPipe pipe_inputToEvap(
-    redeclare package Medium = Medium,
-    diameter = 0.01,
-    height_ab = 0.1,
-    length = 0.6) 
-    annotation(
-    Placement(visible = true, transformation(origin = {70, 50}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-
-  Modelica.Fluid.Pipes.DynamicPipe dynamicPipe(
-    redeclare package Medium = Medium,
-    diameter = 0.01,
-    height_ab = -2,
-    length = 0.4) 
-    annotation(
-    Placement(visible = true, transformation(origin = {0, -106}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_out1(
-    redeclare package Medium = Medium) 
-    annotation(
-    Placement(visible = true, transformation(origin = {190, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_out2(
-    redeclare package Medium = Medium) 
-    annotation(
-    Placement(visible = true, transformation(origin = {190, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_in(
-    redeclare package Medium = Medium)
-    
-    annotation(
-    Placement(visible = true, transformation(origin = {190, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-108, -8}, {-88, 12}}, rotation = 0)));
-  Modelica.Fluid.Valves.ValveLinear V101(
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit = "Pa") = 1000, dp_start = 0.0, 
-    m_flow_nominal = 40) 
-  annotation(
-    Placement(visible = true, transformation(origin = {130, -72}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Fluid.Valves.ValveLinear V102(    
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit = "Pa") = 1000, dp_start = 0.0, 
-    m_flow_nominal = 40) 
-  
-  annotation(
-    Placement(visible = true, transformation(origin = {130, -170}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression realExpression(y = outlet) annotation(
-    Placement(visible = true, transformation(origin = {110, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  replaceable package Medium = Modelica.Media.Water.StandardWater;
+  // components
+  Modelica.Fluid.Vessels.OpenTank tank_B101(redeclare package Medium = Medium, crossArea = 0.33, height = 0.55, level(start = 0.01), level_start = 0.01, nPorts = 2, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011), Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) annotation(
+    Placement(visible = true, transformation(origin = {20, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Fluid.Vessels.OpenTank tank_B102(redeclare package Medium = Medium, crossArea = 0.33, height = 0.33, level(start = 0.1), level_start = 0.1, nPorts = 2, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011), Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) annotation(
+    Placement(visible = true, transformation(origin = {14, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Fluid.Vessels.OpenTank tank_B103(redeclare package Medium = Medium, crossArea = 0.33, height = 0.33, level(start = 0.1), level_start = 0.1, nPorts = 2, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011), Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011)}) annotation(
+    Placement(visible = true, transformation(origin = {20, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Fluid.Interfaces.FluidPort_a port_out1(redeclare package Medium = Medium) annotation(
+    Placement(visible = true, transformation(origin = {190, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Fluid.Interfaces.FluidPort_a port_out2(redeclare package Medium = Medium) annotation(
+    Placement(visible = true, transformation(origin = {190, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Fluid.Interfaces.FluidPort_b port_in(redeclare package Medium = Medium) annotation(
+    Placement(visible = true, transformation(origin = {190, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(extent = {{-108, -8}, {-88, 12}}, rotation = 0)));
+  Modelica.Fluid.Valves.ValveDiscrete valve_V101(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {150, -60}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Modelica.Fluid.Valves.ValveDiscrete valve_V102(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {150, -140}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Modelica.Fluid.Valves.ValveDiscrete valve_input(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {150, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Fluid.Valves.ValveDiscrete valve_output_evap(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+  Modelica.Fluid.Valves.ValveDiscrete valve_fill_evap(redeclare package Medium = Medium, allowFlowReversal = true, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {-40, 10}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+  Modelica.Fluid.Valves.ValveDiscrete evaporating_true(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {-46, -34}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
+  Modelica.Fluid.Valves.ValveLinear valve_leaking(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+  Modelica.Fluid.Valves.ValveLinear valve_clogging(redeclare package Medium = Medium, dp_nominal(displayUnit = "Pa") = 100, m_flow(fixed = false), m_flow_nominal = 1) annotation(
+    Placement(visible = true, transformation(origin = {90, -60}, extent = {{10, 10}, {-10, -10}}, rotation = 180)));
   Modelica.Blocks.Sources.RealExpression realExpression_leaking(y = valve_leaking_simulator) annotation(
-    Placement(visible = true, transformation(origin = {-60, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+    Placement(visible = true, transformation(origin = {90, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression realExpression_clogging(y = valve_clogging_simulator) annotation(
-    Placement(visible = true, transformation(origin = {20, 50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-
+    Placement(visible = true, transformation(origin = {90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Fluid.Sources.FixedBoundary sink(redeclare package Medium = Medium, nPorts = 1, p = system.p_ambient) annotation(
+    Placement(visible = true, transformation(origin = {190, -110}, extent = {{10, 10}, {-10, -10}}, rotation = 0)));
+  Modelica.Fluid.Machines.PrescribedPump pump(redeclare function flowCharacteristic = Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(V_flow_nominal = {0, 0.1e-3, 0.15e-3}, head_nominal = {10, 5, 0}), redeclare package Medium = Medium, N_nominal = 200, V = 9.999999999999999e-05, checkValve = true, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 0.1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_a_start = 100000, p_b_start = 100000, use_N_in = true) annotation(
+    Placement(visible = true, transformation(origin = {-10, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Fluid.Pipes.StaticPipe pipe1(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -0.5, length = 0.5) annotation(
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
+  Modelica.Fluid.Pipes.StaticPipe pipe2(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -0.5, length = 0.5) annotation(
+    Placement(visible = true, transformation(origin = {20, 42}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+  Modelica.Fluid.Pipes.StaticPipe pipe3(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -1, length = 1) annotation(
+    Placement(visible = true, transformation(origin = {150, -110}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Fluid.Pipes.StaticPipe pipe4(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -0.5, length = 0.5) annotation(
+    Placement(visible = true, transformation(origin = {-40, -110}, extent = {{-10, 10}, {10, -10}}, rotation = -90)));
+  Modelica.Fluid.Pipes.StaticPipe pipe5(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -0.5, length = 0.5) annotation(
+    Placement(visible = true, transformation(origin = {60, -60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  Modelica.Fluid.Pipes.StaticPipe pipe6(redeclare package Medium = Medium, allowFlowReversal = true, diameter = 0.015, height_ab = -0.5, length = 0.5) annotation(
+    Placement(visible = true, transformation(origin = {60, -140}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
+  // state graph
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot annotation(
+    Placement(visible = true, transformation(origin = {-30, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.InitialStep initialStep annotation(
+    Placement(visible = true, transformation(origin = {250, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step fill_evap annotation(
+    Placement(visible = true, transformation(origin = {330, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step fill_tankB101 annotation(
+    Placement(visible = true, transformation(origin = {290, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step step_evap annotation(
+    Placement(visible = true, transformation(origin = {410, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal evap_isFull(enableTimer = false, waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {350, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal start_process(waitTime = 3) annotation(
+    Placement(visible = true, transformation(origin = {270, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step empty_remainingEvap annotation(
+    Placement(visible = true, transformation(origin = {450, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal evap_isEmpty(waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {470, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal tankB101_isFull(waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {310, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal heating_isComplete(enableTimer = true, waitTime = 352) annotation(
+    Placement(visible = true, transformation(origin = {390, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step empty_reservoirTanks annotation(
+    Placement(visible = true, transformation(origin = {490, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal tanks_areEmpty(waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {510, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  evaporator evaporator0 annotation(
+    Placement(visible = true, transformation(origin = {-85.0576, -115.162}, extent = {{7.05759, 38.8168}, {81.1623, 81.1623}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal evaporating_isFinished(enableTimer = false, waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {430, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step wait annotation(
+    Placement(visible = true, transformation(origin = {370, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.TransitionWithSignal tanks_areEmpty2(waitTime = 1) annotation(
+    Placement(visible = true, transformation(origin = {554, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.StateGraph.Step empty_reservoirTank2 annotation(
+    Placement(visible = true, transformation(origin = {534, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  pump.N_in = pump_N;
-  evapTank_refMaxV.u2 = evapTank_refMaxV_Val;
-  evapTank_refMinV.u2 = evapTank_refMinV_Val;
-  condensedTank_refMaxV.u2 = condensedTank_refMaxV_Val;
-  valve_V101.open = step_output.active;
-  valveDiscrete.open = step_filling.active;
-  onDelay.u = step_evap.active;
-  transition_evapFull_and_condensedNotFull.condition = evapTank_V.y >= evapTank_refMaxV.y and condensedTank_V.y <= condensedTank_refMaxV.y;
-  transition_inputReservoirIsNotEmpty.condition = input_reservoir.V > input_reservoir.height * input_reservoir.crossArea * 0.1;
-  transition_evapIsEmpty.condition = evapTank_V.y <= evapTank_refMinV.y;
-//TO-DO: change condition to restart cycle. Current error: "Attempt to fill tank while evaporating"
-  transition_evapLevelIsZero.condition = false;
-//evap_level.y < 0.001;
-  connect(tank_B101.Condensed, tank_B102.topPorts[1]) annotation(
-    Line(points = {{60, -27}, {60, -28}, {62, -28}, {62, -31}}, color = {0, 127, 255}));
-  connect(prescribedHeatFlow.port, tank_B101.heatPort) annotation(
-    Line(points = {{-60, -38}, {-20, -38}}, color = {191, 0, 0}));
-  connect(valveDiscrete.port_b, tank_B101.TopFluidPort[1]) annotation(
-    Line(points = {{0, -8}, {0, -20}}, color = {0, 127, 255}));
-  connect(triggeredTrapezoid.y, prescribedHeatFlow.Q_flow) annotation(
-    Line(points = {{-93, -38}, {-80, -38}}, color = {0, 0, 127}));
-  connect(less_fillingValve.u2, evapTank_refMaxV.y) annotation(
-    Line(points = {{-322, -34}, {-339, -34}}, color = {0, 0, 127}));
-  connect(evap_level_max_ref.y, product1.u2) annotation(
-    Line(points = {{-399, -34}, {-394, -34}}, color = {0, 0, 127}));
-  connect(product1.u1, tank_B101_crossArea.y) annotation(
-    Line(points = {{-394, -22}, {-398.5, -22}, {-398.5, -12}, {-399, -12}}, color = {0, 0, 127}));
-  connect(product1.y, evapTank_refMaxV.u1) annotation(
-    Line(points = {{-371, -28}, {-362, -28}}, color = {0, 0, 127}));
-  connect(product1.y, evapTank_refMinV.u1) annotation(
-    Line(points = {{-371, -28}, {-371, -56}, {-362, -56}}, color = {0, 0, 127}));
-  connect(tank_B102_height.y, product5.u2) annotation(
-    Line(points = {{-255, -50}, {-238, -50}}, color = {0, 0, 127}));
-  connect(tank_B102_crossArea.y, product5.u1) annotation(
-    Line(points = {{-255, -24}, {-246, -24}, {-246, -31}, {-238, -31}, {-238, -38}}, color = {0, 0, 127}));
-  connect(condensedTank_refMaxV.u1, product5.y) annotation(
-    Line(points = {{-208, -44}, {-215, -44}}, color = {0, 0, 127}));
-  connect(tank_B102_level.y, condensedTank_V.u1) annotation(
-    Line(points = {{-255, -12}, {-238, -12}}, color = {0, 0, 127}));
-  connect(tank_B102_crossArea.y, condensedTank_V.u2) annotation(
-    Line(points = {{-255, -24}, {-238, -24}}, color = {0, 0, 127}));
-  connect(less_fillingValve.u1, evapTank_V.y) annotation(
-    Line(points = {{-322, -26}, {-330.5, -26}, {-330.5, -6}, {-339, -6}}, color = {0, 0, 127}));
-  connect(evapTank_V.u1, evapTank_level.y) annotation(
-    Line(points = {{-362, 0}, {-371, 0}}, color = {0, 0, 127}));
-  connect(tank_B101_crossArea.y, evapTank_V.u2) annotation(
-    Line(points = {{-399, -12}, {-362, -12}}, color = {0, 0, 127}));
-  connect(onDelay.y, triggeredTrapezoid.u) annotation(
-    Line(points = {{-123, -38}, {-116, -38}}, color = {255, 0, 255}));
-  connect(step_filling.outPort[1], transition_evapFull_and_condensedNotFull.inPort) annotation(
-    Line(points = {{-337.5, 40}, {-321.5, 40}}));
-  connect(transition_evapFull_and_condensedNotFull.outPort, step_evap.inPort[1]) annotation(
-    Line(points = {{-316.5, 40}, {-298.5, 40}}));
-  connect(initialStep.outPort[1], transition_inputReservoirIsNotEmpty.inPort) annotation(
-    Line(points = {{-397.5, 40}, {-381.5, 40}}));
-  connect(transition_inputReservoirIsNotEmpty.outPort, step_filling.inPort[1]) annotation(
-    Line(points = {{-376.5, 40}, {-358.5, 40}}));
-  connect(step_evap.outPort[1], transition_evapIsEmpty.inPort) annotation(
-    Line(points = {{-277.5, 40}, {-261.5, 40}}));
-  connect(tank_B101.BottomFluidPort[1], valve_V101.port_a) annotation(
-    Line(points = {{0, -56}, {0, -64}}, color = {0, 127, 255}));
- connect(transition_evapIsEmpty.outPort, step_output.inPort[1]) annotation(
-    Line(points = {{-256.5, 40}, {-239, 40}}));
- connect(step_output.outPort[1], transition_evapLevelIsZero.inPort) annotation(
-    Line(points = {{-217.5, 40}, {-201.5, 40}}));
-  connect(transition_evapLevelIsZero.outPort, initialStep.inPort[1]) annotation(
-    Line(points = {{-196.5, 40}, {-168.5, 40}, {-168.5, 64}, {-430.5, 64}, {-430.5, 40}, {-418.5, 40}}));
-  connect(input_reservoir.ports[1], pipe_inputToEvap.port_a) annotation(
-    Line(points = {{70, 70}, {70, 60}}, color = {0, 127, 255}));
- connect(pipe_inputToEvap.port_b, pump.port_a) annotation(
-    Line(points = {{70, 40}, {70, 30}, {60, 30}}, color = {0, 127, 255}));
- connect(valve_V101.port_b, dynamicPipe.port_a) annotation(
-    Line(points = {{0, -84}, {0, -96}}, color = {0, 127, 255}));
- connect(dynamicPipe.port_b, output_reservoir.topPorts[1]) annotation(
-    Line(points = {{0, -116}, {0, -129}}, color = {0, 127, 255}));
-  connect(input_reservoir.ports[2], port_in) annotation(
-    Line(points = {{70, 70}, {190, 70}}, color = {0, 127, 255}));
- connect(output_reservoir.ports[1], V102.port_a) annotation(
-    Line(points = {{0, -171}, {120, -171}}, color = {0, 127, 255}));
- connect(tank_B102.ports[1], V101.port_a) annotation(
-    Line(points = {{62, -72}, {120, -72}}, color = {0, 127, 255}));
-  connect(V101.port_b, port_out1) annotation(
-    Line(points = {{140, -72}, {190, -72}}, color = {0, 127, 255}));
- connect(realExpression.y, V101.opening) annotation(
-    Line(points = {{121, -120}, {130, -120}, {130, -80}}, color = {0, 0, 127}));
- connect(realExpression.y, V102.opening) annotation(
-    Line(points = {{121, -120}, {130, -120}, {130, -162}}, color = {0, 0, 127}));
- connect(V102.port_b, port_out2) annotation(
-    Line(points = {{140, -170}, {190, -170}}, color = {0, 127, 255}));
- connect(realExpression_clogging.y, valve_clogging.opening) annotation(
-    Line(points = {{20, 39}, {20, 38}}, color = {0, 0, 127}));
- connect(pump.port_b, valve_clogging.port_a) annotation(
-    Line(points = {{40, 30}, {30, 30}}, color = {0, 127, 255}));
- connect(valve_clogging.port_b, valveDiscrete.port_a) annotation(
-    Line(points = {{10, 30}, {0, 30}, {0, 12}}, color = {0, 127, 255}));
- connect(realExpression_leaking.y, valve_leaking.opening) annotation(
-    Line(points = {{-49, -140}, {-48, -140}}, color = {0, 0, 127}));
- connect(valve_leaking.port_b, sink.ports[1]) annotation(
-    Line(points = {{-40, -150}, {-40, -160}}, color = {0, 127, 255}));
- connect(valve_clogging.port_b, valve_leaking.port_a) annotation(
-    Line(points = {{10, 30}, {-40, 30}, {-40, -130}}, color = {0, 127, 255}));
- annotation(
-    uses(Modelica(version = "3.2.3")),
-    Diagram(coordinateSystem(extent = {{-440, 120}, {220, -180}})),
-    Icon(graphics = {Text(origin = {-1, 0}, extent = {{-59, 46}, {59, -46}}, textString = "distill")}),
-    version = "");
+// conditions
+  start_process.condition = true;
+  tankB101_isFull.condition = if tank_B101.level >= max_levelTank * tank_B101.height then true else false;
+  evap_isFull.condition = if evaporator0.evaporator_tank.level >= max_levelTank * evaporator0.evaporator_tank.height then true else false;
+  heating_isComplete.condition = if evaporator0.evaporator_tank.level >= max_levelTank * evaporator0.evaporator_tank.height then true else false;
+  evap_isEmpty.condition = if evaporator0.evaporator_tank.level <= min_levelTank * evaporator0.evaporator_tank.height then true else false;
+  //tanks_areEmpty.condition = if tank_B102.level <= min_levelTank * tank_B102.height and tank_B103.level <= min_levelTank * tank_B103.height then true else false;
+  tanks_areEmpty.condition = if tank_B102.level <= min_levelTank * tank_B102.height then true else false;
+  tanks_areEmpty2.condition = if tank_B103.level <= min_levelTank * tank_B103.height then true else false;
+  
+  evaporating_isFinished.condition = if evaporator0.evaporator_tank.level <= evap_level * evaporator0.evaporator_tank.height then true else false;
+// actions
+  valve_input.open = if time <= 2 or fill_tankB101.active then true else false;
+  valve_fill_evap.open = if time <= 2 or fill_evap.active then true else false;
+  pump.N_in = if time <= 2 or fill_evap.active then 400 else 0;
+  evaporator0.evaporating_water.N_in = if time <= 2 or step_evap.active then 200 else 0;
+  evaporating_true.open = if time <= 2 or step_evap.active then true else false;
+  valve_output_evap.open = if time <= 2 or empty_remainingEvap.active then true else false;
+  valve_V101.open = if empty_reservoirTanks.active then true else false;
+  //valve_V102.open = if time <= 2 or empty_reservoirTanks.active then true else false;
+  valve_V102.open = if empty_reservoirTank2.active then true else false;
+// equations
+  connect(valve_input.port_a, port_in) annotation(
+    Line(points = {{160, 60}, {190, 60}}));
+  connect(valve_input.port_b, pipe1.port_a) annotation(
+    Line(points = {{140, 60}, {120, 60}}, color = {0, 127, 255}));
+  connect(pipe1.port_b, tank_B101.ports[1]) annotation(
+    Line(points = {{100, 60}, {20, 60}}, color = {0, 127, 255}));
+  connect(tank_B101.ports[2], pipe2.port_a) annotation(
+    Line(points = {{20, 60}, {20, 52}}, color = {0, 127, 255}));
+  connect(pipe2.port_b, pump.port_a) annotation(
+    Line(points = {{20, 32}, {20, 30}, {0, 30}}, color = {0, 127, 255}));
+  connect(pipe5.port_b, valve_clogging.port_a) annotation(
+    Line(points = {{70, -60}, {80, -60}}, color = {0, 127, 255}));
+  connect(valve_clogging.port_b, valve_leaking.port_a) annotation(
+    Line(points = {{100, -60}, {110, -60}, {110, -80}}, color = {0, 127, 255}));
+  connect(valve_clogging.port_b, valve_V101.port_a) annotation(
+    Line(points = {{100, -60}, {140, -60}}, color = {0, 127, 255}));
+  connect(valve_V101.port_b, port_out1) annotation(
+    Line(points = {{160, -60}, {190, -60}}, color = {0, 127, 255}));
+  connect(realExpression_clogging.y, valve_clogging.opening) annotation(
+    Line(points = {{90, -51}, {90, -52}}, color = {0, 0, 127}));
+  connect(realExpression_leaking.y, valve_leaking.opening) annotation(
+    Line(points = {{101, -90}, {102, -90}}, color = {0, 0, 127}));
+  connect(valve_output_evap.port_b, pipe4.port_a) annotation(
+    Line(points = {{-40, -80}, {-40, -100}}, color = {0, 127, 255}));
+  connect(pipe4.port_b, tank_B103.ports[1]) annotation(
+    Line(points = {{-40, -120}, {-40, -140}, {20, -140}}, color = {0, 127, 255}));
+  connect(tank_B103.ports[2], pipe6.port_a) annotation(
+    Line(points = {{20, -140}, {50, -140}}, color = {0, 127, 255}));
+  connect(pipe6.port_b, valve_V102.port_a) annotation(
+    Line(points = {{70, -140}, {140, -140}}, color = {0, 127, 255}));
+  connect(valve_V102.port_b, port_out2) annotation(
+    Line(points = {{160, -140}, {190, -140}}, color = {0, 127, 255}));
+  connect(initialStep.outPort[1], start_process.inPort) annotation(
+    Line(points = {{260.5, 40}, {262.5, 40}, {262.5, 70}, {266.5, 70}}));
+  connect(start_process.outPort, fill_tankB101.inPort[1]) annotation(
+    Line(points = {{271.5, 70}, {273.5, 70}, {273.5, 40}, {279.5, 40}}));
+  connect(fill_tankB101.outPort[1], tankB101_isFull.inPort) annotation(
+    Line(points = {{300.5, 40}, {302.5, 40}, {302.5, 70}, {306.5, 70}}));
+  connect(tankB101_isFull.outPort, fill_evap.inPort[1]) annotation(
+    Line(points = {{311.5, 70}, {313.5, 70}, {313.5, 40}, {319.5, 40}}));
+  connect(fill_evap.outPort[1], evap_isFull.inPort) annotation(
+    Line(points = {{340.5, 40}, {342, 40}, {342, 70}, {346, 70}}));
+  connect(empty_remainingEvap.outPort[1], evap_isEmpty.inPort) annotation(
+    Line(points = {{460, 40}, {462, 40}, {462, 70}, {466, 70}}));
+  connect(evap_isEmpty.outPort, empty_reservoirTanks.inPort[1]) annotation(
+    Line(points = {{472, 70}, {474, 70}, {474, 40}, {480, 40}}));
+  connect(empty_reservoirTanks.outPort[1], tanks_areEmpty.inPort) annotation(
+    Line(points = {{500, 40}, {502, 40}, {502, 70}, {506, 70}}));
+  connect(pump.port_b, valve_fill_evap.port_a) annotation(
+    Line(points = {{-20, 30}, {-40, 30}, {-40, 20}}, color = {0, 127, 255}));
+  connect(evaporator0.port_out0, valve_output_evap.port_a) annotation(
+    Line(points = {{-40, -50}, {-40, -60}}, color = {0, 127, 255}));
+  connect(valve_fill_evap.port_b, evaporator0.port_in0) annotation(
+    Line(points = {{-40, 0}, {-38, 0}, {-38, -15}, {-39, -15}}, color = {0, 127, 255}));
+  connect(valve_leaking.port_b, pipe3.port_a) annotation(
+    Line(points = {{110, -100}, {110, -110}, {140, -110}}, color = {0, 127, 255}));
+  connect(pipe3.port_b, sink.ports[1]) annotation(
+    Line(points = {{160, -110}, {180, -110}}, color = {0, 127, 255}));
+  connect(tank_B102.ports[1], pipe5.port_a) annotation(
+    Line(points = {{14, -60}, {50, -60}}, color = {0, 127, 255}));
+  connect(evaporator0.port_out1, evaporating_true.port_a) annotation(
+    Line(points = {{14, -22}, {-56, -22}, {-56, -34}}, color = {0, 127, 255}));
+  connect(evaporating_true.port_b, tank_B102.ports[2]) annotation(
+    Line(points = {{-36, -34}, {-36, -47}, {14, -47}, {14, -60}}, color = {0, 127, 255}));
+  connect(wait.outPort[1], heating_isComplete.inPort) annotation(
+    Line(points = {{380.5, 40}, {382.5, 40}, {382.5, 70}, {386.5, 70}}));
+  connect(step_evap.outPort[1], evaporating_isFinished.inPort) annotation(
+    Line(points = {{420.5, 40}, {422.5, 40}, {422.5, 70}, {426.5, 70}}));
+  connect(evap_isFull.outPort, wait.inPort[1]) annotation(
+    Line(points = {{352, 70}, {354, 70}, {354, 40}, {360, 40}}));
+  connect(heating_isComplete.outPort, step_evap.inPort[1]) annotation(
+    Line(points = {{392, 70}, {394, 70}, {394, 40}, {400, 40}}));
+  connect(evaporating_isFinished.outPort, empty_remainingEvap.inPort[1]) annotation(
+    Line(points = {{432, 70}, {434, 70}, {434, 40}, {440, 40}}));
+  connect(tanks_areEmpty.outPort, empty_reservoirTank2.inPort[1]) annotation(
+    Line(points = {{512, 70}, {516, 70}, {516, 40}, {524, 40}}));
+  connect(empty_reservoirTank2.outPort[1], tanks_areEmpty2.inPort) annotation(
+    Line(points = {{544, 40}, {546, 40}, {546, 70}, {550, 70}}));
+  connect(tanks_areEmpty2.outPort, initialStep.inPort[1]) annotation(
+    Line(points = {{556, 70}, {562, 70}, {562, 20}, {228, 20}, {228, 40}, {240, 40}}));
+  annotation(
+    Diagram(coordinateSystem(extent = {{-80, 120}, {580, -160}})),
+    version = "",
+    uses(Modelica(version = "3.2.3")));
 end still_partial;

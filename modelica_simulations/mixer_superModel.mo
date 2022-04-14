@@ -15,11 +15,13 @@ model mixer_superModel
   Real pump_P202_simulator(start=0);
   
   Real minVolPercentage;
+  Real minVolPercentageMixer;
   Real maxVolPercentage;
 
 equation
   // mixer process controll
-  minVolPercentage = 0.05;
+  minVolPercentage = 0.01;
+  minVolPercentageMixer = 0.2;
   maxVolPercentage = 0.85; // should be <= 0.85
   
   // Insert Recipe here:
@@ -67,6 +69,6 @@ equation
   pump_P202_simulator = 0;
   
   // error induction
-  valve_leaking_simulator = if time >= 3999 then 0.001 else 0; // leaking
-  valve_clogging_simulator = if time >= 4000 then 0.8 else 1; // clogging
+  valve_leaking_simulator = if time >= 2000 then 0.0001 else 0; // leaking
+  valve_clogging_simulator = if time >= 2000 then 0.8 else 1; // clogging
 end mixer_superModel;

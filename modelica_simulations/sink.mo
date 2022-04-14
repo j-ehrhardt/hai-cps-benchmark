@@ -1,10 +1,10 @@
 model sink
-extends sink_superModel;
-replaceable package Medium = Modelica.Media.Water.StandardWater;  
-    
-inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial)  
+  extends sink_superModel;
+  inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, momentumDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa")); annotation(
+    Placement(visible = true, transformation(origin = {-70, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     annotation(
   Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  replaceable package Medium = Modelica.Media.Water.StandardWater;   
 
 Modelica.Fluid.Sources.FixedBoundary sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater, 
@@ -19,7 +19,7 @@ Modelica.Fluid.Pipes.StaticPipe pipe(
     redeclare package Medium = Modelica.Media.Water.StandardWater, 
     allowFlowReversal = true, 
     diameter= 0.015, 
-    height_ab=0, 
+    height_ab=-1, 
     length=1) 
     annotation(
     Placement(visible = true, transformation(origin = {-10, 90}, extent = {{10, -10}, {-10, 10}}, rotation = 180)));

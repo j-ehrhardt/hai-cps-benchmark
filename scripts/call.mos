@@ -1,6 +1,5 @@
 loadModel(Modelica);
 cd("../modelica_simulations");
-printf("loading models ...");
 loadFile("source_superModel.mo");
 loadFile("source.mo");
 
@@ -19,10 +18,10 @@ loadFile("filter_partial.mo");
 loadFile("still_superModel.mo");
 loadFile("still_partial.mo");
 
+loadFile("evaporator.mo");
 loadFile("process_plant.mo");
 
 cd("../datasets");
-cd("ds1"); 
-getErrorString();
-simulate(process_plant, startTime = 0, stopTime=4000, numberOfIntervals=4000, outputFormat="csv");
+cd("ds4"); 
+simulate(process_plant, startTime = 0, stopTime=4000, numberOfIntervals=40000, outputFormat="csv", simflags="-maxIntegrationOrder=1");
 

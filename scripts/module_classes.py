@@ -12,60 +12,61 @@ class Module():
             return input
         else:
             return [input]
-    def import_rules(self):
-        """ importing rules from a rule class or file.py """
-        return
 
 
 class Mixer(Module):
     """
     The mixer module is mixing the three inputs together
     """
-    def __init__(self, in_list):
+    def __init__(self, in_list, param_list):
         super().__init__()
         self.name = "mixer_partial"
         self.n_in = 3
         self.n_out = 1
 
-        self.in1 = self.return_as_list(in_list[0])
-        self.in2 = self.return_as_list(in_list[1])
+        self.in0 = self.return_as_list(in_list[0])
+        self.in1 = self.return_as_list(in_list[1])
         self.in3 = self.return_as_list(in_list[2])
 
-        self.out1 = self.in1 + self.in2 + self.in3
-        #self.out1 = self.in1 * self.valve_opening1 + self.in2 * self.valve_opening2 + self.in3 * self.valve_opening3
+        self.valve_opening0 = param_list[0]
+        self.valve_opening1 = param_list[1]
+        self.valve_opening2 = param_list[2]
+
+        self.out0 = self.in0 * self.valve_opening0 + self.in1 * self.valve_opening1 + self.in2 * self.valve_opening2
+
 
 
 class Filter(Module):
     """
-    The filter module can filter out: green
+    The filter module can filter out: the color string from param_list[0]
     """
-    def __init__(self, in_list):
+    def __init__(self, in_list, param_list):
         super().__init__()
         self.name = "filter_partial"
         self.n_in = 1
         self.n_out = 1
+        self.filt = param_list[0] # color that gets filtered out
 
-        self.in1 = self.return_as_list(in_list[0])
+        self.in0 = self.return_as_list(in_list[0])
 
-        filt = "green"
-        self.out1 = [i for i in self.in1 if i != filt]
+        self.out0 = [i for i in self.in0 if i != self.filt]
 
 
 class Distill(Module):
     """
-    The distill module can separate the following color from every mix: red
+    The distill module can separate the following color from every mix: the color string from param_list[0]
     """
-    def __init__(self, in_list):
+    def __init__(self, in_list, param_list):
         super().__init__()
         self.name = "still_partial"
         self.n_in = 1
         self.n_out = 2
+        self.still = param_list[0]
 
-        self.in1 = self.return_as_list(in_list[0])
+        self.in0 = self.return_as_list(in_list[0])
 
-        still = "red"
-        self.out1 = [i for i in self.in1 if i == still]
-        self.out2 = [i for i in self.in1 if i != still]
+        self.out0 = [i for i in self.in1 if i == self.still]
+        self.out1 = [i for i in self.in1 if i != self.still]
 
 
 class Bottling(Module):
@@ -86,11 +87,11 @@ class Source(Module):
     def __init__(self, in_list):
         super().__init__()
         self.name = "source"
-        self.out1 = self.return_as_list(in_list[0])
+        self.out0 = self.return_as_list(in_list[0])
 
 
 class Sink(Module):
     def __init__(self, in_list):
         super().__init__()
         self.name = "sink"
-        self.in1 = self.return_as_list(in_list[0])
+        self.in0 = self.return_as_list(in_list[0])

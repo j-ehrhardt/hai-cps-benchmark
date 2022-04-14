@@ -1,21 +1,162 @@
-{ "ds4": {
+{
+  "ds1": {
+    "model": {
+      "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["mixer_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["redyellowblue"]
+  },
+  "ds2": {
+    "model": {
+      "nodes": [ "source0", "still_partial0",  "sink0", "sink1"],
+      "edges": [["source0", "still_partial0"], ["still_partial0", "sink0"], ["still_partial0", "sink1"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["still_partial0"],
+    "ProdIn": ["redyellowblue"],
+    "ProdOut": ["redyellow", "blue"]
+  },
+  "ds3": {
+    "model": {
+      "nodes": ["filter_partial0", "source0",  "sink0"],
+      "edges": [["source0", "filter_partial0"], ["filter_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["filter_partial0"],
+    "ProdIn": ["redyellowblue"],
+    "ProdOut": ["redyellow"]
+  },
+  "ds4": {
     "model": {
       "nodes": ["bottling_partial0", "source0",  "sink0"],
       "edges": [["source0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
     },
     "faults": ["l", "c", "lc"],
     "faulty_module":["bottling_partial0"],
-    "ProdIn": [],
-    "ProdOut": []
+    "ProdIn": ["red"],
+    "ProdOut": ["red_bottled"]
   },
-  "ds3": {
-   "model": {
-      "nodes": ["filter_partial0", "source0",  "sink0"],
-      "edges": [["source0", "filter_partial0"], ["filter_partial0", "sink0"]]
+  "ds5": {
+    "model": {
+      "nodes": ["mixer_partial0", "bottling_partial0", "source0", "source1", "source2",  "sink0"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["bottling_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["redyellowblue_bottled"]
+  },
+  "ds6": {
+    "model": {
+      "nodes": ["bottling_partial0", "filter_partial0", "source0",  "sink0"],
+      "edges": [["source0", "filter_partial0"], ["filter_partial0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
     },
     "faults": ["l", "c", "lc"],
     "faulty_module":["filter_partial0"],
-    "ProdIn": [],
-    "ProdOut": []
+    "ProdIn": ["redyellowblue"],
+    "ProdOut": ["redyellow_bottled"]
+  },
+  "ds7": {
+    "model": {
+      "nodes": ["mixer_partial0", "still_partial0", "source0", "source1", "source2",  "sink0", "sink1"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0","still_partial0"], ["still_partial0", "sink0"], ["still_partial0", "sink1"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["still_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["redyellow", "blue"]
+  },
+  "ds8": {
+    "model": {
+      "nodes": ["mixer_partial0", "still_partial0", "source0", "source1",  "sink0"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["still_partial0", "mixer_partial0"], ["mixer_partial0","still_partial0"], ["still_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["mixer_partial0"],
+    "ProdIn": ["yellow", "blue"],
+    "ProdOut": ["blue"]
+  },
+  "ds9": {
+    "model": {
+      "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0", "filter_partial0", "bottling_partial0"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "filter_partial0"], ["filter_partial0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["bottling_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["redyellow_bottled"]
+  },
+  "ds10": {
+    "model": {
+      "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0", "filter_partial0", "filter_partial1"],
+      "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "filter_partial0"], ["filter_partial0", "filter_partial1"], ["filter_partial1","sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["filter_partial1"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["red_bottled"]
+  },
+  "ds11": {
+    "model": {
+      "nodes": ["still_partial0", "source0",  "sink0", "sink1", "filter_partial0", "bottling_partial0"],
+      "edges": [["source0", "still_partial0"], ["still_partial0", "sink0"], ["still_partial0", "filter_partial0"], ["filter_partial0", "bottling_partial0"], ["bottling_partial0", "sink1"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["still_partial0"],
+    "ProdIn": ["redblue"],
+    "ProdOut": ["red", "blue_bottled"]
+  },
+  "ds12": {
+    "model": {
+      "nodes": ["still_partial0", "source0",  "sink0", "sink1", "filter_partial0", "bottling_partial0"],
+      "edges": [["source0", "still_partial0"], ["still_partial0", "sink0"], ["filter_partial0","still_partial0"], ["still_partial0", "filter_partial0"], ["filter_partial0", "bottling_partial0"], ["bottling_partial0", "sink1"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":[],
+    "ProdIn": ["redyellowblue"],
+    "ProdOut": ["red", "yellowblue_bottled"]
+  },
+  "ds13": {
+    "model": {
+      "nodes": ["filter_partial0", "filter_partial1", "mixer_partial0", "source0", "source1", "source2", "sink0", "bottling_partial0"],
+      "edges": [["source0", "filter_partial0"], ["source1", "filter_partial1"], ["filter_partial0", "mixer_partial0"], ["filter_partial1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["bottling_partial0"],
+    "ProdIn": ["redblueyellow", "yellow", "blueyellow"],
+    "ProdOut": ["blueblueyellow_bottled"]
+  },
+  "ds14": {
+    "model": {
+      "nodes": ["mixer_partial0", "still_partial0", "source0", "source1", "source2", "sink0", "sink1", "filter_partial0", "bottling_partial0"],
+      "edges": [["source0", "filter_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["filter_partial0", "mixer_partial0"], ["mixer_partial0", "still_partial0"], ["still_partial0", "sink0"], ["still_partial0", "bottling_partial0"], ["bottling_partial0", "sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["bottling_partial0"],
+    "ProdIn": ["yellow", "redyellowblue", "redyellowblue"],
+    "ProdOut": ["redyellowyellowblue_bottled", "red"]
+  },
+  "ds15": {
+    "model": {
+      "nodes": ["still_partial0", "mixer_partial0", "filter_partial0", "bottling_partial0", "source0", "source1", "sink0" ],
+      "edges": [["source0", "still_partial0"], ["source1", "filter_partial0"], ["still_partial0","mixer_partial0"], ["still_partial0","mixer_partial0"], ["filter_partial0", "mixer_partial0"], ["mixer_partial0", "bottling_partial0"], ["bottling_partial0","sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["mixer_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["yellow_bottled"]
+  },
+  "ds16": {
+    "model": {
+      "nodes": ["mixer_partial0", "mixer_partial1", "source0", "source1", "source2", "sink0", "still_partial0", "still_partial1"],
+      "edges": [["still_partial1","mixer_partial0"], ["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["mixer_partial0","mixer_partial1"], ["source2", "mixer_partial1"], ["still_partial0","mixer_partial1"], ["still_partial0","still_partial1"], ["still_partial1","sink0"]]
+    },
+    "faults": ["l", "c", "lc"],
+    "faulty_module":["still_partial0"],
+    "ProdIn": ["red", "yellow", "blue"],
+    "ProdOut": ["yellow"]
   }
 }
