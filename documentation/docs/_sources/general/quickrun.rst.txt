@@ -1,0 +1,36 @@
+Running simulations
+###################
+This page provides a stepwise instruction on how to run simulations in BeRfiPl simulation environment.
+Berfiple simulation environment can be run, either from terminal by using the Python API, or manually in OMEdit.
+Both options will be shown here. Additionally the creation of BeRfiPl benchmark will be explained.
+
+Quickrun - Creating BeRfiPl benchmark
+=====================================
+
+.. warning::
+   Depending on your hardware setup, creating BeRfiPl benchmark may take some time.
+   Optionally, you can download the benchmark datasets `here <https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing>`_
+
+Creating and simulating the BeRfiPl benchmark datasets is easy.
+After downloading the repository and installing all dependencies (cf. First Steps), simply navigate to the repository,
+activate your conda environment and run ``create_benchmark.py``, by typing the following:
+
+.. code-block::
+
+   (berfiple) $ python create_benchmark.py
+
+All simulations for creating the benchmark datasets will be run iteratively, distinctly labelled and saved into the ``./datasets`` directory.
+
+
+To create custom datasets with the simulation models of BeRfiPl read the following pages.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Running custom simulations:
+
+   run_automatically
+   run_manually
+
+
+
+

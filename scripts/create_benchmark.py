@@ -61,7 +61,7 @@ def create_process_plant(config_ds: dict):
         if "mixer" not in j[1] and "still" not in j[0]:
             equations = equations + ("connect(" + str(j[0]) + ".port_out, " + str(j[1]) + ".port_in);\n")
 
-    with open("../modelica_simulations/process_plant.mo", "w") as f:
+    with open("../simulation_models/process_plant.mo", "w") as f:
         f.write(intro)
         f.write(models)
         f.write(equations)
@@ -73,7 +73,7 @@ def create_supermodel(faulty_module: str, fault: str):
     Within the supermodels fault induction can be turned off and on.
     Hence, for each fault setup a separate supermodel must be created.
     """
-    str_superModel = "../modelica_simulations/" + faulty_module[:-9] + "_superModel.mo"
+    str_superModel = "../simulation_models/" + faulty_module[:-9] + "_superModel.mo"
     ok_str1 = "valve_leaking_simulator = if time >= 4000 then 0.0001 else 0; // leaking"
     nok_str1 = "valve_leaking_simulator = if time >= 2000 then 0.0001 else 0; // leaking"
     ok_str2 = "valve_clogging_simulator = if time >= 4000 then 0.01 else 1; // clogging"

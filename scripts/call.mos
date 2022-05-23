@@ -1,5 +1,5 @@
 loadModel(Modelica);
-cd("../modelica_simulations");
+cd("../simulation_models");
 loadFile("source_superModel.mo");
 loadFile("source.mo");
 

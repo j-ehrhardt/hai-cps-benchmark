@@ -1,10 +1,12 @@
-# AI Benchmark for Diagnosis, Reconfiguration, and Planning
+# AI Benchmark for Diagnosis Reconfiguration and Planning
 
-This repository contains the simulation models for the AI Benchmark for Diagnosis, Reconfiguration and Planning (BeRfiPl). 
+This repository contains the simulation models for the AI Benchmark for Diagnosis, Reconfiguration and Planning (BeRfiPl).
+The simulated datasets can be downloaded The benchmark datasets can be downloaded [here](https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing)
+.
 
 ## Motivation 
 
-To improve the autonomy of Cyber-Physical Production Systems (CPPS), a growing number of approaches in Artificial Intelligence (AI) is being developed.
+To improve the autonomy of Cyber-Physical Production Systems (CPPS), a growing number of approaches in Artificial Intelligence (AI) is developed.
 However, implementations of such approaches are often validated on individual use-cases, offering little to no comparability. 
 Though CPPS automation includes a variety of problem domains, existing benchmarks usually focus on single or partial problems. 
 Additionally, they often neglect to test for AI-specific performance indicators, like asymptotic complexity scenarios or runtimes. 
@@ -24,12 +26,12 @@ Additionally, Modelica has to be installed.
 
 `pandas~=1.4.1`
 
-`plotly~=5.6.0`
+(`plotly~=5.6.0`)
 
 
 ## Quickrun 
 
-Run `./scripts/create_benchmark.py` in your terminal.
+Running `./scripts/create_benchmark.py` in your terminal.
 The datasets will be saved into the `./datasets` directory.
 
 **or** 
@@ -64,4 +66,5 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 
 <img src="./images/IMB.png" alt="logo" width="100"/>
+<img src="./images/aut.png" alt="logo" width="100"/>
 <img src="./images/BeRfiPl.jpeg" alt="hello" width="100"/>

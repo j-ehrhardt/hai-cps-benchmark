@@ -1,0 +1,24 @@
+sink
+####
+
+The sink model constitutes as the output for the simulated Cyber-Physical Process Plant.
+
+Overview
+========
+The source module consists of an open sink component, which is connected via a descending pipe to an input port.
+A volume flow sensor can track the volumeFlowRate from the source to the output port.
+
+.. image:: images/sink_module.png
+  :width: 500
+  :alt: sink module
+**Sink module in diagram view**
+
+
+Functionality
+=============
+The module provides the output to the stream of fluids coming from the process Cyber-Physical Process Plant.
+
+
+Standard parametrization
+========================
+There are no variable parameters within this module.

@@ -1,0 +1,57 @@
+process_plant
+#############
+
+The process plant module contains the setup for the custom Cyber-Physical Process Plant.
+You can either create the plant manually per drag and drop in OMEdit or code it in the editor.
+The python API also hardcodes the process plants, based on the parsed plant-graphs.
+
+The process plant script **must** include the first three lines.
+An equation statement and the last line.
+The code inbetween varies depending on the setup of your plant.
+
+**Process plant with one distill module plus source and sinks, created via drag and drop - including the positions of the blocks in the OMEdit diagram view**
+
+.. code-block::
+   :linenos:
+
+    model process_plant
+        inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, momentumDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa"));
+        replaceable package Medium = Modelica.Media.Water.StandardWater;
+
+        source source0 annotation(Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        still_partial still_partial0 annotation(Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        sink sink0 annotation(Placement(visible = true, transformation(origin = {50, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+        sink sink1 annotation(Placement(visible = true, transformation(origin = {48, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    equation
+        connect(source0.port_out, still_partial0.port_in) annotation(Line(points = {{-60, 0}, {-20, 0}}, color = {0, 127, 255}));
+        connect(still_partial0.port_out1, sink0.port_in) annotation(Line(points = {{0, 6}, {20, 6}, {20, 30}, {40, 30}}, color = {0, 127, 255}));
+        connect(still_partial0.port_out2, sink1.port_in) annotation(Line(points = {{0, -4}, {20, -4}, {20, -30}, {38, -30}}, color = {0, 127, 255}));
+    end process_plant;
+
+
+
+**Process plant with one distill module plus source and sinks, coded in the editor**
+
+.. code-block::
+   :linenos:
+
+    model process_plant
+        inner Modelica.Fluid.System system(energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, m_flow_start = 1, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, momentumDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa"));
+        replaceable package Medium = Modelica.Media.Water.StandardWater;
+
+        source source0;
+        still_partial still_partial0;
+        sink sink0;
+        sink sink1;
+    equation
+        connect(source0.port_out, still_partial0.port_in);
+        connect(still_partial0.port_out1, sink0.port_in);
+        connect(still_partial0.port_out2, sink1.port_in);
+    end process_plant;
+
+
+
+.. warning::
+   OpenModelica is **not** sensitive to indentation.
+
+   OpenModelica **requires** semicolons at the end of each line.

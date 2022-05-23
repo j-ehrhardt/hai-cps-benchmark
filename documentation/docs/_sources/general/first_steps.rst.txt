@@ -1,0 +1,45 @@
+First steps
+###########
+Running BeRfiPl simulation models requires the installation of OpenModelica and basic Python libraries.
+The requirements and how to install them is explained on this page.
+
+Requirements
+************
+
+The requirements to run BeRfiPl comprise:
+    - *OpenModelica == 3.2.3*
+    - *Python ~= 3.8*
+    - *pandas ~= 1.4.2*
+    - *plotly ~= 5.6.0*
+
+You can find the python requirements in the ``venv_benchmark.yml`` file.
+
+
+Installation with Docker
+========================
+There is a ``Dockerfile`` included in the repository.
+Running the dockerfile creates a Docker container, that includes all required dependencies for running BeRfiPl simulations.
+
+To create the Docker container install Docker on your computer. Then, navigate to the repository within your terminal and run:
+
+.. code-block::
+
+   $ docker build -t Dockerfile
+
+
+Manual installation
+===================
+You can also manually install the dependencies:
+
+To install the Python requirements miniconda is recommended.
+Install `miniconda <https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html>`_ on your computer and navigate to the repository within your terminal.
+
+Create the environment by running:
+
+.. code-block::
+
+   $ conda env create -f venv_benchmark.yml
+
+
+For manually installing OpenModelica please follow the guidelines stated on the official `website <https://openmodelica.org/>`_.
+Especially for manipulating the models an installation of OMEdit is recommended.
