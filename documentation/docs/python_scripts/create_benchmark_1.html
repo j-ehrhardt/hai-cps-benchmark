@@ -231,7 +231,7 @@ the results will be saved.</p>
 </li>
 <li><dl>
 <dt>def create_call_file(setup: str)</dt><dd><p>creating a customized <code class="docutils literal notranslate"><span class="pre">call.mos</span></code> file for running the custom simulation and saving the results in a custom directory.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_call_file</span><span class="p">(</span><span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_call_file</span><span class="p">(</span><span class="n">config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="linenos"> 2</span>    <span class="sd">&quot;&quot;&quot;</span>
 <span class="linenos"> 3</span><span class="sd">    creating a call.mos file with updated dataset directory</span>
 <span class="linenos"> 4</span><span class="sd">    &quot;&quot;&quot;</span>
@@ -240,15 +240,17 @@ the results will be saved.</p>
 <span class="linenos"> 7</span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
 <span class="linenos"> 8</span>        <span class="k">if</span> <span class="s1">&#39;cd(&quot;ds&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
 <span class="linenos"> 9</span>            <span class="n">changes</span> <span class="o">=</span> <span class="s1">&#39;cd(&quot;&#39;</span> <span class="o">+</span> <span class="n">setup</span> <span class="o">+</span> <span class="s1">&#39;&quot;); </span><span class="se">\n</span><span class="s1">&#39;</span>
-<span class="linenos">10</span>        <span class="k">else</span><span class="p">:</span>
-<span class="linenos">11</span>            <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
-<span class="linenos">12</span>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span> <span class="o">+</span> <span class="n">changes</span>
-<span class="linenos">13</span>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">14</span>    <span class="c1"># write mode</span>
-<span class="linenos">15</span>    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;call.mos&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
-<span class="linenos">16</span>    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">replacement</span><span class="p">)</span>
-<span class="linenos">17</span>    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">18</span>    <span class="k">return</span>
+<span class="linenos">10</span>        <span class="k">elif</span> <span class="s1">&#39;simulate(&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">11</span>            <span class="n">changes</span> <span class="o">=</span> <span class="s1">&#39;simulate(process_plant, startTime =&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;startTime&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; , stopTime=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;stopTime&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; , numberOfIntervals=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;numberOfIntervals&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; , outputFormat=&quot;csv&quot;, simflags=&quot;-maxIntegrationOrder=1&quot;);</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="linenos">12</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos">13</span>            <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
+<span class="linenos">14</span>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span> <span class="o">+</span> <span class="n">changes</span>
+<span class="linenos">15</span>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">16</span>    <span class="c1"># write mode</span>
+<span class="linenos">17</span>    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;call.mos&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">replacement</span><span class="p">)</span>
+<span class="linenos">19</span>    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">20</span>    <span class="k">return</span>
 </pre></div>
 </div>
 </dd>
@@ -256,7 +258,7 @@ the results will be saved.</p>
 </li>
 <li><dl>
 <dt>def create_process_plant(config_ds: dict)</dt><dd><p>creating a customized <code class="docutils literal notranslate"><span class="pre">process_plant.mo</span></code> file, based on the Cyber-Physical Process Plant defined in the <code class="docutils literal notranslate"><span class="pre">benchmark_config.json</span></code>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_process_plant</span><span class="p">(</span><span class="n">config_ds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_process_plant</span><span class="p">(</span><span class="n">config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="linenos"> 2</span>    <span class="sd">&quot;&quot;&quot;</span>
 <span class="linenos"> 3</span><span class="sd">    Creates a process plant model in modelica as .mo file,</span>
 <span class="linenos"> 4</span><span class="sd">    based on the setup, that is encoded in the config_ds dict.</span>
@@ -272,8 +274,8 @@ the results will be saved.</p>
 <span class="linenos">14</span>    <span class="n">equations</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">equation</span><span class="se">\n</span><span class="s1">&#39;</span>
 <span class="linenos">15</span>    <span class="n">outro</span> <span class="o">=</span> <span class="s1">&#39;end process_plant;</span><span class="se">\n</span><span class="s1">&#39;</span>
 <span class="linenos">16</span>
-<span class="linenos">17</span>    <span class="n">mod_list</span> <span class="o">=</span> <span class="n">config_ds</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">][</span><span class="s2">&quot;nodes&quot;</span><span class="p">]</span>
-<span class="linenos">18</span>    <span class="n">equ_list</span> <span class="o">=</span> <span class="n">config_ds</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">][</span><span class="s2">&quot;edges&quot;</span><span class="p">]</span>
+<span class="linenos">17</span>    <span class="n">mod_list</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">][</span><span class="s2">&quot;nodes&quot;</span><span class="p">]</span>
+<span class="linenos">18</span>    <span class="n">equ_list</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">][</span><span class="s2">&quot;edges&quot;</span><span class="p">]</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mod_list</span><span class="p">:</span>
 <span class="linenos">21</span>        <span class="n">models</span> <span class="o">=</span> <span class="n">models</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1">#&quot;(replaceable package Medium = Medium);\n&quot;)</span>
@@ -302,49 +304,65 @@ the results will be saved.</p>
 </li>
 <li><dl>
 <dt>def create_supermodel(faulty_module: str, fault: str)</dt><dd><p>creating a customized superModel of the faulty module, to induce time-dependent faults.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_supermodel</span><span class="p">(</span><span class="n">faulty_module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fault</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_supermodel</span><span class="p">(</span><span class="n">config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">fault</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="linenos"> 2</span>    <span class="sd">&quot;&quot;&quot;</span>
 <span class="linenos"> 3</span><span class="sd">    Within the supermodels fault induction can be turned off and on.</span>
 <span class="linenos"> 4</span><span class="sd">    Hence, for each fault setup a separate supermodel must be created.</span>
 <span class="linenos"> 5</span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos"> 6</span>    <span class="n">str_superModel</span> <span class="o">=</span> <span class="s2">&quot;../simulation_models/&quot;</span> <span class="o">+</span> <span class="n">faulty_module</span><span class="p">[:</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_superModel.mo&quot;</span>
-<span class="linenos"> 7</span>    <span class="n">ok_str1</span> <span class="o">=</span> <span class="s2">&quot;valve_leaking_simulator = if time &gt;= 4000 then 0.0001 else 0; // leaking&quot;</span>
-<span class="linenos"> 8</span>    <span class="n">nok_str1</span> <span class="o">=</span> <span class="s2">&quot;valve_leaking_simulator = if time &gt;= 2000 then 0.0001 else 0; // leaking&quot;</span>
-<span class="linenos"> 9</span>    <span class="n">ok_str2</span> <span class="o">=</span> <span class="s2">&quot;valve_clogging_simulator = if time &gt;= 4000 then 0.01 else 1; // clogging&quot;</span>
-<span class="linenos">10</span>    <span class="n">nok_str2</span> <span class="o">=</span> <span class="s2">&quot;valve_clogging_simulator = if time &gt;= 2000 then 0.01 else 1; // clogging&quot;</span>
+<span class="linenos"> 6</span>    <span class="n">str_superModel</span> <span class="o">=</span> <span class="s2">&quot;../simulation_models/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;faulty_module&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;_superModel.mo&quot;</span>
+<span class="linenos"> 7</span>    <span class="n">ok_str1</span> <span class="o">=</span> <span class="s2">&quot;valve_leaking_simulator = if time &gt;=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;stopTime&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; then 0.0001 else 0; // leaking&quot;</span>
+<span class="linenos"> 8</span>    <span class="n">nok_str1</span> <span class="o">=</span> <span class="s2">&quot;valve_leaking_simulator = if time &gt;=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;errorInduction&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; then 0.0001 else 0; // leaking&quot;</span>
+<span class="linenos"> 9</span>    <span class="n">ok_str2</span> <span class="o">=</span> <span class="s2">&quot;valve_clogging_simulator = if time &gt;=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;stopTime&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; then 0.01 else 1; // clogging&quot;</span>
+<span class="linenos">10</span>    <span class="n">nok_str2</span> <span class="o">=</span> <span class="s2">&quot;valve_clogging_simulator = if time &gt;=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;errorInduction&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; then 0.01 else 1; // clogging&quot;</span>
 <span class="linenos">11</span>
-<span class="linenos">12</span>    <span class="c1"># read mode</span>
+<span class="linenos">12</span>    <span class="c1"># replace all strings with ok strings before introducing nok strings</span>
 <span class="linenos">13</span>    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_superModel</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 <span class="linenos">14</span>    <span class="n">replacement</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="linenos">15</span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
-<span class="linenos">16</span>        <span class="k">if</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;l&quot;</span><span class="p">:</span>
-<span class="linenos">17</span>            <span class="k">if</span> <span class="n">ok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">18</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str1</span><span class="p">,</span> <span class="n">nok_str1</span><span class="p">)</span>
-<span class="linenos">19</span>            <span class="k">elif</span> <span class="n">nok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">20</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nok_str2</span><span class="p">,</span> <span class="n">ok_str2</span><span class="p">)</span>
-<span class="linenos">21</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos">22</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
-<span class="linenos">23</span>        <span class="k">elif</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
-<span class="linenos">24</span>            <span class="k">if</span> <span class="n">nok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">25</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nok_str1</span><span class="p">,</span> <span class="n">ok_str1</span><span class="p">)</span>
-<span class="linenos">26</span>            <span class="k">elif</span> <span class="n">ok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">27</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str2</span><span class="p">,</span> <span class="n">nok_str2</span><span class="p">)</span>
-<span class="linenos">28</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos">29</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
-<span class="linenos">30</span>        <span class="k">elif</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;lc&quot;</span><span class="p">:</span>
-<span class="linenos">31</span>            <span class="k">if</span> <span class="n">ok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">32</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str1</span><span class="p">,</span> <span class="n">nok_str1</span><span class="p">)</span>
-<span class="linenos">33</span>            <span class="k">elif</span> <span class="n">ok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-<span class="linenos">34</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str2</span><span class="p">,</span> <span class="n">nok_str2</span><span class="p">)</span>
-<span class="linenos">35</span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos">36</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
-<span class="linenos">37</span>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span> <span class="o">+</span> <span class="n">changes</span>
-<span class="linenos">38</span>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">39</span>    <span class="c1"># write mode</span>
-<span class="linenos">40</span>    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_superModel</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
-<span class="linenos">41</span>    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">replacement</span><span class="p">)</span>
-<span class="linenos">42</span>    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="linenos">43</span>    <span class="k">return</span>
+<span class="linenos">16</span>        <span class="k">if</span> <span class="s2">&quot;valve_leaking_simulator =&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">17</span>            <span class="n">changes</span> <span class="o">=</span> <span class="n">ok_str1</span>
+<span class="linenos">18</span>        <span class="k">elif</span> <span class="s2">&quot;valve_clogging_simulator =&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">19</span>            <span class="n">changes</span> <span class="o">=</span> <span class="n">ok_str2</span>
+<span class="linenos">20</span>        <span class="k">else</span><span class="p">:</span>
+<span class="linenos">21</span>            <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
+<span class="linenos">22</span>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span> <span class="o">+</span> <span class="n">changes</span>
+<span class="linenos">23</span>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">24</span>    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_superModel</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="linenos">25</span>    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">replacement</span><span class="p">)</span>
+<span class="linenos">26</span>    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="c1"># read mode</span>
+<span class="linenos">29</span>    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_superModel</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="linenos">30</span>    <span class="n">replacement</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="linenos">31</span>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+<span class="linenos">32</span>        <span class="k">if</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;l&quot;</span><span class="p">:</span>
+<span class="linenos">33</span>            <span class="k">if</span> <span class="n">ok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">34</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str1</span><span class="p">,</span> <span class="n">nok_str1</span><span class="p">)</span>
+<span class="linenos">35</span>            <span class="k">elif</span> <span class="n">nok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">36</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nok_str2</span><span class="p">,</span> <span class="n">ok_str2</span><span class="p">)</span>
+<span class="linenos">37</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">38</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
+<span class="linenos">39</span>        <span class="k">elif</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+<span class="linenos">40</span>            <span class="k">if</span> <span class="n">nok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">41</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">nok_str1</span><span class="p">,</span> <span class="n">ok_str1</span><span class="p">)</span>
+<span class="linenos">42</span>            <span class="k">elif</span> <span class="n">ok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">43</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str2</span><span class="p">,</span> <span class="n">nok_str2</span><span class="p">)</span>
+<span class="linenos">44</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">45</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
+<span class="linenos">46</span>        <span class="k">elif</span> <span class="n">fault</span> <span class="o">==</span> <span class="s2">&quot;lc&quot;</span><span class="p">:</span>
+<span class="linenos">47</span>            <span class="k">if</span> <span class="n">ok_str1</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">48</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str1</span><span class="p">,</span> <span class="n">nok_str1</span><span class="p">)</span>
+<span class="linenos">49</span>            <span class="k">elif</span> <span class="n">ok_str2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+<span class="linenos">50</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ok_str2</span><span class="p">,</span> <span class="n">nok_str2</span><span class="p">)</span>
+<span class="linenos">51</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">52</span>                <span class="n">changes</span> <span class="o">=</span> <span class="n">line</span>
+<span class="linenos">53</span>        <span class="n">replacement</span> <span class="o">=</span> <span class="n">replacement</span> <span class="o">+</span> <span class="n">changes</span>
+<span class="linenos">54</span>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">55</span>    <span class="c1"># write mode</span>
+<span class="linenos">56</span>    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_superModel</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="linenos">57</span>    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">replacement</span><span class="p">)</span>
+<span class="linenos">58</span>    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">59</span>    <span class="k">return</span>
 </pre></div>
 </div>
 </dd>
@@ -421,32 +439,30 @@ the results will be saved.</p>
 <dt>def create_dataset(config_ds: dict, setup: str)</dt><dd><p>running all functionality calls in a function.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="n">config_ds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="linenos"> 2</span>    <span class="sd">&quot;&quot;&quot;</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="sd">    This funcion creates a single .csv dataset by</span>
-<span class="linenos"> 5</span><span class="sd">        - building a modelica model and supermodel of the desired process plant setup (including the adapted parametrization)</span>
-<span class="linenos"> 6</span><span class="sd">        - running the simulation (regarding to the desired fault setup)</span>
-<span class="linenos"> 7</span><span class="sd">        - cleaning the dataset from unnecessary values</span>
-<span class="linenos"> 8</span><span class="sd">        - and saving it in a separate directory</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span><span class="sd">    in:</span>
-<span class="linenos">11</span><span class="sd">        - a dict of the current ds config</span>
-<span class="linenos">12</span>
-<span class="linenos">13</span><span class="sd">    returns:</span>
-<span class="linenos">14</span><span class="sd">        - a csv in a directory named after the process plant build</span>
-<span class="linenos">15</span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos">16</span>
-<span class="linenos">17</span>    <span class="n">create_ds_dir</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>                            <span class="c1"># creating a directory for the dataset setup</span>
-<span class="linenos">18</span>    <span class="n">create_call_file</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>                         <span class="c1"># creating an adapted call.mos file to run Modelica simulations</span>
-<span class="linenos">19</span>    <span class="n">create_process_plant</span><span class="p">(</span><span class="n">config_ds</span><span class="p">)</span>                 <span class="c1"># creating a process plant setup following the config file</span>
-<span class="linenos">20</span>
-<span class="linenos">21</span>    <span class="n">faulty_module</span> <span class="o">=</span> <span class="n">config_ds</span><span class="p">[</span><span class="s2">&quot;faulty_module&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># choose module in which faults will be induced</span>
-<span class="linenos">22</span>    <span class="k">for</span> <span class="n">fault</span> <span class="ow">in</span> <span class="n">config_ds</span><span class="p">[</span><span class="s2">&quot;faults&quot;</span><span class="p">]:</span>
-<span class="linenos">23</span>        <span class="n">create_supermodel</span><span class="p">(</span><span class="n">faulty_module</span><span class="p">,</span> <span class="n">fault</span><span class="p">)</span>     <span class="c1"># creating a supermodel inducing the fault &quot;fault&quot;</span>
-<span class="linenos">24</span>        <span class="n">run_simulation</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">fault</span><span class="p">)</span>                <span class="c1"># running the om simulation</span>
-<span class="linenos">25</span>        <span class="n">clean_ds</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="n">fault</span><span class="p">)</span>                      <span class="c1"># cleaning resulting ds from unnecessary values</span>
-<span class="linenos">26</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;simulation run &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fault</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; finished ... </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="linenos">27</span>    <span class="n">save_connection_model</span><span class="p">(</span><span class="n">config_ds</span><span class="p">,</span> <span class="n">setup</span><span class="p">)</span>         <span class="c1"># saving the connection model and simulation setup as file in ds-directory</span>
-<span class="linenos">28</span>    <span class="k">return</span>
+<span class="linenos"> 3</span><span class="sd">    This funcion creates a single .csv dataset by</span>
+<span class="linenos"> 4</span><span class="sd">        - building a modelica model and supermodel of the desired process plant setup (including the adapted parametrization)</span>
+<span class="linenos"> 5</span><span class="sd">        - running the simulation (regarding to the desired fault setup)</span>
+<span class="linenos"> 6</span><span class="sd">        - cleaning the dataset from unnecessary values</span>
+<span class="linenos"> 7</span><span class="sd">        - and saving it in a separate directory</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="sd">    in:</span>
+<span class="linenos">10</span><span class="sd">        - a dict of the current ds config</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="sd">    returns:</span>
+<span class="linenos">13</span><span class="sd">        - a csv in a directory named after the process plant build</span>
+<span class="linenos">14</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>    <span class="n">create_ds_dir</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">)</span>                                          <span class="c1"># creating a directory for the dataset setup</span>
+<span class="linenos">17</span>    <span class="n">create_call_file</span><span class="p">(</span><span class="n">config_dict</span><span class="o">=</span><span class="n">config_ds</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">)</span>                <span class="c1"># creating an adapted call.mos file to run Modelica simulations</span>
+<span class="linenos">18</span>    <span class="n">create_process_plant</span><span class="p">(</span><span class="n">config_dict</span><span class="o">=</span><span class="n">config_ds</span><span class="p">)</span>                         <span class="c1"># creating a process plant setup following the config file</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="k">for</span> <span class="n">fault</span> <span class="ow">in</span> <span class="n">config_ds</span><span class="p">[</span><span class="s2">&quot;faults&quot;</span><span class="p">]:</span>
+<span class="linenos">21</span>        <span class="n">create_supermodel</span><span class="p">(</span><span class="n">config_dict</span><span class="o">=</span><span class="n">config_ds</span><span class="p">,</span> <span class="n">fault</span><span class="o">=</span><span class="n">fault</span><span class="p">)</span>           <span class="c1"># creating a supermodel inducing the fault &quot;fault&quot;</span>
+<span class="linenos">22</span>        <span class="n">run_simulation</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">,</span> <span class="n">fault</span><span class="o">=</span><span class="n">fault</span><span class="p">)</span>                        <span class="c1"># running the om simulation</span>
+<span class="linenos">23</span>        <span class="n">clean_ds</span><span class="p">(</span><span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">,</span> <span class="n">fault</span><span class="o">=</span><span class="n">fault</span><span class="p">)</span>                              <span class="c1"># cleaning resulting ds from unnecessary values</span>
+<span class="linenos">24</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;simulation run &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fault</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; finished ... </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">25</span>    <span class="n">save_connection_model</span><span class="p">(</span><span class="n">config_dict</span><span class="o">=</span><span class="n">config_ds</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="n">setup</span><span class="p">)</span>           <span class="c1"># saving the connection model and simulation setup as file in ds-directory</span>
+<span class="linenos">26</span>    <span class="k">return</span>
 </pre></div>
 </div>
 </dd>

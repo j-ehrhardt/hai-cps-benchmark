@@ -1,5 +1,5 @@
 Creating custom simulations with Python API
-#########################################
+###########################################
 
 .. warning::
    Depending on your hardware, and simulation setup, creating datasets with BeRfiPl simulation models may take some time.
@@ -17,18 +17,22 @@ Below is a sample simulation setup:
 .. code-block:: python
    :linenos:
 
-    {
-    "ds1": {
-      "model": {
-         "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
-         "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]
-           },
-    "faults": ["l", "c", "lc"],
-    "faulty_module":["mixer_partial0"],
-    "ProdIn": ["red", "yellow", "blue"],
-    "ProdOut": ["redyellowblue"]
-     }
-    }
+   {
+      "ds1": {
+         "model": {
+            "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
+            "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]},
+         "faults": ["l", "c", "lc"],
+         "faulty_module": ["mixer_partial0"],
+         "ProdIn": ["red", "yellow", "blue"],
+         "ProdOut": ["redyellowblue"],
+         "startTime": 0,
+         "stopTime": 4000,
+         "numberOfIntervals": 40000,
+         "errorInduction": 2000
+         }
+   }
+
 
 The config file contains a dictionary, which includes:
     - The dataset name
@@ -51,23 +55,36 @@ The config file contains a dictionary, which includes:
             - ``"l"`` : a leakage will be induced. The leakage will purge some of the volume flow into a sink outside the system
             - ``"c"`` : a clogging will be induced. The clogging will reduce the diameter of a pipe within a module and lead to an increase in pressure.
             - ``"lc"`` : a leakage and a clogging will be induced. The named effects will be included superposed within the dataset.
-    - The faulty module
+   - The faulty module
         Under ``faulty_module`` the faulty module can be selected. The name must match a module name (with index!) from the ``model:nodes`` list.
-    - Input products & output products
+   - Input products & output products
         Under ``ProdIn`` and ``ProdOut`` a list of the input products and output products of the Cyber-Physical Process Plant is given.
         The names of the products can be customized. We suggest colors ``red``, ``yellow``, and ``blue``.
         Additionally, adjectives, like ``*_bottled``, ``*_distilled``, or proportions like ``*_0.8`` can be added.
         Optionally, product descriptions in any variety can be added. This feature mainly focuses on the planning aspect of the dataset.
+   - Simulation start time
+      ``startTime`` is ndicating the time from which the simulation is going to generate data.
+        (Standard value: 0)
+   - Simulation stop time
+      ``stopTime`` is indicating the time the simulation will be stopped.
+        (Standard value: 4000)
+   - Number of intervals
+      ``numberOfIntervalls`` is indicating the number of intervals that will be simulated, or indirectly the sampling rate.
+        (Standard value: 40000)
+   - Fault induction
+      Under ``errorInduction`` the time your error will be induced can be chosen.
+
+      The time **must** always be smaller than your simulation stop time.
 
 Once you adapted the config file, save it under ``benchmark_config.json`` in JSON format.
 
 Step 2:
 =======
 After adapting your Cyber-Physical Process Plant setup you can customize your simulation setup and its hyper-parameters.
-Therefore you can change ``call.mos`` file. This file executes the modelica simulation.
+Therefore you can either change ``call.mos`` file or add the simulation hyper-parameters in your ``config.json`` file. This file executes the modelica simulation.
 Especially the last line of this file is of interest. The preceding lines are for importing all models.
 In case you did not add any additional modules, they are not in your interest.
-
+If you want to change the ``call.mos`` manually change this:
 
 .. code-block::
 

@@ -8,18 +8,21 @@ The ``benchmark_config.json`` includes the setup the create BeRfiPl, but of cour
 .. code-block:: python
    :linenos:
 
-    {
-    "ds1": {
-      "model": {
-         "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
-         "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]
-           },
-    "faults": ["l", "c", "lc"],
-    "faulty_module":["mixer_partial0"],
-    "ProdIn": ["red", "yellow", "blue"],
-    "ProdOut": ["redyellowblue"]
-     }
-    }
+   {
+      "ds1": {
+         "model": {
+            "nodes": ["mixer_partial0", "source0", "source1", "source2", "sink0"],
+            "edges": [["source0", "mixer_partial0"], ["source1", "mixer_partial0"], ["source2", "mixer_partial0"], ["mixer_partial0", "sink0"]]},
+         "faults": ["l", "c", "lc"],
+         "faulty_module": ["mixer_partial0"],
+         "ProdIn": ["red", "yellow", "blue"],
+         "ProdOut": ["redyellowblue"],
+         "startTime": 0,
+         "stopTime": 4000,
+         "numberOfIntervals": 40000,
+         "errorInduction": 2000
+         }
+   }
 
 
 The config file contains a dictionary, which includes:
@@ -30,10 +33,9 @@ The config file contains a dictionary, which includes:
         Under ``nodes`` all employed modules in the custom setup have to be listed as strings.
         Under ``edges`` the directed connections between the employed modules have to be listed as tuples in list form.
 
-        .. note::
-            Every input and output of a module must be connected. If there is no preceding or succeeding module, place a source or sink, respectively.
+        **Important: Every input and output of a module must be connected. If there is no preceding or succeeding module, place a source or sink, respectively.**
 
-            The modules have to be indexed! Modules without an index will cause errors in the compilation of the simulation.
+        **Important: The modules have to be indexed! Modules without an index will cause errors in the compilation of the simulation.**
 
    - The Faults
         Under ``faults`` one of three employable faults can be added to the simulation.
@@ -44,12 +46,25 @@ The config file contains a dictionary, which includes:
             - ``"l"`` : a leakage will be induced. The leakage will purge some of the volume flow into a sink outside the system
             - ``"c"`` : a clogging will be induced. The clogging will reduce the diameter of a pipe within a module and lead to an increase in pressure.
             - ``"lc"`` : a leakage and a clogging will be induced. The named effects will be included superposed within the dataset.
-    - The faulty module
+   - The faulty module
         Under ``faulty_module`` the faulty module can be selected. The name must match a module name (with index!) from the ``model:nodes`` list.
-    - Input products & output products
+   - Input products & output products
         Under ``ProdIn`` and ``ProdOut`` a list of the input products and output products of the Cyber-Physical Process Plant is given.
         The names of the products can be customized. We suggest colors ``red``, ``yellow``, and ``blue``.
         Additionally, adjectives, like ``*_bottled``, ``*_distilled``, or proportions like ``*_0.8`` can be added.
         Optionally, product descriptions in any variety can be added. This feature mainly focuses on the planning aspect of the dataset.
+   - Simulation start time
+      ``startTime`` is ndicating the time from which the simulation is going to generate data.
+        (Standard value: 0)
+   - Simulation stop time
+      ``stopTime`` is indicating the time the simulation will be stopped.
+        (Standard value: 4000)
+   - Number of intervals
+      ``numberOfIntervalls`` is indicating the number of intervals that will be simulated, or indirectly the sampling rate.
+        (Standard value: 40000)
+   - Fault induction
+      Under ``errorInduction`` the time your error will be induced can be chosen.
+
+      The time **must** always be smaller than your simulation stop time.
 
 Once you adapted the config file, save it under ``benchmark_config.json`` in JSON format.

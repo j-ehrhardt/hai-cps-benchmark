@@ -44,7 +44,7 @@ Functions
     .. code-block:: Python
         :linenos:
 
-        def create_call_file(setup: str):
+        def create_call_file(config_dict: dict, setup: str):
             """
             creating a call.mos file with updated dataset directory
             """
@@ -53,6 +53,8 @@ Functions
             for line in file:
                 if 'cd("ds' in line:
                     changes = 'cd("' + setup + '"); \n'
+                elif 'simulate(' in line:
+                    changes = 'simulate(process_plant, startTime =' + str(config_dict["startTime"]) + ' , stopTime=' + str(config_dict["stopTime"]) + ' , numberOfIntervals=' + str(config_dict["numberOfIntervals"]) + ' , outputFormat="csv", simflags="-maxIntegrationOrder=1");\n'
                 else:
                     changes = line
                 replacement = replacement + changes
@@ -63,13 +65,14 @@ Functions
             fout.close()
             return
 
+
 - def create_process_plant(config_ds: dict)
     creating a customized ``process_plant.mo`` file, based on the Cyber-Physical Process Plant defined in the ``benchmark_config.json``.
 
     .. code-block:: Python
         :linenos:
 
-        def create_process_plant(config_ds: dict):
+        def create_process_plant(config_dict: dict):
             """
             Creates a process plant model in modelica as .mo file,
             based on the setup, that is encoded in the config_ds dict.
@@ -85,8 +88,8 @@ Functions
             equations = '\nequation\n'
             outro = 'end process_plant;\n'
 
-            mod_list = config_ds["model"]["nodes"]
-            equ_list = config_ds["model"]["edges"]
+            mod_list = config_dict["model"]["nodes"]
+            equ_list = config_dict["model"]["edges"]
 
             for i in mod_list:
                 models = models + (i[:-1] + " " + i + ";\n") #"(replaceable package Medium = Medium);\n")
@@ -109,22 +112,39 @@ Functions
                 f.write(outro)
             return
 
+
 - def create_supermodel(faulty_module: str, fault: str)
     creating a customized superModel of the faulty module, to induce time-dependent faults.
 
     .. code-block:: Python
         :linenos:
 
-        def create_supermodel(faulty_module: str, fault: str):
+        def create_supermodel(config_dict: dict, fault: str):
             """
             Within the supermodels fault induction can be turned off and on.
             Hence, for each fault setup a separate supermodel must be created.
             """
-            str_superModel = "../simulation_models/" + faulty_module[:-9] + "_superModel.mo"
-            ok_str1 = "valve_leaking_simulator = if time >= 4000 then 0.0001 else 0; // leaking"
-            nok_str1 = "valve_leaking_simulator = if time >= 2000 then 0.0001 else 0; // leaking"
-            ok_str2 = "valve_clogging_simulator = if time >= 4000 then 0.01 else 1; // clogging"
-            nok_str2 = "valve_clogging_simulator = if time >= 2000 then 0.01 else 1; // clogging"
+            str_superModel = "../simulation_models/" + str(config_dict["faulty_module"][0][:-9]) + "_superModel.mo"
+            ok_str1 = "valve_leaking_simulator = if time >=" + str(config_dict["stopTime"]) + " then 0.0001 else 0; // leaking"
+            nok_str1 = "valve_leaking_simulator = if time >=" + str(config_dict["errorInduction"]) + " then 0.0001 else 0; // leaking"
+            ok_str2 = "valve_clogging_simulator = if time >=" + str(config_dict["stopTime"]) + " then 0.01 else 1; // clogging"
+            nok_str2 = "valve_clogging_simulator = if time >=" + str(config_dict["errorInduction"]) + " then 0.01 else 1; // clogging"
+
+            # replace all strings with ok strings before introducing nok strings
+            file = open(str_superModel, "r")
+            replacement = ""
+            for line in file:
+                if "valve_leaking_simulator =" in line:
+                    changes = ok_str1
+                elif "valve_clogging_simulator =" in line:
+                    changes = ok_str2
+                else:
+                    changes = line
+                replacement = replacement + changes
+            file.close()
+            fout = open(str_superModel, "w")
+            fout.write(replacement)
+            fout.close()
 
             # read mode
             file = open(str_superModel, "r")
@@ -236,7 +256,6 @@ Functions
 
         def create_dataset(config_ds: dict, setup: str):
             """
-
             This funcion creates a single .csv dataset by
                 - building a modelica model and supermodel of the desired process plant setup (including the adapted parametrization)
                 - running the simulation (regarding to the desired fault setup)
@@ -250,15 +269,14 @@ Functions
                 - a csv in a directory named after the process plant build
             """
 
-            create_ds_dir(setup)                            # creating a directory for the dataset setup
-            create_call_file(setup)                         # creating an adapted call.mos file to run Modelica simulations
-            create_process_plant(config_ds)                 # creating a process plant setup following the config file
+            create_ds_dir(setup=setup)                                          # creating a directory for the dataset setup
+            create_call_file(config_dict=config_ds, setup=setup)                # creating an adapted call.mos file to run Modelica simulations
+            create_process_plant(config_dict=config_ds)                         # creating a process plant setup following the config file
 
-            faulty_module = config_ds["faulty_module"][0]   # choose module in which faults will be induced
             for fault in config_ds["faults"]:
-                create_supermodel(faulty_module, fault)     # creating a supermodel inducing the fault "fault"
-                run_simulation(setup, fault)                # running the om simulation
-                clean_ds(setup, fault)                      # cleaning resulting ds from unnecessary values
+                create_supermodel(config_dict=config_ds, fault=fault)           # creating a supermodel inducing the fault "fault"
+                run_simulation(setup=setup, fault=fault)                        # running the om simulation
+                clean_ds(setup=setup, fault=fault)                              # cleaning resulting ds from unnecessary values
                 print("simulation run " + str(setup) + str(fault) + " finished ... \n")
-            save_connection_model(config_ds, setup)         # saving the connection model and simulation setup as file in ds-directory
+            save_connection_model(config_dict=config_ds, setup=setup)           # saving the connection model and simulation setup as file in ds-directory
             return
