@@ -42,7 +42,11 @@
     ],
     "ProdOut": [
       "redyellowblue"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds2": {
     "model": {
@@ -81,7 +85,11 @@
     "ProdOut": [
       "redyellow",
       "blue"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds3": {
     "model": {
@@ -114,7 +122,11 @@
     ],
     "ProdOut": [
       "redyellow"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds4": {
     "model": {
@@ -147,7 +159,11 @@
     ],
     "ProdOut": [
       "red_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds5": {
     "model": {
@@ -197,7 +213,11 @@
     ],
     "ProdOut": [
       "redyellowblue_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds6": {
     "model": {
@@ -246,7 +266,11 @@
     "ProdOut": [
       "redyellow_bottled",
       "blue_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds7": {
     "model": {
@@ -284,7 +308,11 @@
     ],
     "ProdOut": [
       "redyellow_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds8": {
     "model": {
@@ -339,7 +367,11 @@
     ],
     "ProdOut": [
       "redyellow_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds9": {
     "model": {
@@ -393,64 +425,13 @@
     "ProdOut": [
       "red_bottled",
       "blue_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds10": {
-    "model": {
-      "nodes": [
-        "source0",
-        "source1",
-        "source2",
-        "mixer_partial0",
-        "filter_partial0",
-        "filter_partial1",
-        "sink0"
-      ],
-      "edges": [
-        [
-          "source0",
-          "mixer_partial0"
-        ],
-        [
-          "source1",
-          "mixer_partial0"
-        ],
-        [
-          "source2",
-          "mixer_partial0"
-        ],
-        [
-          "mixer_partial0",
-          "filter_partial0"
-        ],
-        [
-          "filter_partial0",
-          "filter_partial1"
-        ],
-        [
-          "filter_partial1",
-          "sink0"
-        ]
-      ]
-    },
-    "faults": [
-      "l",
-      "c",
-      "lc"
-    ],
-    "faulty_module": [
-      "filter_partial0"
-    ],
-    "ProdIn": [
-      "red",
-      "yellow",
-      "blue"
-    ],
-    "ProdOut": [
-      "red"
-    ]
-  },
-  "ds11": {
     "model": {
       "nodes": [
         "source0",
@@ -493,7 +474,7 @@
         ],
         [
           "source4",
-          "mixer_partial2"
+          "mixer_partial1"
         ],
         [
           "still_partial0",
@@ -531,7 +512,81 @@
     "ProdOut": [
       "blue_bottled",
       "redredyellowyellow_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
+  },
+  "ds11": {
+    "model": {
+      "nodes": [
+        "source0",
+        "source1",
+        "source2",
+        "source3",
+        "mixer_partial0",
+        "mixer_partial1",
+        "still_partial0",
+        "bottling_partial0",
+        "sink0",
+      ],
+      "edges": [
+        [
+          "source0",
+          "mixer_partial0"
+        ],
+        [
+          "source1",
+          "mixer_partial0"
+        ],
+        [
+          "source2",
+          "mixer_partial0"
+        ],
+        [
+          "mixer_partial0",
+          "mixer_partial1"
+        ],
+        [
+          "mixer_partial1",
+          "still_partial0"
+        ],
+        [
+          "source3",
+          "mixer_partial1"
+        ],
+        [
+          "still_partial0",
+          "bottling_partial0"
+        ],
+        [
+          "bottling_partial0",
+          "sink0"
+        ]
+      ]
+    },
+    "faults": [
+      "l",
+      "c",
+      "lc"
+    ],
+    "faulty_module": [
+      "filter_partial0"
+    ],
+    "ProdIn": [
+      "red",
+      "yellow",
+      "blue",
+      "red",
+    ],
+    "ProdOut": [
+      "blue_bottled",
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   },
   "ds12": {
     "model": {
@@ -607,6 +662,10 @@
     "ProdOut": [
       "blue_bottled",
       "redredyellow_bottled"
-    ]
+    ],
+    "startTime": 0,
+    "stopTime": 4000,
+    "numberOfIntervals": 40000,
+    "errorInduction": 2000
   }
 }
