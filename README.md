@@ -61,6 +61,17 @@ For a full introduction, you can read the documentation in the `documentation` d
 This benchmark was developed at the chair if Informatics in Engineering at Helmut-Schmidt-University, Hamburg. 
 For questions please contact: **jonas.ehrhardt(at)hsu-hh.de** and **malte.ramonat(at)hsu-hh.de**.
 
+When using this benchmark please cite: 
+```
+@INPROCEEDINGS{Ehrhardt2022,
+  author={Ehrhardt, Jonas; Ramonat, Malte; Heesch, René; Balzereit, Kaja; Diedrich, Alexander; Niggemann, Oliver},
+  booktitle={2022 27th IEEE International Conference on Emerging Technologies and Factory Automation (ETFA )}, 
+  title={An AI benchmark for Diagnosis, Reconfiguration & Planning}, 
+  year={2022},
+  pages={},
+  doi={}}
+```
+
 
 ## LICENSE
 
