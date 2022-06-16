@@ -43,20 +43,20 @@ Open single models and superModels in OMEdit and run the simulation manually.
 The benchmark consists of four different component modules (mixer, filter, distill, bottling) with different functionalities (cf. Fig.1).
 The modules can be interchangeably combined to simulate modular process plants with differing functionalities.
 
-<img src="./images/berfiple_modules.drawio(1).png" alt="modules" width="500"/>
+<img src="./figures/berfiple_modules.drawio(1).png" alt="modules" width="500"/>
 
 *Fig.1: Four modules with different functionalities: a) filter, b) mixer, c) distill, d) bottling*
 
 For the benchmark, connection models of 12 different CPPS are predefined in `benchmark_config.json`, forming a comprehensive selection of datasets for validating AI algorithms on diagnosis, reconfiguration and planning (cf. Fig. 2).
 
-<img src="./images/cppsSetups.drawio.png" alt="setups" width="1000"/>
+<img src="./figures/cppsSetups.drawio.png" alt="setups" width="1000"/>
 
 *Fig.2: CPPS combinations for the benchmark*
 
 
 ## Information
 
-For a full introduction, you can read the documentation in the `documentation` directory.
+For a full introduction, you can read the [documentation](https://j-ehrhardt.github.io/benchmark-for-diagnosis-reconf-planning/docs/general/berfipl_intro.html).
 
 This benchmark was developed at the chair if Informatics in Engineering at Helmut-Schmidt-University, Hamburg. 
 For questions please contact: **jonas.ehrhardt(at)hsu-hh.de** and **malte.ramonat(at)hsu-hh.de**.
@@ -78,4 +78,4 @@ When using this benchmark please cite:
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use it except in compliance with the License. A copy of the License is included in the project, see the file LICENSE.**
 
 
-<img src="./images/IMB.png" alt="logo" width="100"/> <img src="./images/aut.png" alt="logo" width="100"/> <img src="./images/BeRfiPl.jpeg" alt="hello" width="100"/>
+<img src="./figures/IMB.png" alt="logo" width="100"/> <img src="./figures/aut.png" alt="logo" width="100"/> <img src="./figures/BeRfiPl.jpeg" alt="hello" width="100"/>
