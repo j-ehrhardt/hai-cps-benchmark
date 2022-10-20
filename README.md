@@ -1,7 +1,7 @@
 # AI Benchmark for Diagnosis Reconfiguration and Planning
 
 This repository contains the simulation models for the AI Benchmark for Diagnosis, Reconfiguration and Planning (BeRfiPl).
-The simulated datasets can be downloaded The benchmark datasets can be downloaded [here](https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing).
+The simulated datasets can be downloaded The benchmark datasets can be downloaded [here](https://drive.google.com/drive/folders/1YnBZINzUTqHmP_xtuc64yyAbWNFHelY0?usp=sharing). You can find the documentation and instructions on running the simulations [here](https://j-ehrhardt.github.io/benchmark-for-diagnosis-reconf-planning/docs/general/berfipl_intro.html)
 
 ## Motivation 
 
