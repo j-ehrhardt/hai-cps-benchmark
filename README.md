@@ -63,13 +63,16 @@ For questions please contact: **jonas.ehrhardt(at)hsu-hh.de** and **malte.ramona
 
 When using this benchmark please cite: 
 ```
-@INPROCEEDINGS{Ehrhardt2022,
+@INPROCEEDINGS{9921546,
   author={Ehrhardt, Jonas and Ramonat, Malte and Heesch, René and Balzereit, Kaja and Diedrich, Alexander and Niggemann, Oliver},
-  booktitle={2022 27th IEEE International Conference on Emerging Technologies and Factory Automation (ETFA2022)}, 
+  booktitle={2022 IEEE 27th International Conference on Emerging Technologies and Factory Automation (ETFA)}, 
   title={An AI benchmark for Diagnosis, Reconfiguration & Planning}, 
   year={2022},
-  pages={},
-  doi={}}
+  volume={},
+  number={},
+  pages={1-8},
+  organization = {IEEE},
+  doi={10.1109/ETFA52439.2022.9921546}}
 ```
 
 
