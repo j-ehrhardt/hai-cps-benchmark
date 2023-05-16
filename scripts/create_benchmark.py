@@ -104,6 +104,13 @@ def create_supermodel(faulty_module: str, fault: str):
                 changes = line.replace(ok_str2, nok_str2)
             else:
                 changes = line
+        elif fault == "n":
+            if nok_str1 in line:
+                changes = line.replace(nok_str1, ok_str1)
+            elif nok_str2 in line:
+                changes = line.replace(nok_str2, ok_str2)
+            else:
+                changes = line        
         replacement = replacement + changes
     file.close()
     # write mode
