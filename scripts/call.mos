@@ -1,27 +1,51 @@
-loadModel(Modelica);
+loadModel(Modelica,{"3.2"});
 cd("../simulation_models");
+
+print("load source_superModel.mo:");
 loadFile("source_superModel.mo");
+print("load source.mo:");
 loadFile("source.mo");
+print("");
 
+print("load sink_superModel.mo:");
 loadFile("sink_superModel.mo");
+print("load sink.mo:");
 loadFile("sink.mo");
+print("");
 
+print("load bottling_superModel.mo:");
 loadFile("bottling_superModel.mo");
+print("load bottling_partial.mo:");
 loadFile("bottling_partial.mo");
+print("");
 
+print("load mixer_superModel.mo:");
 loadFile("mixer_superModel.mo");
+print("load mixer_partial.mo:");
 loadFile("mixer_partial.mo");
+print("");
 
+print("load filter_superModel.mo:");
 loadFile("filter_superModel.mo");
+print("load filter_partial.mo:");
 loadFile("filter_partial.mo");
+print("");
 
+print("load still_superModel.mo:");
 loadFile("still_superModel.mo");
+print("load still_partial.mo:");
 loadFile("still_partial.mo");
+print("");
 
+print("load evaporator.mo:");
 loadFile("evaporator.mo");
+print("");
+
+print("load process_plant.mo:");
 loadFile("process_plant.mo");
+print("");
 
 cd("../datasets");
-cd("ds4"); 
-simulate(process_plant, startTime = 0, stopTime=4000, numberOfIntervals=40000, outputFormat="csv", simflags="-maxIntegrationOrder=1");
+cd("ds1"); 
+simulate(process_plant, startTime = 0, stopTime=4000, numberOfIntervals=4000, outputFormat="csv", simflags="-maxIntegrationOrder=1");
 
