@@ -28,7 +28,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -45,8 +45,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds2": {
     "model": {
@@ -72,7 +72,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -88,8 +88,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds3": {
     "model": {
@@ -110,7 +110,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -125,8 +125,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds4": {
     "model": {
@@ -147,7 +147,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -162,8 +162,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds5": {
     "model": {
@@ -199,7 +199,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -216,8 +216,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds6": {
     "model": {
@@ -253,7 +253,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -269,8 +269,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds7": {
     "model": {
@@ -296,7 +296,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -311,8 +311,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds8": {
     "model": {
@@ -353,7 +353,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -370,8 +370,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds9": {
     "model": {
@@ -412,7 +412,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -428,8 +428,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds10": {
     "model": {
@@ -495,7 +495,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -515,8 +515,8 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds11": {
     "model": {
@@ -529,7 +529,7 @@
         "mixer_partial1",
         "still_partial0",
         "bottling_partial0",
-        "sink0",
+        "sink0"
       ],
       "edges": [
         [
@@ -567,7 +567,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -578,15 +578,15 @@
       "red",
       "yellow",
       "blue",
-      "red",
+      "red"
     ],
     "ProdOut": [
-      "blue_bottled",
+      "blue_bottled"
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   },
   "ds12": {
     "model": {
@@ -646,7 +646,7 @@
       ]
     },
     "faults": [
-      "l",
+      "n", "l",
       "c",
       "lc"
     ],
@@ -665,7 +665,7 @@
     ],
     "startTime": 0,
     "stopTime": 4000,
-    "numberOfIntervals": 40000,
-    "errorInduction": 2000
+    "numberOfIntervals": 4000,
+    "errorInduction": 3000
   }
 }
