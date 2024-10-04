@@ -1,7 +1,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-brightgreen.svg)](https://www.python.org/downloads/release/python-380/)
 [![Mamba](https://img.shields.io/badge/Mamba-1.5.8-green)](https://mamba.readthedocs.io)
 [![OpenModelica](https://img.shields.io/badge/OpenModelica-3.2.3-cyan)]()
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
 # AI Benchmark for Diagnosis Reconfiguration and Planning
 
