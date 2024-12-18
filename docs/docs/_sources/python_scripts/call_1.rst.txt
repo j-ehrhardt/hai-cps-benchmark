@@ -1,0 +1,54 @@
+call
+====
+
+The ``call.mos`` files contains the terminal code for running a simulation model.
+Within the ``call.mos`` file, the modules and superModels are imported and the simulation setup - e.g. simulation
+time, steps, etc. - can be defined.
+
+Especially the last line of this file is of interest. The preceding lines are for importing all models.
+In case you did not add any additional modules, they are not in your interest.
+
+.. code-block::
+    :linenos:
+
+    loadModel(Modelica);
+    cd("../simulation_models");
+    loadFile("source_superModel.mo");
+    loadFile("source.mo");
+
+    loadFile("sink_superModel.mo");
+    loadFile("sink.mo");
+
+    loadFile("bottling_superModel.mo");
+    loadFile("bottling_partial.mo");
+
+    loadFile("mixer_superModel.mo");
+    loadFile("mixer_partial.mo");
+
+    loadFile("filter_superModel.mo");
+    loadFile("filter_partial.mo");
+
+    loadFile("still_superModel.mo");
+    loadFile("still_partial.mo");
+
+    loadFile("evaporator.mo");
+    loadFile("process_plant.mo");
+
+    cd("../datasets");
+    cd("ds4");
+    simulate(process_plant, startTime = 0, stopTime=4000, numberOfIntervals=40000, outputFormat="csv", simflags="-maxIntegrationOrder=1");
+
+
+Within the last lines you can set the simulation hyperparameters like:
+    - startTime
+        Indicating the time from which the simulation is going to generate data.
+        (Standard value: 0)
+    - stopTime
+        Indicating the time the simulation will be stopped.
+        (Standard value: 4000)
+    - numberOfIntervalls
+        Indicating the number of intervals that will be simulated, or indirectly the sampling rate.
+        (Standard value: 40000)
+    - outputFormat
+        Format of output file
+        (standard value: "csv")

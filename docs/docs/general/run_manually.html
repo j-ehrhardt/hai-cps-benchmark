@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating custom simulations with OMEdit &mdash; Benchmark for Diagnosis, Reconfiguration &amp; Planning 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulation models" href="../simulation_models/simulation_models_overview.html" />
+    <link rel="prev" title="Creating custom simulations with Python API" href="run_automatically.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Benchmark for Diagnosis, Reconfiguration & Planning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="berfipl_intro.html">BeRfiPl - Benchmark for Diagnosis, Reconfiguration &amp; Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_steps.html">First steps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quickrun.html">Running simulations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="run_automatically.html">Creating custom simulations with Python API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating custom simulations with OMEdit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_models/simulation_models_overview.html">Simulation models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_models/simulation_superModels_overview.html">Simulation superModels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_scripts/python_scripts_overview.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Benchmark for Diagnosis, Reconfiguration & Planning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="quickrun.html">Running simulations</a> &raquo;</li>
+        
+      <li>Creating custom simulations with OMEdit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/general/run_manually.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="creating-custom-simulations-with-omedit">
+<h1>Creating custom simulations with OMEdit<a class="headerlink" href="#creating-custom-simulations-with-omedit" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Depending on your hardware, and simulation setup, creating datasets with BeRfiPl simulation models may take some time.</p>
+</div>
+<p>Besides the dataset generation with the Python API, you can also create individual simulation setups, and even manipulate
+the simulation model’s compositions. Therefore, we suggest this manual workflow including OpenModelica’s <a class="reference external" href="https://openmodelica.org/?id=78:omconnectioneditoromedit&amp;catid=10:main-category">OMEdit</a>.
+OMEdit is a graphical connection editor in OpenModelica, that also includes a text editor and graphical simulation environment.</p>
+<p>To run manipulate a BeRfiPl simulation model in OMEdit, execute the following steps:</p>
+<section id="step-1-start-omedit">
+<h2>Step 1 - Start OMEdit<a class="headerlink" href="#step-1-start-omedit" title="Permalink to this headline">¶</a></h2>
+<p>Within the starting window you will find an overview on the installed libraries on the left, recent projects in the middle, and warnings on the bottom.
+Make sure, that <code class="docutils literal notranslate"><span class="pre">OpenModelica</span></code> and <code class="docutils literal notranslate"><span class="pre">Modelica</span></code> libraries are included.</p>
+<a class="reference internal image-reference" href="general/images/omedit_startscreen.png"><img alt="omedit startscreen" src="general/images/omedit_startscreen.png" style="width: 500px;" /></a>
+</section>
+<section id="step-2-import-simulation-models">
+<h2>Step 2 - Import simulation models<a class="headerlink" href="#step-2-import-simulation-models" title="Permalink to this headline">¶</a></h2>
+<p>Import the BeRfiPl simulation models into the OMEdit environment, by selecting <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Open</span> <span class="pre">Model/Library</span> <span class="pre">File(s)</span></code>, pressing <code class="docutils literal notranslate"><span class="pre">Crtl+O</span></code>, or clicking on the blue symbol on the top left of your OMEdit window.
+A pop-up window of your filemanager will appear.</p>
+<p>Navigate to the BeRfiPl repository and select all simulation models within the <code class="docutils literal notranslate"><span class="pre">simulation_models</span></code> directory.</p>
+<p>Click on <code class="docutils literal notranslate"><span class="pre">open</span></code> to import the models.</p>
+<a class="reference internal image-reference" href="general/images/omedit_selectAllModels.png"><img alt="omedit select all models" src="general/images/omedit_selectAllModels.png" style="width: 500px;" /></a>
+<p>The loaded simulation models will appear in the library browser on the left of your OMEdit window.</p>
+<a class="reference internal image-reference" href="general/images/omedit_loadedModels.png"><img alt="omedit loaded models" src="general/images/omedit_loadedModels.png" style="width: 500px;" /></a>
+</section>
+<section id="step-3-manipulate-a-simulation-model">
+<h2>Step 3 - Manipulate a simulation model<a class="headerlink" href="#step-3-manipulate-a-simulation-model" title="Permalink to this headline">¶</a></h2>
+<p>By clicking on a simulation model or simulation superModel in your library browser you can view its composition.
+Simulation models in OpenModelica can be created with the visual editor or in text editor.
+To access the visual editor click on the <em>Diagram view</em> button.
+To access the text editor click on the <em>Text view</em> button.</p>
+<p>Within the editors you can manipulate the connections of the simulation model’s components, or manually parametrize the individual components.
+Within the simulation superModel you can manipulate the hyper-parameter setup of your simulation model.
+To do so, either double click on them, or add the required arguments in the text editor.</p>
+<p>To get an overview on all arguments you can visit the official <a class="reference external" href="https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/">OpenModelica documentation</a>.</p>
+<a class="reference internal image-reference" href="general/images/omedit_moduleTextView.png"><img alt="omedit module text view" src="general/images/omedit_moduleTextView.png" style="width: 500px;" /></a>
+<p><strong>Text view of a simulation model</strong></p>
+<a class="reference internal image-reference" href="general/images/omedit_moduleDiagramView.png"><img alt="omedit module diagram view" src="general/images/omedit_moduleDiagramView.png" style="width: 500px;" /></a>
+<p><strong>Diagram view of a simulation model</strong></p>
+</section>
+<section id="step-4-building-a-custom-process-plant">
+<h2>Step 4 - Building a custom process plant<a class="headerlink" href="#step-4-building-a-custom-process-plant" title="Permalink to this headline">¶</a></h2>
+<p>After manipulating the individual simulation models, you can assemble them into a process plant.
+To do so, open the <code class="docutils literal notranslate"><span class="pre">process_plant</span></code> model.
+You can build your process plant model, by either using <em>Text view</em> or <em>Diagram view</em>.</p>
+<p>Building your process plant in <em>Text view</em> requires a list of all models, you want to employ in the plant.
+Note their class and their name in the <em>model</em> section of the script.</p>
+<p>Subsequently, the connections of the models must be added.
+The connections always(!) span from a models <code class="docutils literal notranslate"><span class="pre">port_out</span></code> to another models <code class="docutils literal notranslate"><span class="pre">port_in</span></code>.
+The connections are noted as tuples in the <em>equation</em> section of the script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every input and output of a simulation model needs to be connected to another simulation model.
+Use source and sink models as start and end points of a process plant.</p>
+</div>
+<a class="reference internal image-reference" href="general/images/omedit_plantTextView.png"><img alt="omedit plant text view" src="general/images/omedit_plantTextView.png" style="width: 500px;" /></a>
+<p>You can also graphically compose your own process plant.
+To do so, be sure the <code class="docutils literal notranslate"><span class="pre">process_plant</span></code> model does not include any other simulation models anymore. You can check this in the <em>Text view</em>.</p>
+<p>After checking that there are no models mentioned in the script, you can start dragging and dropping simulation models from your <em>Library browser</em> into the process plant model.</p>
+<a class="reference internal image-reference" href="general/images/omedit_plantDragModule.png"><img alt="omedit plant drag module" src="general/images/omedit_plantDragModule.png" style="width: 500px;" /></a>
+<p>Once you dropped a simulation model, a pop-up window will appear and ask you to name the model.
+Name the model, as you please, but make sure, that the model is <strong>not</strong> named the same as the simulation model.
+E.g. naming <code class="docutils literal notranslate"><span class="pre">filter_partial</span></code> model in the <code class="docutils literal notranslate"><span class="pre">process_plant</span></code> script as <code class="docutils literal notranslate"><span class="pre">filter_partial</span></code> will cause an error.
+Therefore giving it an index is recommended, like <code class="docutils literal notranslate"><span class="pre">filter_partial0</span></code>.</p>
+<a class="reference internal image-reference" href="general/images/omedit_plantNameModule.png"><img alt="omedit plant name module" src="general/images/omedit_plantNameModule.png" style="width: 500px;" /></a>
+<p>Once you drpped all simulation models you want to employ in the process plant into the <code class="docutils literal notranslate"><span class="pre">process_plant</span></code> script, you can start connecting them.
+The model blocks have small circles to indicate ports.
+You can connect models, by clicking on a port and connecting it via another click to another port.
+You can also add recurrences with this method.
+Make sure to add meaningful recurrences (read the simulation model documentation for that) to generate meaningful datasets.</p>
+<a class="reference internal image-reference" href="general/images/omedit_plantConnectModule.png"><img alt="omedit plant connect module" src="general/images/omedit_plantConnectModule.png" style="width: 500px;" /></a>
+<p>You are now set to run your simulation.</p>
+</section>
+<section id="step-5-checking-the-model">
+<h2>Step 5 - Checking the model<a class="headerlink" href="#step-5-checking-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Before running the simulation it is recommended to check your model, so you check for conflicts in your simulation model.
+To do so, click on the check model button, as indicated below.</p>
+<a class="reference internal image-reference" href="general/images/omedit_checkModel.png"><img alt="omedit checkModel" src="general/images/omedit_checkModel.png" style="width: 500px;" /></a>
+<p>A pop-up window will appear, giving an indication on whether the model compiled successfully, the number of differential equations and variables, and the number of trivial equations.</p>
+<a class="reference internal image-reference" href="general/images/omedit_checkModelWindow.png"><img alt="omedit check model window" src="general/images/omedit_checkModelWindow.png" style="width: 500px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of equations and variables <strong>must</strong> be the same. Otherwise the simulation will fail.
+If the number of variables does not match the number of equations you made a mistake in the manipulation or composition of your simulation model.</p>
+</div>
+</section>
+<section id="step-6-simulation-setup">
+<h2>Step 6 - Simulation setup<a class="headerlink" href="#step-6-simulation-setup" title="Permalink to this headline">¶</a></h2>
+<p>Next, you can set up your simulation.
+Therefore, click on the <code class="docutils literal notranslate"><span class="pre">simulate</span></code> button as stated below.</p>
+<a class="reference internal image-reference" href="general/images/omedit_simulationSetup.png"><img alt="omedit simulation setup" src="general/images/omedit_simulationSetup.png" style="width: 500px;" /></a>
+<p>Within the simulation setup you can specify a number of hyper-parameters.
+Feel free to tune on all of them. You can read about them in the official <a class="reference external" href="https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/">OpenModelica documentation</a>.</p>
+<p>The most important parameters, are <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Time</span></code>, <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">Time</span></code>, and <code class="docutils literal notranslate"><span class="pre">Number</span> <span class="pre">of</span> <span class="pre">Intervals</span></code>.
+While start and stop time indicate the beginning and end of the simulated period, you can adjust the sampling with the number of intervals.</p>
+<a class="reference internal image-reference" href="general/images/omedit_simulationSetupStart.png"><img alt="omedit simulationSetup start" src="general/images/omedit_simulationSetupStart.png" style="width: 500px;" /></a>
+</section>
+<section id="step-7-simulate">
+<h2>Step 7 - Simulate<a class="headerlink" href="#step-7-simulate" title="Permalink to this headline">¶</a></h2>
+<p>After pressing the simulation button, the simulation of your simulation model is executed.
+You can follow the progress in the progress bar.
+Depending on your model complexity and the employed parameters, the simulation may take some time.</p>
+<a class="reference internal image-reference" href="general/images/omedit_simulate.png"><img alt="omedit simulate" src="general/images/omedit_simulate.png" style="width: 500px;" /></a>
+</section>
+<section id="step-8-select-parameters-of-interest">
+<h2>Step 8 - Select parameters of interest<a class="headerlink" href="#step-8-select-parameters-of-interest" title="Permalink to this headline">¶</a></h2>
+<p>After simulation is finished, you can select you parameters of interest in the variable browser on the right side of the window, as indicated below.
+For each component of your simulation model the available range of variables is listed.
+Select you parameters of interest to plot them in the viewer.</p>
+<a class="reference internal image-reference" href="general/images/omedit_showSimulation.png"><img alt="omedit showSimulation" src="general/images/omedit_showSimulation.png" style="width: 500px;" /></a>
+</section>
+<section id="step-9-export-simulation-variables">
+<h2>Step 9 - Export simulation variables<a class="headerlink" href="#step-9-export-simulation-variables" title="Permalink to this headline">¶</a></h2>
+<p>You can export the variables you selected in the variable browser.
+To do so, click on the <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">Variables</span></code> button in the plotting view, as indicated below.</p>
+<a class="reference internal image-reference" href="general/images/omedit_exportCsv.png"><img alt="omedit export csv" src="general/images/omedit_exportCsv.png" style="width: 500px;" /></a>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../simulation_models/simulation_models_overview.html" class="btn btn-neutral float-right" title="Simulation models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="run_automatically.html" class="btn btn-neutral float-left" title="Creating custom simulations with Python API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, IMB
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+Simulation models
+#################
+
+The BeRfiPl simulation consists of four simulation models, which can be interchangeably connected.
+The models are derived from a real modular process plant.
+Additionally, a ``source`` and a ``sink`` model are introduced, to simulate process plant in- and outputs.
+
+The simulation models own one specific functionality, each, and enable diverging, converging and recurrent product flow.
+Each model contains a stategraph for the control of the model and its interconnection.
+
+The available simulation models are:
+    - source
+        The source model constitutes the input to the simulated Cyber-Physical Process Plant.
+        There is no additional functionality.
+    - sink
+        The source model constitutes the output of the simulated Cyber-Physical Process Plant.
+        There is no additional functionality.
+    - mixer_partial
+        The mixer module can mix the liquids from three tanks into one reservoir tank for further distribution.
+    - filter_partial
+        The filter module can filter liquids by pumping them from an input tank through a filter into an output tank.
+        Based on the passed volume flow, the filter is getting more and more clogged.
+        The filter can filter out only one component from the fluid.
+    - still_partial
+        The still module separates a mixture of fluids with a destillation process.
+        The module can separate only one compound from the mixture.
+    - bottling_partial
+        The bottling module, saves fluid in an input tank, pumps it to a reservoir tank, and bottles it into virtual bottles.
+        The bottling is time-dependent. Changes in the volume flow, can interfere with the bottled amount.
+    - process_plant
+        The process plant module contains the custom process plant, to be simulated.
+
+.. note::
+   The \*_partial in the model names refers to only the partial functionality of the real-life model.
+   The simulation models themselves are fully functional within their range.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: BeRfiPl simulation models:
+
+   source
+   sink
+   mixer_partial
+   filter_partial
+   still_partial
+   bottling_partial
+   process_plant

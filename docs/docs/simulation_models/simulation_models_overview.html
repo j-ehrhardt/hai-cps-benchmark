@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simulation models &mdash; Benchmark for Diagnosis, Reconfiguration &amp; Planning 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="source" href="source.html" />
+    <link rel="prev" title="Creating custom simulations with OMEdit" href="../general/run_manually.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Benchmark for Diagnosis, Reconfiguration & Planning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../general/berfipl_intro.html">BeRfiPl - Benchmark for Diagnosis, Reconfiguration &amp; Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/first_steps.html">First steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/quickrun.html">Running simulations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulation models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source.html">source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sink.html">sink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixer_partial.html">mixer_partial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_partial.html">filter_partial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="still_partial.html">still_partial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottling_partial.html">bottling_partial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process_plant.html">process_plant</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_superModels_overview.html">Simulation superModels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_scripts/python_scripts_overview.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Benchmark for Diagnosis, Reconfiguration & Planning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Simulation models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/simulation_models/simulation_models_overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="simulation-models">
+<h1>Simulation models<a class="headerlink" href="#simulation-models" title="Permalink to this headline">¶</a></h1>
+<p>The BeRfiPl simulation consists of four simulation models, which can be interchangeably connected.
+The models are derived from a real modular process plant.
+Additionally, a <code class="docutils literal notranslate"><span class="pre">source</span></code> and a <code class="docutils literal notranslate"><span class="pre">sink</span></code> model are introduced, to simulate process plant in- and outputs.</p>
+<p>The simulation models own one specific functionality, each, and enable diverging, converging and recurrent product flow.
+Each model contains a stategraph for the control of the model and its interconnection.</p>
+<dl class="simple">
+<dt>The available simulation models are:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>source</dt><dd><p>The source model constitutes the input to the simulated Cyber-Physical Process Plant.
+There is no additional functionality.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>sink</dt><dd><p>The source model constitutes the output of the simulated Cyber-Physical Process Plant.
+There is no additional functionality.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>mixer_partial</dt><dd><p>The mixer module can mix the liquids from three tanks into one reservoir tank for further distribution.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>filter_partial</dt><dd><p>The filter module can filter liquids by pumping them from an input tank through a filter into an output tank.
+Based on the passed volume flow, the filter is getting more and more clogged.
+The filter can filter out only one component from the fluid.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>still_partial</dt><dd><p>The still module separates a mixture of fluids with a destillation process.
+The module can separate only one compound from the mixture.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bottling_partial</dt><dd><p>The bottling module, saves fluid in an input tank, pumps it to a reservoir tank, and bottles it into virtual bottles.
+The bottling is time-dependent. Changes in the volume flow, can interfere with the bottled amount.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>process_plant</dt><dd><p>The process plant module contains the custom process plant, to be simulated.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The *_partial in the model names refers to only the partial functionality of the real-life model.
+The simulation models themselves are fully functional within their range.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">BeRfiPl simulation models:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source.html">source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sink.html">sink</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mixer_partial.html">mixer_partial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter_partial.html">filter_partial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="still_partial.html">still_partial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottling_partial.html">bottling_partial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process_plant.html">process_plant</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="source.html" class="btn btn-neutral float-right" title="source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../general/run_manually.html" class="btn btn-neutral float-left" title="Creating custom simulations with OMEdit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, IMB
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

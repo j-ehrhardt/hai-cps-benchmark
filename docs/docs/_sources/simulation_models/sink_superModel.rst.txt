@@ -1,0 +1,14 @@
+sink_superModel
+###############
+
+This class is empty.
+Custom variables and behavior can be added.
+
+.. code-block::
+   :linenos:
+
+    model sink_superModel
+
+    equation
+
+    end sink_superModel;

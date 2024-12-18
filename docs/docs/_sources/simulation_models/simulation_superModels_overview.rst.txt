@@ -1,0 +1,54 @@
+Simulation superModels
+######################
+The simulation superModels are motherclasses of the simulation models.
+Their task is the hyperparametrization of the simulation models.
+
+Within the superModels time-dependent faults can be induced.
+A superModel is always structured similarly:
+
+.. code-block::
+   :linenos:
+
+    model *_superModel
+      Real valve_V001_simulator(start = 0);
+      Real valve_V002_simulator(start = 0);
+      Real valve_clogging_simulator(start = 1);
+      Real valve_leaking_simulator(start = 0);
+      Real pump_P001_simulator(start = 100);
+
+      Real x_volume;            //in m^3
+      Real y_time;              //in s
+      Real minVolPercentage;
+      Real maxVolPercentage;
+
+    equation
+      // CPPS parameters
+      valve_V001_simulator = 0;
+      valve_V002_simulator = 0;
+      pump_P001_simulator = 150;
+
+      // bottling process control
+      x_volume = 0.01;
+      y_time = 10;
+      minVolPercentage = 0.2;
+      maxVolPercentage = 0.8;
+
+      // error induction:
+      valve_leaking_simulator = if time >= 2000 then 0.0001 else 0;     // leaking
+      valve_clogging_simulator = if time >= 2000 then 0.01 else 1;      // clogging
+    end *_superModel;
+
+A declaration of all hyperparameters are followed by an ``equation`` block.
+Within the equation block the initialization of the hyperparameters and time-dependent behavior can be introduced.
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: BeRfiPl simulation superModels:
+
+   source_superModel
+   sink_superModel
+   mixer_superModel
+   filter_superModel
+   still_superModel
+   bottling_superModel

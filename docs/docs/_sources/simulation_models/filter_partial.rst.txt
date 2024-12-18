@@ -1,0 +1,65 @@
+filter_partial
+##############
+
+The filter module can filter liquids by pumping them from an input tank through a filter into an output tank.
+Based on the passed volume flow, the filter is getting more and more clogged.
+The filter can filter out only one component from the fluid.
+
+Overview
+========
+There is one input and one output to the filter module.
+The input connects to a discrete valve, which is controlled by a state-graph.
+Depending on the state of the system the valve opens sequentially and fills the input tank.
+
+The input tank is connected via a pipe - discrete valve combination to a pump.
+The filter is represented by a continuous valve.
+Based on the passed volume flow, the valves closes successively.
+A filter connects the buffer tank with the output or reservoir tank.
+
+From the reservoir tank, the filtered fluids can be purged via a descending pipe - discrete valve combination into the models output.
+
+.. image:: images/filter_module.png
+  :width: 500
+  :alt: filter module
+**filter module in diagram view**
+
+
+Functionality
+=============
+The module filters a liquid compound and stores it in an output or reservoir tank.
+
+A state graph sequentially waits for the input tank to be filled, before closing the input valves.
+The purge valves of the input tank and the pump are subsequently activated and the fluids are pumped through the filter into the reservoir tank.
+Based on the volume flow the filter successively closes.
+
+By varying the clogging coefficent in the model, the filter clogging can be accelerated or decreased.
+The clogging coefficient can be changed by double clicking on it.
+The opening times and levels can be changed in the state graph, by changing the float values in the conditions.
+
+.. code-block::
+   :linenos:
+
+    // conditions
+    tank_B101_isEmpty.condition = if tank_B101.level <= 0.4 * tank_B101.height then true else false;
+    tank_B102_isEmpty.condition = if tank_B102.level <= 0.2 * tank_B102.height then true else false;
+    tank_B101_isFull.condition = if tank_B101.level >= 0.8 * tank_B101.height then true else false;
+    tank_B102_isFull.condition = if tank_B102.level >= 0.8 * tank_B102.height then true else false;
+
+    // states
+    valveDiscrete_port_in.open = if time < 2 then true elseif filling.active then true else false;
+    valveDiscrete.open = if time < 2 then true elseif emptying.active then true else false;
+    valve_V103.opening = if time < 2 then 1 elseif filtering.active then 1 else 0;
+
+
+Faults
+======
+Between pump and filter, a leakage, which purges parts of the volume flow into an outer system sink, and a clogging,
+which induces constriction of the pipe connection, can be induced.
+
+The faults can be induced in the superModel.
+
+
+Standard parametrization
+========================
+Within the model pump-speed, tank volume, filter clogging curve, and pipe diameters can be manually adapted, by double-clicking the components.
+Switch times in the state-graph can be changed by double clicking on the transitions.

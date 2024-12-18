@@ -1,0 +1,62 @@
+mixer_partial
+#############
+
+The mixer module can mix the liquids from three tanks into one reservoir tank for further distribution.
+
+Overview
+========
+There are three inputs in the mixer simulation model.
+The inputs connect to discrete valves, which are controlled by a state-graph.
+Depending on the state of the system the valves open sequentially and fill the input tanks.
+
+The input tanks are connected via three pipe - discrete valve combination into a buffer tank.
+A pump connects the buffer tank with the mixing or reservoir tank.
+
+From the reservoir tank, the mixed fluids can be purged via a descending pipe - discrete valve combination into the models output.
+
+.. image:: images/mixer_module.png
+  :width: 500
+  :alt: mixer module
+**Mixer module in diagram view**
+
+
+Functionality
+=============
+The module mixes three input liquids and stores them into one.
+
+A state graph sequentially waits for all input tanks to be filled, before closing the input valves.
+The purge valves of the input tanks and the pump are subsequently activated and the fluids are pumped into the reservoir tank.
+
+By varying the opening-time of the input-tank-purge-valves, varying recipes of the resulting compound can be created.
+The opening times and levels can be changed in the state graph, by changing the ``maxVolPercentage`` variable.
+
+.. code-block::
+   :linenos:
+
+    // conditions
+    B201_isFull.condition = tank_B201.level >= tank_B201.height * maxVolPercentage;
+    B202_isFull.condition = tank_B202.level >= tank_B202.height * maxVolPercentage;
+    B203_isFull.condition = tank_B203.level >= tank_B203.height * maxVolPercentage;
+    B204_isFull.condition = tank_reservoir.level <= tank_reservoir.height * minVolPercentage;
+    Reservoir_isFull.condition = tank_B203.level <= tank_B203.height * minVolPercentage;
+    B204_isEmpty.condition = tank_B204.level < tank_B204.height * minVolPercentageMixer;
+
+    // actions
+    valve_in1.open = if time <= 1 then true elseif B201_filling.active then true else false;
+    valve_in2.open = if time <= 1 then true elseif B202_filling.active then true else false;
+    valve_in3.open = if time <= 1 then true elseif B203_filling.active then true else false;
+    valve_V201.open = if time <= 1 then true elseif Reservoir_filling.active then true else false;
+
+
+Faults
+======
+Between buffer tank and pump, a leakage, which purges parts of the volume flow into an outer system sink, and a clogging,
+which induces constriction of the pipe connection, can be induced.
+
+The faults can be induced in the superModel.
+
+
+Standard parametrization
+========================
+Within the model pump-speed, tank volume, and pipe diameters can be manually adapted, by double-clicking the components.
+Switch times in the state-graph can be changed by double clicking on the transitions.

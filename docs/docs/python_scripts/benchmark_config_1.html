@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>benchmark_config &mdash; Benchmark for Diagnosis, Reconfiguration &amp; Planning 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="call" href="call_1.html" />
+    <link rel="prev" title="Python API" href="python_scripts_overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Benchmark for Diagnosis, Reconfiguration & Planning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../general/berfipl_intro.html">BeRfiPl - Benchmark for Diagnosis, Reconfiguration &amp; Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/first_steps.html">First steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/quickrun.html">Running simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_models/simulation_models_overview.html">Simulation models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_models/simulation_superModels_overview.html">Simulation superModels</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="python_scripts_overview.html">Python API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">benchmark_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="call_1.html">call</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_benchmark_1.html">create_benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualizeDs_1.html">visualizeDs</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Benchmark for Diagnosis, Reconfiguration & Planning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="python_scripts_overview.html">Python API</a> &raquo;</li>
+        
+      <li>benchmark_config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/python_scripts/benchmark_config_1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="benchmark-config">
+<h1>benchmark_config<a class="headerlink" href="#benchmark-config" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">benchmark_config.json</span></code> file contains the simulation setup, when using the Python API of BeRfiPl.
+Besides the description of the employed modules and their interconnection, a description of the employed products and their transformation is included.
+The <code class="docutils literal notranslate"><span class="pre">benchmark_config.json</span></code> includes the setup the create BeRfiPl, but of course individual setups can also be defined.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
+<span class="linenos"> 2</span>   <span class="s2">&quot;ds1&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos"> 3</span>      <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos"> 4</span>         <span class="s2">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mixer_partial0&quot;</span><span class="p">,</span> <span class="s2">&quot;source0&quot;</span><span class="p">,</span> <span class="s2">&quot;source1&quot;</span><span class="p">,</span> <span class="s2">&quot;source2&quot;</span><span class="p">,</span> <span class="s2">&quot;sink0&quot;</span><span class="p">],</span>
+<span class="linenos"> 5</span>         <span class="s2">&quot;edges&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;source0&quot;</span><span class="p">,</span> <span class="s2">&quot;mixer_partial0&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;source1&quot;</span><span class="p">,</span> <span class="s2">&quot;mixer_partial0&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;source2&quot;</span><span class="p">,</span> <span class="s2">&quot;mixer_partial0&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;mixer_partial0&quot;</span><span class="p">,</span> <span class="s2">&quot;sink0&quot;</span><span class="p">]]},</span>
+<span class="linenos"> 6</span>      <span class="s2">&quot;faults&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;lc&quot;</span><span class="p">],</span>
+<span class="linenos"> 7</span>      <span class="s2">&quot;faulty_module&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mixer_partial0&quot;</span><span class="p">],</span>
+<span class="linenos"> 8</span>      <span class="s2">&quot;ProdIn&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span>
+<span class="linenos"> 9</span>      <span class="s2">&quot;ProdOut&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;redyellowblue&quot;</span><span class="p">],</span>
+<span class="linenos">10</span>      <span class="s2">&quot;startTime&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos">11</span>      <span class="s2">&quot;stopTime&quot;</span><span class="p">:</span> <span class="mi">4000</span><span class="p">,</span>
+<span class="linenos">12</span>      <span class="s2">&quot;numberOfIntervals&quot;</span><span class="p">:</span> <span class="mi">40000</span><span class="p">,</span>
+<span class="linenos">13</span>      <span class="s2">&quot;errorInduction&quot;</span><span class="p">:</span> <span class="mi">2000</span>
+<span class="linenos">14</span>      <span class="p">}</span>
+<span class="linenos">15</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl>
+<dt>The config file contains a dictionary, which includes:</dt><dd><blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>The dataset name</dt><dd><p>In this case <code class="docutils literal notranslate"><span class="pre">ds1</span></code>. The name can be customized.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>The configuration</dt><dd><p>The configuration of the Cyber-Physical Process Plants is noted in the form of a directed graph under <code class="docutils literal notranslate"><span class="pre">model</span></code>.
+Under <code class="docutils literal notranslate"><span class="pre">nodes</span></code> all employed modules in the custom setup have to be listed as strings.
+Under <code class="docutils literal notranslate"><span class="pre">edges</span></code> the directed connections between the employed modules have to be listed as tuples in list form.</p>
+<p><strong>Important: Every input and output of a module must be connected. If there is no preceding or succeeding module, place a source or sink, respectively.</strong></p>
+<p><strong>Important: The modules have to be indexed! Modules without an index will cause errors in the compilation of the simulation.</strong></p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><dl>
+<dt>The Faults</dt><dd><p>Under <code class="docutils literal notranslate"><span class="pre">faults</span></code> one of three employable faults can be added to the simulation.
+Each element in the list will create a new dataset, which will contain the employed fault.
+If <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> is added to the list, a fault-free dataset will be generated.
+The fault cases are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> : no faults.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;l&quot;</span></code> : a leakage will be induced. The leakage will purge some of the volume flow into a sink outside the system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;c&quot;</span></code> : a clogging will be induced. The clogging will reduce the diameter of a pipe within a module and lead to an increase in pressure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;lc&quot;</span></code> : a leakage and a clogging will be induced. The named effects will be included superposed within the dataset.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>The faulty module</dt><dd><p>Under <code class="docutils literal notranslate"><span class="pre">faulty_module</span></code> the faulty module can be selected. The name must match a module name (with index!) from the <code class="docutils literal notranslate"><span class="pre">model:nodes</span></code> list.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Input products &amp; output products</dt><dd><p>Under <code class="docutils literal notranslate"><span class="pre">ProdIn</span></code> and <code class="docutils literal notranslate"><span class="pre">ProdOut</span></code> a list of the input products and output products of the Cyber-Physical Process Plant is given.
+The names of the products can be customized. We suggest colors <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code>, and <code class="docutils literal notranslate"><span class="pre">blue</span></code>.
+Additionally, adjectives, like <code class="docutils literal notranslate"><span class="pre">*_bottled</span></code>, <code class="docutils literal notranslate"><span class="pre">*_distilled</span></code>, or proportions like <code class="docutils literal notranslate"><span class="pre">*_0.8</span></code> can be added.
+Optionally, product descriptions in any variety can be added. This feature mainly focuses on the planning aspect of the dataset.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Simulation start time</dt><dd><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">startTime</span></code> is ndicating the time from which the simulation is going to generate data.</dt><dd><p>(Standard value: 0)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Simulation stop time</dt><dd><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">stopTime</span></code> is indicating the time the simulation will be stopped.</dt><dd><p>(Standard value: 4000)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Number of intervals</dt><dd><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">numberOfIntervalls</span></code> is indicating the number of intervals that will be simulated, or indirectly the sampling rate.</dt><dd><p>(Standard value: 40000)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Fault induction</dt><dd><p>Under <code class="docutils literal notranslate"><span class="pre">errorInduction</span></code> the time your error will be induced can be chosen.</p>
+<p>The time <strong>must</strong> always be smaller than your simulation stop time.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>Once you adapted the config file, save it under <code class="docutils literal notranslate"><span class="pre">benchmark_config.json</span></code> in JSON format.</p>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="call_1.html" class="btn btn-neutral float-right" title="call" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python_scripts_overview.html" class="btn btn-neutral float-left" title="Python API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, IMB
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

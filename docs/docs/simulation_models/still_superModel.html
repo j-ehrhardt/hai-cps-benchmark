@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>still_superModel &mdash; Benchmark for Diagnosis, Reconfiguration &amp; Planning 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bottling_superModel" href="bottling_superModel.html" />
+    <link rel="prev" title="filter_superModel" href="filter_superModel.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Benchmark for Diagnosis, Reconfiguration & Planning
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Topics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../general/berfipl_intro.html">BeRfiPl - Benchmark for Diagnosis, Reconfiguration &amp; Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/first_steps.html">First steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/quickrun.html">Running simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_models_overview.html">Simulation models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simulation_superModels_overview.html">Simulation superModels</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source_superModel.html">source_superModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sink_superModel.html">sink_superModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixer_superModel.html">mixer_superModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter_superModel.html">filter_superModel</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">still_superModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottling_superModel.html">bottling_superModel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python_scripts/python_scripts_overview.html">Python API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Benchmark for Diagnosis, Reconfiguration & Planning</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="simulation_superModels_overview.html">Simulation superModels</a> &raquo;</li>
+        
+      <li>still_superModel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/simulation_models/still_superModel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="still-supermodel">
+<h1>still_superModel<a class="headerlink" href="#still-supermodel" title="Permalink to this headline">¶</a></h1>
+<p>This class contains all variables and time-dependent behavior of the <code class="docutils literal notranslate"><span class="pre">still</span></code> module.
+Not all variables are included in the <code class="docutils literal notranslate"><span class="pre">still_partial</span></code> class.</p>
+<p>Time dependent fault induction can be changed under <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">error</span> <span class="pre">induction</span></code>.</p>
+<p>Threshold for the state-graph can be changed under <code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">CPPS</span> <span class="pre">parameters</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span> <span class="n">model</span> <span class="n">still_superModel</span>
+<span class="linenos"> 2</span>     <span class="n">Real</span> <span class="n">pump_N</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">150</span><span class="p">);</span>
+<span class="linenos"> 3</span>     <span class="n">Real</span> <span class="n">max_levelTank</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 4</span>     <span class="n">Real</span> <span class="n">min_levelTank</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 5</span>     <span class="n">Real</span> <span class="n">evap_level</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 6</span>     <span class="n">Real</span> <span class="n">valve_leaking_simulator</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 7</span>     <span class="n">Real</span> <span class="n">valve_clogging_simulator</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 8</span>     <span class="n">Real</span> <span class="n">outlet</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 9</span> <span class="n">equation</span>
+<span class="linenos">10</span>     <span class="o">//</span> <span class="n">CPPS</span> <span class="n">component</span> <span class="n">controll</span>
+<span class="linenos">11</span>     <span class="n">outlet</span> <span class="o">=</span> <span class="k">if</span> <span class="n">time</span> <span class="o">&lt;=</span> <span class="mi">3000</span> <span class="n">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">;</span>
+<span class="linenos">12</span>     <span class="o">//</span> <span class="n">CPPS</span> <span class="n">parameters</span>
+<span class="linenos">13</span>     <span class="n">pump_N</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="linenos">14</span>     <span class="n">max_levelTank</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">;</span>
+<span class="linenos">15</span>     <span class="n">min_levelTank</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+<span class="linenos">16</span>     <span class="n">evap_level</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">;</span>
+<span class="linenos">17</span>     <span class="o">//</span> <span class="n">error</span> <span class="n">induction</span>
+<span class="linenos">18</span>     <span class="n">valve_leaking_simulator</span> <span class="o">=</span> <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;=</span> <span class="mi">4000</span> <span class="n">then</span> <span class="mf">0.0001</span> <span class="k">else</span> <span class="mi">0</span><span class="p">;</span>  <span class="o">//</span> <span class="n">leaking</span>
+<span class="linenos">19</span>     <span class="n">valve_clogging_simulator</span> <span class="o">=</span> <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;=</span> <span class="mi">4000</span> <span class="n">then</span> <span class="mf">0.8</span> <span class="k">else</span> <span class="mi">1</span><span class="p">;</span>    <span class="o">//</span> <span class="n">clogging</span>
+<span class="linenos">20</span> <span class="n">end</span> <span class="n">still_superModel</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bottling_superModel.html" class="btn btn-neutral float-right" title="bottling_superModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="filter_superModel.html" class="btn btn-neutral float-left" title="filter_superModel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, IMB
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
