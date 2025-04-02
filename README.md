@@ -18,7 +18,7 @@ The **Hamburg AI Benchmark for Cyber-Physical Systems (HAI-CPS)** is a comprehen
 > This benchmark extends the **Benchmark for Diagnosis, Reconfiguration, and Planning (BeRfiPl)**. You can access the previous version [here](https://github.com/j-ehrhardt/benchmark-for-diagnosis-reconf-planning/tree/benchmark_v1).
 
 > [!WARNING]
-> The HAI-CPS is still under development. A release is planned for February 2025. 
+> The HAI-CPS is still under development. A release is planned for May 2025. 
 
 ## Table of Contents
 1. [Introduction](#hamburg-ai-benchmark-for-cyber-physical-systems-hai-cps)
