@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anomalies and Diagnosis &mdash; HAI-CPS 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=8593dde2" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Benchmark" href="benchmark.html" />
+    <link rel="prev" title="CPS Modules" href="cps-modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HAI-CPS
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#id1">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cps-modules.html">CPS Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#mixer">Mixer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#filter">Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#distill">Distill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#bottling">Bottling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#source">Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cps-modules.html#sink">Sink</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Anomalies and Diagnosis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#leaking-anomaly-anom-leaking">Leaking Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_leaking</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clogging-anomaly-anom-clogging">Clogging Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_clogging</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-pollution-anomaly-anom-pollution">Filter Pollution Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_pollution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pump-lower-performance-75-anom-pump75">Pump Lower Performance (75%) — <code class="docutils literal notranslate"><span class="pre">anom_pump75</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pump-lower-performance-50-anom-pump50">Pump Lower Performance (50%) — <code class="docutils literal notranslate"><span class="pre">anom_pump50</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inlet-valve-anomaly-anom-valve-inx">Inlet Valve Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_valve_inX</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="benchmark.html">Benchmark</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="benchmark.html#cps-complexity">CPS Complexity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="benchmark.html#anomaly-complexity">Anomaly Complexity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="benchmark.html#data-formats">Data Formats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation/index.html">Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../simulation/using-the-simulation.html">Using the Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/using-the-simulation.html#replicate-the-benchmark-datasets">Replicate the Benchmark Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/using-the-simulation.html#create-your-own-simulation">Create Your Own Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../simulation/api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/api.html#configuration-file">Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/api.html#python-api">Python API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/api.html#functions-overview">Functions Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#create-sim-setup-mos-path-dict-setup"><code class="docutils literal notranslate"><span class="pre">create_sim_setup(mos_path,</span> <span class="pre">dict_setup)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#create-plant-sim-model-model-dir-sim-setup"><code class="docutils literal notranslate"><span class="pre">create_plant_sim_model(model_dir,</span> <span class="pre">sim_setup)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#write-anomaly-in-module-module-module-dict-reset-false"><code class="docutils literal notranslate"><span class="pre">write_anomaly_in_module(module,</span> <span class="pre">module_dict,</span> <span class="pre">reset=False)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#induce-anomalies-in-plant-sim-setup-reset-false"><code class="docutils literal notranslate"><span class="pre">induce_anomalies_in_plant(sim_setup,</span> <span class="pre">reset=False)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#data-cleaning-data-dir-sim-setup-modus"><code class="docutils literal notranslate"><span class="pre">data_cleaning(data_dir,</span> <span class="pre">sim_setup,</span> <span class="pre">modus)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#run-sim-sim-setup-mos-path-call-mos-model-dir-models-data-dir-data-modus-hybrid-states-true"><code class="docutils literal notranslate"><span class="pre">run_sim(sim_setup,</span> <span class="pre">mos_path='./call.mos',</span> <span class="pre">model_dir='../models',</span> <span class="pre">data_dir='../data',</span> <span class="pre">modus='hybrid',</span> <span class="pre">states=True)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../simulation/api.html#process-faults-all-combinations-data-file-path"><code class="docutils literal notranslate"><span class="pre">process_faults_all_combinations(data,</span> <span class="pre">file_path)</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/api.html#main-execution">Main Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simulation/api.html#directory-structure-assumptions">Directory Structure Assumptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#download">Download</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAI-CPS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Overview</a></li>
+      <li class="breadcrumb-item active">Anomalies and Diagnosis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/overview/anomalies.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="anomalies-and-diagnosis">
+<h1>Anomalies and Diagnosis<a class="headerlink" href="#anomalies-and-diagnosis" title="Link to this heading"></a></h1>
+<p>The HAI-CPS benchmark defines eight different types of anomalies that can be induced into process plant configurations.<br />
+You can introduce a <strong>single anomaly</strong> or <strong>multiple anomalies</strong> simultaneously, even across different modules.</p>
+<p>In the provided example setup, each <strong>single anomaly</strong> has been injected once after 2.500 seconds to offer a clear baseline.
+However, users are encouraged to customize the anomaly configurations by modifying the <a class="reference external" href="https://github.com/j-ehrhardt/hai-cps-benchmark/blob/main/code/benchmark_setup.json"><code class="docutils literal notranslate"><span class="pre">benchmark_setup.json</span></code></a> file.</p>
+<p>Within this benchmark, anomalies are defined to correspond directly to specific fault or failure modes in the system. As such, the presence of an anomaly inherently constitutes the diagnosis. This contrasts with real-world diagnostic tasks, where root causes must often be inferred from observed system behavior.
+The dataset includes detailed descriptions of all diagnosis, each corresponding to specific anomaly scenarios.</p>
+<p>Below is a list of all available anomalies:</p>
+<hr class="docutils" />
+<section id="leaking-anomaly-anom-leaking">
+<h2>Leaking Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_leaking</span></code><a class="headerlink" href="#leaking-anomaly-anom-leaking" title="Link to this heading"></a></h2>
+<p>When the leaking anomaly <code class="docutils literal notranslate"><span class="pre">anom_leaking</span></code> is induced, a leaking valve opens between the inlet and outlet tanks.<br />
+The valve’s position depends on the module but is consistent across all modules.</p>
+<p>This leak causes fluid to exit the process plant through a separate sink, which result in the following typical observable effects:</p>
+<ul class="simple">
+<li><p><strong>Reduced pressure</strong> in downstream pipes or tanks</p></li>
+<li><p><strong>Lower volume flow rates</strong> in the affected module or its neighbors</p></li>
+<li><p><strong>Decreasing tank levels</strong> despite normal or unchanged control signals</p></li>
+<li><p><strong>Imbalance between inflow and outflow rates</strong>, particularly where the leak is located</p></li>
+</ul>
+<img src="../_static/imgs/anom_leaking.png" alt="leaking anomaly" width="40%" />
+<p><strong>The leaking valve shown above opens when this anomaly is active.</strong></p>
+<div style="border-left: 4px solid #ffa500; padding: 1em; background-color: #fff8e1;">
+<p><strong>⚠️ Warning:</strong><br />
+When running simulations, make sure to remove the channels describing the leaking valve state.<br />
+Otherwise, this may confound your anomaly detection or diagnosis results.</p>
+</div></br>
+</section>
+<hr class="docutils" />
+<section id="clogging-anomaly-anom-clogging">
+<h2>Clogging Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_clogging</span></code><a class="headerlink" href="#clogging-anomaly-anom-clogging" title="Link to this heading"></a></h2>
+<p>When the clogging anomaly <code class="docutils literal notranslate"><span class="pre">anom_clogging</span></code> is induced, a valve between the inlet and outlet tanks is partially closed to reduce volume flow.<br />
+This causes the following typical observable effects:</p>
+<ul class="simple">
+<li><p><strong>Increased pressure</strong> of the clogging valve</p></li>
+<li><p><strong>Decreasing flow rate</strong> may not be directly observable</p></li>
+</ul>
+<img src="../_static/imgs/anom_clogging.png" alt="clogging anomaly" width="40%" />
+<p><strong>The clogging valve shown above closes when this anomaly is active.</strong></p>
+<div style="border-left: 4px solid #ffa500; padding: 1em; background-color: #fff8e1;">
+<p><strong>⚠️ Warning:</strong><br />
+Ensure you remove any channels related to the clogging valve state during simulation.<br />
+Otherwise, your anomaly detection or diagnosis may be affected.</p>
+</div></br>
+</section>
+<hr class="docutils" />
+<section id="filter-pollution-anomaly-anom-pollution">
+<h2>Filter Pollution Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_pollution</span></code><a class="headerlink" href="#filter-pollution-anomaly-anom-pollution" title="Link to this heading"></a></h2>
+<p>This anomaly is specific to the <strong>Filter</strong> module.<br />
+It sets the pollution coefficient of the filter valve to 50% from the beginning of the simulation.<br />
+This results in faster clogging and a higher pressure difference across the filter.</p>
+<img src="../_static/imgs/anom_filter.png" alt="filter anomaly" width="40%" />
+<p><strong>With <code class="docutils literal notranslate"><span class="pre">anom_pollution</span></code> active, the filter’s pollution coefficient is preset to 50%.</strong></p>
+<div style="border-left: 4px solid #ffa500; padding: 1em; background-color: #fff8e1;">
+<p><strong>⚠️ Warning:</strong><br />
+Remove any channels describing the filter’s pollution coefficient or valve state.<br />
+These can interfere with your detection or diagnosis models.</p>
+</div></br>
+</section>
+<hr class="docutils" />
+<section id="pump-lower-performance-75-anom-pump75">
+<h2>Pump Lower Performance (75%) — <code class="docutils literal notranslate"><span class="pre">anom_pump75</span></code><a class="headerlink" href="#pump-lower-performance-75-anom-pump75" title="Link to this heading"></a></h2>
+<p>This anomaly reduces the pump’s RPM to 75% of its normal operating value, leading to lower volume flow and slower tank filling times as well as lower pressure within the pipes.</p>
+<img src="../_static/imgs/anom_pump.png" alt="pump anomaly" width="40%" />
+<p><strong>The pump operates at 75% RPM when this anomaly is induced.</strong></p>
+<div style="border-left: 4px solid #ffa500; padding: 1em; background-color: #fff8e1;">
+<p><strong>⚠️ Warning:</strong><br />
+Remove channels describing the <code class="docutils literal notranslate"><span class="pre">pump_n_in</span></code> parameter to prevent interference with anomaly detection.</p>
+</div></br>
+</section>
+<hr class="docutils" />
+<section id="pump-lower-performance-50-anom-pump50">
+<h2>Pump Lower Performance (50%) — <code class="docutils literal notranslate"><span class="pre">anom_pump50</span></code><a class="headerlink" href="#pump-lower-performance-50-anom-pump50" title="Link to this heading"></a></h2>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">anom_pump75</span></code>, this anomaly reduces the pump’s RPM to 50% of normal performance, resulting in even slower flow, lower pressure and longer fill times.</p>
+<img src="../_static/imgs/anom_pump.png" alt="pump anomaly" width="40%" />
+<p><strong>The pump operates at 50% RPM when this anomaly is active.</strong></p>
+<div style="border-left: 4px solid #ffa500; padding: 1em; background-color: #fff8e1;">
+<p><strong>⚠️ Warning:</strong><br />
+Make sure to remove <code class="docutils literal notranslate"><span class="pre">pump_n_in</span></code> parameter channels to avoid misleading detection results.</p>
+</div></br>
+</section>
+<hr class="docutils" />
+<section id="inlet-valve-anomaly-anom-valve-inx">
+<h2>Inlet Valve Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_valve_inX</span></code><a class="headerlink" href="#inlet-valve-anomaly-anom-valve-inx" title="Link to this heading"></a></h2>
+<p>This anomaly prevents inlet valve <code class="docutils literal notranslate"><span class="pre">X</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">anom_valve_in0</span></code>) from fully closing.<br />
+The valve remains 20% open at all times, allowing unintended fluid inflow even when not in the filling state.</p>
+<img src="../_static/imgs/anom_valve_in.png" alt="inlet valve anomaly" width="20%" />
+<p><strong>Inlet valve <code class="docutils literal notranslate"><span class="pre">X</span></code> remains partially open (20%) when this anomaly is active.</strong></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cps-modules.html" class="btn btn-neutral float-left" title="CPS Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="benchmark.html" class="btn btn-neutral float-right" title="Benchmark" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jonas Ehrhardt, Lukas Moddemann, Oliver Niggemann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

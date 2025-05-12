@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API &mdash; HAI-CPS 2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=8593dde2" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=60dbed4a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Datasets" href="../datasets.html" />
+    <link rel="prev" title="Using the Simulation" href="using-the-simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HAI-CPS
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#id1">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview/cps-modules.html">CPS Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#mixer">Mixer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#filter">Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#distill">Distill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#bottling">Bottling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#source">Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/cps-modules.html#sink">Sink</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/anomalies.html">Anomalies and Diagnosis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#leaking-anomaly-anom-leaking">Leaking Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_leaking</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#clogging-anomaly-anom-clogging">Clogging Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_clogging</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#filter-pollution-anomaly-anom-pollution">Filter Pollution Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_pollution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#pump-lower-performance-75-anom-pump75">Pump Lower Performance (75%) — <code class="docutils literal notranslate"><span class="pre">anom_pump75</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#pump-lower-performance-50-anom-pump50">Pump Lower Performance (50%) — <code class="docutils literal notranslate"><span class="pre">anom_pump50</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/anomalies.html#inlet-valve-anomaly-anom-valve-inx">Inlet Valve Anomaly — <code class="docutils literal notranslate"><span class="pre">anom_valve_inX</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview/benchmark.html">Benchmark</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview/benchmark.html#cps-complexity">CPS Complexity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/benchmark.html#anomaly-complexity">Anomaly Complexity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../overview/benchmark.html#data-formats">Data Formats</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Simulation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using-the-simulation.html">Using the Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="using-the-simulation.html#replicate-the-benchmark-datasets">Replicate the Benchmark Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-the-simulation.html#create-your-own-simulation">Create Your Own Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-file">Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-api">Python API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions-overview">Functions Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-sim-setup-mos-path-dict-setup"><code class="docutils literal notranslate"><span class="pre">create_sim_setup(mos_path,</span> <span class="pre">dict_setup)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-plant-sim-model-model-dir-sim-setup"><code class="docutils literal notranslate"><span class="pre">create_plant_sim_model(model_dir,</span> <span class="pre">sim_setup)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#write-anomaly-in-module-module-module-dict-reset-false"><code class="docutils literal notranslate"><span class="pre">write_anomaly_in_module(module,</span> <span class="pre">module_dict,</span> <span class="pre">reset=False)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#induce-anomalies-in-plant-sim-setup-reset-false"><code class="docutils literal notranslate"><span class="pre">induce_anomalies_in_plant(sim_setup,</span> <span class="pre">reset=False)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-cleaning-data-dir-sim-setup-modus"><code class="docutils literal notranslate"><span class="pre">data_cleaning(data_dir,</span> <span class="pre">sim_setup,</span> <span class="pre">modus)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-sim-sim-setup-mos-path-call-mos-model-dir-models-data-dir-data-modus-hybrid-states-true"><code class="docutils literal notranslate"><span class="pre">run_sim(sim_setup,</span> <span class="pre">mos_path='./call.mos',</span> <span class="pre">model_dir='../models',</span> <span class="pre">data_dir='../data',</span> <span class="pre">modus='hybrid',</span> <span class="pre">states=True)</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process-faults-all-combinations-data-file-path"><code class="docutils literal notranslate"><span class="pre">process_faults_all_combinations(data,</span> <span class="pre">file_path)</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#main-execution">Main Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#directory-structure-assumptions">Directory Structure Assumptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#download">Download</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAI-CPS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Simulation</a></li>
+      <li class="breadcrumb-item active">API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/simulation/api.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api">
+<h1>API<a class="headerlink" href="#api" title="Link to this heading"></a></h1>
+<p>We created a very basic Python API that allows you to run simulations which you pre-configured in a <code class="docutils literal notranslate"><span class="pre">conf.json</span></code> file.
+The API communicates with the OpenModelica console, loads the simulation models, builds the process plant setup which you defined, and runs the simulation with or without anomalies.
+The simulation data then is cleaned and saved as a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file.</p>
+<section id="configuration-file">
+<h2>Configuration File<a class="headerlink" href="#configuration-file" title="Link to this heading"></a></h2>
+<p>The configuration file describes the process plant configuration you want to run. (The <code class="docutils literal notranslate"><span class="pre">benchmark_setup.json</span></code> holds all simulation setups for the HAI-CPS benchmark).
+It is formatted as json file and has the following attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ID</span></code>: The <code class="docutils literal notranslate"><span class="pre">ID</span></code> is a unique identifier, when processing multiple configurations in one confiugration file.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds_name</span></code>: The dataset name is an identifier (optimally unique) that allows you to differentiate your dataset from other datasets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model</span></code>: The <code class="docutils literal notranslate"><span class="pre">model</span></code> key defines the setup of the process plant configuration you want to simulate:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">modules</span></code>: The <code class="docutils literal notranslate"><span class="pre">modules</span></code> key holds a dictionary of all employed CPS modules. **Make sure to give them unique names (e.g. mixer0, mixer1, mixer2, etc.) otherwise the simulation will break.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">files</span></code>: The <code class="docutils literal notranslate"><span class="pre">files</span></code> key holds the path to the simulation model file. This allows you to embed your own simulatoin model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">faults</span></code>: The <code class="docutils literal notranslate"><span class="pre">faults</span></code> key holds a dictionariy of all faults, in which the fault name (e.g. <code class="docutils literal notranslate"><span class="pre">anom_clogging</span></code>) is paired with a Boolean value. During the initialization of the simulation these faults are induced in the simulation models by the API to appear after 2500 timesteps.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edges</span></code>: The <code class="docutils literal notranslate"><span class="pre">edges</span></code> key holds a dictionary that describes all connections between the modules that are introduced in the <code class="docutils literal notranslate"><span class="pre">modules</span></code> key. The connections are noted as lists with two entries that connect the input ports to the modules with the output ports of another module.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_setup</span></code>: The <code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> key holds a dictionary that describes the general simulation setup:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">startTime</span></code>: Denotes an integer value of the simulation’s start time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stopTime</span></code>: Denotes an integer value of teh simulations’s stop time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numberOfIntervals</span></code>: Denotes the number of timesteps the simulation is discretized.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Here is an example of a config file for <code class="docutils literal notranslate"><span class="pre">ds1</span></code> of the HAI-CPS benchmark:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ds1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ds_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ds1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;mixer0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../models/Mixer.mo&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;faults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;anom_clogging&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;anom_valve_in0&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;anom_valve_in1&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;anom_valve_in2&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;anom_pump75&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;anom_pump50&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;source0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../models/Source.mo&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;faults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;source1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../models/Source.mo&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;faults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;source2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../models/Source.mo&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;faults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;sink0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../models/Sink.mo&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;faults&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;edges&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;source0.port_out0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mixer0.port_in0&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;source1.port_out0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mixer0.port_in1&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;source2.port_out0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mixer0.port_in2&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;mixer0.port_out0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sink0.port_in0&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;sim_setup&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;startTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;stopTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;numberOfIntervals&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="w">  </span>
+</pre></div>
+</div>
+</section>
+<section id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h2>
+<p>The main functionalities of the Python API include:</p>
+<ul class="simple">
+<li><p>Creating simulation models dynamically from a modular description.</p></li>
+<li><p>Injecting fault scenarios into specific modules.</p></li>
+<li><p>Running OpenModelica simulations via <code class="docutils literal notranslate"><span class="pre">.mos</span></code> scripts.</p></li>
+<li><p>Cleaning and exporting results in different modes.</p></li>
+<li><p>Supporting both “normal” and “anomalous” dataset generation.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="functions-overview">
+<h2>Functions Overview<a class="headerlink" href="#functions-overview" title="Link to this heading"></a></h2>
+<section id="create-sim-setup-mos-path-dict-setup">
+<h3><code class="docutils literal notranslate"><span class="pre">create_sim_setup(mos_path,</span> <span class="pre">dict_setup)</span></code><a class="headerlink" href="#create-sim-setup-mos-path-dict-setup" title="Link to this heading"></a></h3>
+<p>Creates the <code class="docutils literal notranslate"><span class="pre">call.mos</span></code> file used by OpenModelica for simulation. It customizes the simulation parameters such as start time, stop time, and number of intervals.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mos_path</span></code> (str): Path to write the <code class="docutils literal notranslate"><span class="pre">.mos</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict_setup</span></code> (dict): Dictionary containing simulation configuration.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="create-plant-sim-model-model-dir-sim-setup">
+<h3><code class="docutils literal notranslate"><span class="pre">create_plant_sim_model(model_dir,</span> <span class="pre">sim_setup)</span></code><a class="headerlink" href="#create-plant-sim-model-model-dir-sim-setup" title="Link to this heading"></a></h3>
+<p>Generates the <code class="docutils literal notranslate"><span class="pre">Plant.mo</span></code> model file according to the structure defined in the <code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> dictionary.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model_dir</span></code> (str): Directory where the model file should be saved.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> (dict): Contains information about modules and edges.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="write-anomaly-in-module-module-module-dict-reset-false">
+<h3><code class="docutils literal notranslate"><span class="pre">write_anomaly_in_module(module,</span> <span class="pre">module_dict,</span> <span class="pre">reset=False)</span></code><a class="headerlink" href="#write-anomaly-in-module-module-module-dict-reset-false" title="Link to this heading"></a></h3>
+<p>Injects or resets faults (anomalies) in a specific Modelica module file based on provided fault flags.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">module</span></code> (str): Name of the module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">module_dict</span></code> (dict): Dictionary of all module configurations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset</span></code> (bool): If <code class="docutils literal notranslate"><span class="pre">True</span></code>, all faults are reset to false.</p></li>
+</ul>
+<div style="border-left: 4px solid #ffa500; padding: 0.5em 1em; background-color: #fff8e1;">
+<strong>💡 Note:</strong>  
+Used internally during simulation setup and reset.
+</div>
+</br>
+</section>
+<hr class="docutils" />
+<section id="induce-anomalies-in-plant-sim-setup-reset-false">
+<h3><code class="docutils literal notranslate"><span class="pre">induce_anomalies_in_plant(sim_setup,</span> <span class="pre">reset=False)</span></code><a class="headerlink" href="#induce-anomalies-in-plant-sim-setup-reset-false" title="Link to this heading"></a></h3>
+<p>Writes all anomaly flags into their respective model files based on the configuration.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> (dict): Full simulation setup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset</span></code> (bool): If <code class="docutils literal notranslate"><span class="pre">True</span></code>, all anomalies are reset after simulation.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-cleaning-data-dir-sim-setup-modus">
+<h3><code class="docutils literal notranslate"><span class="pre">data_cleaning(data_dir,</span> <span class="pre">sim_setup,</span> <span class="pre">modus)</span></code><a class="headerlink" href="#data-cleaning-data-dir-sim-setup-modus" title="Link to this heading"></a></h3>
+<p>Cleans the simulation output data by selecting only relevant columns based on the selected modus (e.g., <code class="docutils literal notranslate"><span class="pre">continuous</span></code>, <code class="docutils literal notranslate"><span class="pre">discrete</span></code>, <code class="docutils literal notranslate"><span class="pre">hybrid</span></code>).</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data_dir</span></code> (str): Directory containing the simulation output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> (dict): Simulation setup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">modus</span></code> (str): Type of data to extract: <code class="docutils literal notranslate"><span class="pre">continuous</span></code>, <code class="docutils literal notranslate"><span class="pre">discrete</span></code>, <code class="docutils literal notranslate"><span class="pre">hybrid</span></code>, or any with <code class="docutils literal notranslate"><span class="pre">_s</span></code> suffix to include states.</p></li>
+</ul>
+<div style="border-left: 4px solid #ffa500; padding: 0.5em 1em; background-color: #fff8e1;">
+<strong>💡 Note:</strong>  
+Intermediate CSV is removed after filtering.
+</div>
+</br>
+</section>
+<hr class="docutils" />
+<section id="run-sim-sim-setup-mos-path-call-mos-model-dir-models-data-dir-data-modus-hybrid-states-true">
+<h3><code class="docutils literal notranslate"><span class="pre">run_sim(sim_setup,</span> <span class="pre">mos_path='./call.mos',</span> <span class="pre">model_dir='../models',</span> <span class="pre">data_dir='../data',</span> <span class="pre">modus='hybrid',</span> <span class="pre">states=True)</span></code><a class="headerlink" href="#run-sim-sim-setup-mos-path-call-mos-model-dir-models-data-dir-data-modus-hybrid-states-true" title="Link to this heading"></a></h3>
+<p>Orchestrates the full simulation process including model creation, fault injection, simulation execution, and cleanup.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_setup</span></code> (dict): Simulation configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mos_path</span></code> (str): Path to the <code class="docutils literal notranslate"><span class="pre">.mos</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_dir</span></code> (str): Directory for storing the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_dir</span></code> (str): Directory for storing results.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">modus</span></code> (str): Simulation data type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">states</span></code> (bool): Whether to include system states.</p></li>
+</ul>
+<div style="border-left: 4px solid #ffa500; padding: 0.5em 1em; background-color: #fff8e1;">
+<strong>⚠️ Warning:</strong>  
+Overwrites existing `.csv` data if filenames match.
+</div>
+</br>
+</section>
+<hr class="docutils" />
+<section id="process-faults-all-combinations-data-file-path">
+<h3><code class="docutils literal notranslate"><span class="pre">process_faults_all_combinations(data,</span> <span class="pre">file_path)</span></code><a class="headerlink" href="#process-faults-all-combinations-data-file-path" title="Link to this heading"></a></h3>
+<p>Generates all combinations of datasets where exactly one fault is active and all others are inactive. Saves them to a JSON file.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> (dict): The original dataset setup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code> (str): Path to write the new benchmark configuration.</p></li>
+</ul>
+<div style="border-left: 4px solid #ffa500; padding: 0.5em 1em; background-color: #fff8e1;">
+<strong>💡 Note:</strong>  
+Used to create benchmark configurations for fault detection algorithms.
+</div>
+</br>
+</section>
+</section>
+<hr class="docutils" />
+<section id="main-execution">
+<h2>Main Execution<a class="headerlink" href="#main-execution" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="s1">&#39;anomalous&#39;</span>  <span class="c1"># can be &#39;anomalous&#39; or &#39;normal&#39;</span>
+
+    <span class="k">if</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;normal&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;benchmark_setup.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">setup</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+            <span class="n">run_sim</span><span class="p">(</span><span class="n">sim_setup</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">modus</span><span class="o">=</span><span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="n">states</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">&#39;anomalous&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;benchmark_setup.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">setup</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">process_faults_all_combinations</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="s1">&#39;benchmark_setup_anom.json&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;benchmark_setup_anom.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_anom</span><span class="p">:</span>
+            <span class="n">setup_anom</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f_anom</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">setup_anom</span><span class="p">:</span>
+            <span class="n">run_sim</span><span class="p">(</span><span class="n">sim_setup</span><span class="o">=</span><span class="n">setup_anom</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">modus</span><span class="o">=</span><span class="s1">&#39;discrete&#39;</span><span class="p">,</span> <span class="n">states</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown behavior: </span><span class="si">{</span><span class="n">behavior</span><span class="si">}</span><span class="s2">. Must be &#39;normal&#39; or &#39;anomalous&#39;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="directory-structure-assumptions">
+<h2>Directory Structure Assumptions<a class="headerlink" href="#directory-structure-assumptions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vanilla_call.mos</span></code>: Template for simulation execution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">../models</span></code>: Folder for <code class="docutils literal notranslate"><span class="pre">Plant.mo</span></code> and related model files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">../data</span></code>: Simulation output folder.</p></li>
+</ul>
+<div style="border-left: 4px solid #ffa500; padding: 0.5em 1em; background-color: #fff8e1;">
+<strong>💡 Note:</strong>  
+Assumes OpenModelica is available as `omc` on the system path.
+</div>
+</br>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="using-the-simulation.html" class="btn btn-neutral float-left" title="Using the Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../datasets.html" class="btn btn-neutral float-right" title="Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jonas Ehrhardt, Lukas Moddemann, Oliver Niggemann.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
