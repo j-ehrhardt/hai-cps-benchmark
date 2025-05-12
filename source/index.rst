@@ -51,15 +51,14 @@ When using HAI-CPS, please cite
 
 HAI-CPS was developed at the Chair of Informatics in Mechanical Engineering at Helmut-Schmidt-Universtiy.
 
-|hsu|  |imb|  |aut| 
+|hsu|  |imb|
 
 .. |hsu| image:: https://www.hsu-hh.de/wp-content/themes/hsu/img/helmut-schmidt-universitaet-logo.svg
    :width: 12%
 
-.. |imb| image:: ../_static/imgs/IMB.png
+.. |imb| image:: https://www.hsu-hh.de/imb/wp-content/uploads/sites/677/2021/01/IMB_1080.png
    :width: 10%
    
-.. |aut| image:: ../_static/imgs/aut.png
-   :width: 10%
+
    
    
