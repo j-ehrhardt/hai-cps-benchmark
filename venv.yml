@@ -10,7 +10,6 @@ dependencies:
   - asttokens=2.0.5
   - async-lru=2.0.4
   - attrs=24.2.0
-  - babel=2.11.0
   - beautifulsoup4=4.12.3
   - blas=1.0
   - bleach=6.2.0
@@ -89,7 +88,6 @@ dependencies:
   - ptyprocess=0.7.0
   - pure_eval=0.2.2
   - pycparser=2.21
-  - pygments=2.15.1
   - pysocks=1.7.1
   - python=3.12.7
   - python-dateutil=2.9.0post0
@@ -131,3 +129,24 @@ dependencies:
   - yaml=0.2.5
   - zeromq=4.3.5
   - zlib=1.2.13
+  - pip:
+      - alabaster==1.0.0
+      - babel==2.17.0
+      - docutils==0.21.2
+      - imagesize==1.4.1
+      - markdown-it-py==3.0.0
+      - mdit-py-plugins==0.4.2
+      - mdurl==0.1.2
+      - myst-parser==4.0.1
+      - pygments==2.19.1
+      - roman-numerals-py==3.1.0
+      - snowballstemmer==2.2.0
+      - sphinx==8.2.3
+      - sphinx-rtd-theme==3.0.2
+      - sphinxcontrib-applehelp==2.0.0
+      - sphinxcontrib-devhelp==2.0.0
+      - sphinxcontrib-htmlhelp==2.1.0
+      - sphinxcontrib-jquery==4.1
+      - sphinxcontrib-jsmath==1.0.1
+      - sphinxcontrib-qthelp==2.0.0
+      - sphinxcontrib-serializinghtml==2.0.0
