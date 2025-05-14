@@ -194,10 +194,80 @@ def run_sim(sim_setup, mos_path='./call.mos', model_dir='../models', data_dir='.
     print(f'simulation finished. data is saved in {os.path.join(data_dir, sim_setup['ds_name'])}')
 
 
+## only for anomaly creation purpose. Can be deleted afterwards
+## only for anomaly creation purpose. Can be deleted afterwards
+def process_faults_all_combinations(data, file_path):
+    """
+    For each dataset, creates configurations where each fault is set to true exactly once,
+    with all others set to false, and saves all combinations into a JSON file.
+    
+    Parameters:
+        data (dict): The input data structure to process.
+        file_path (str): The path to the JSON file to save the modified data.
+    """
+    result = {}
+    
+    for ds_name, ds_content in data.items():
+        modules = ds_content.get("model", {}).get("modules", {})
+        faults_list = []  # To track all faults and their modules
+        
+        # Collect all faults with their module references
+        for module_name, module_data in modules.items():
+            faults = module_data.get("faults", {})
+            for fault_name in faults.keys():
+                faults_list.append((module_name, fault_name))
+        
+        # Create configurations for each fault set to true
+        ds_result = {}
+        for target_module, target_fault in faults_list:
+            # Clone the dataset structure
+            cloned_ds = json.loads(json.dumps(ds_content))
+            cloned_modules = cloned_ds["model"]["modules"]
+            
+            # Set all faults to false first
+            for module_name, module_data in cloned_modules.items():
+                for fault_name in module_data.get("faults", {}).keys():
+                    module_data["faults"][fault_name] = False
+            
+            # Set the specific fault to true
+            cloned_modules[target_module]["faults"][target_fault] = True
+            
+            # Rename the dataset to include the fault name
+            renamed_ds_name = f"{ds_name}_{target_module}_{target_fault}"
+            cloned_ds["ds_name"] = renamed_ds_name  # Update the `ds_name` field
+            
+            # Add renamed dataset to the results
+            ds_result[renamed_ds_name] = cloned_ds
+        
+        # Merge renamed datasets into the result
+        result.update(ds_result)
+    
+    # Write the result to the JSON file
+    with open(file_path, 'w') as json_file:
+        json.dump(result, json_file, indent=4)
+    
+    print(f"Modified configurations written to {file_path}")
+
+
 
 if __name__ == '__main__':
-    with open('benchmark_setup.json') as f:
-        setup = json.load(f)
+    behavior = 'anomalous'  # can be 'anomalous' or 'normal'
 
-    for i in setup:
-        run_sim(sim_setup=setup[i], modus='discrete', states=True)
+    if behavior == 'normal':
+        with open('benchmark_setup.json') as f:
+            setup = json.load(f)
+        for i in setup:
+            run_sim(sim_setup=setup[i], modus='continuous', states=True)
+
+    elif behavior == 'anomalous':
+        with open('benchmark_setup.json') as f:
+            setup = json.load(f)
+        process_faults_all_combinations(setup, 'benchmark_setup_anom.json')
+
+        with open('benchmark_setup_anom.json') as f_anom:
+            setup_anom = json.load(f_anom)
+        for i in setup_anom:
+            run_sim(sim_setup=setup_anom[i], modus='discrete', states=True)
+
+    else:
+        raise ValueError(f"Unknown behavior: {behavior}. Must be 'normal' or 'anomalous'.")
