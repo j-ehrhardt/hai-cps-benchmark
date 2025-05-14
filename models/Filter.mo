@@ -11,18 +11,16 @@ model filterModule
   parameter Real pump_P101_head_min = 1.022;
   
   // anomalies
+  parameter Real anom_start = 2500;
   parameter Boolean anom_leaking = false;
   parameter Boolean anom_clogging = false;
-  parameter Boolean anom_pollution = false;
+  parameter Boolean anom_pollution = true;
   parameter Boolean anom_valve_in0 = false;
-  parameter Boolean anom_valve_out0 = false;
-  parameter Boolean anom_pump70 = false;
-  parameter Boolean anom_pump90 = false;
-  
-  parameter Real pollution_value = if anom_pollution then 1.0 else 0.5;
-  parameter Real var_valve_in = if anom_valve_in0 then 0.2 else 0.0;
-  parameter Real var_valve_out = if anom_valve_out0 then 0.2 else 0.0;
-  parameter Real var_pump_n = if anom_pump70 then 0.7 else if anom_pump90 then 0.9 else 1.0;
+  parameter Boolean anom_pump50 = false;
+  parameter Boolean anom_pump75 = false;
+  Real pollution_value(start=0.5);
+  Real var_valve_in(start=0.0);
+  Real var_pump_n(start=1.0);
   Real pump_n_in;
   
   // ports
@@ -163,13 +161,17 @@ equation
   state_is_empty_tank_B102.condition = tank_B102.level <= tank_B102.height*tankMinVol;
   valve_in.opening = if state_filling_tank_B101.active then 1.0 else 0.0 + var_valve_in;
   valve_pump_P101.opening = if state_emptying_tank_B101.active then 1.0 else 0.0;
-  pump_n_in = if state_emptying_tank_B101.active then 150.0*var_pump_n else 0.0;
-  valve_out.opening = if state_emptying_tank_B102.active then 1.0 else 0.0 + var_valve_out;
+  pump_n_in = if state_emptying_tank_B101.active then 150.0 * var_pump_n else 0.0;
+  valve_out.opening = if state_emptying_tank_B102.active then 1.0 else 0.0;
 
   // anomalies
-  leaking_valve.opening = if anom_leaking then 0.5 else 0.0;
-  clogging_valve.opening = if anom_clogging then 0.8 else 1.0;
+  leaking_valve.opening = if (anom_leaking and time >= anom_start) then 0.25 else 0.0;
+  clogging_valve.opening = if (anom_clogging and time >= anom_start) then 0.8 else 1.0;
+  pollution_value = if (anom_pollution and time >= anom_start) then 1.0 else 0.5;
+  var_valve_in = if (anom_valve_in0 and time >= anom_start) then 0.2 else 0.0;
+  var_pump_n = if (anom_pump50 and time >= anom_start) then 0.5 else if (anom_pump75 and time >= anom_start) then 0.75 else 1.0;
   
+  // connections
   connect(tank_B101.ports[1], pipe0.port_a) annotation(
     Line(points = {{-170, -3}, {-170, -20}}, color = {0, 127, 255}));
   connect(valve_in.port_a, port_in0) annotation(

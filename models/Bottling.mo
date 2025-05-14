@@ -8,15 +8,15 @@ model bottlingModule
   parameter Real pump_P401_head_max = 2.045;
   parameter Real pump_P401_head_middle = 1.534;
   parameter Real pump_P401_head_min = 1.022;
+  // anomalies 
+  parameter Real anom_start = 2500;
   parameter Boolean anom_leaking = false;
   parameter Boolean anom_clogging = false;
   parameter Boolean anom_valve_in0 = false;
-  parameter Boolean anom_valve_out0 = false;
-  parameter Boolean anom_pump70 = false;
-  parameter Boolean anom_pump90 = false;
-  parameter Real var_valve_in = if anom_valve_in0 then 0.1 else 0.0;
-  parameter Real var_valve_out = if anom_valve_out0 then 0.1 else 0.0;
-  parameter Real var_pump_n = if anom_pump70 then 0.7 else if anom_pump90 then 0.9 else 1.0;
+  parameter Boolean anom_pump50 = false;
+  parameter Boolean anom_pump75 = false;
+  Real var_valve_in(start=0.0); 
+  Real var_pump_n(start=1.0);
   Real pump_n_in;
   // ports
   Modelica.Fluid.Interfaces.FluidPort_a port_in0(redeclare package Medium = Medium) annotation(
@@ -123,11 +123,14 @@ equation
 // stategraph actions
   valve_in.opening = if state_filling_tank_B401.active then 1.0 else 0.0 + var_valve_in;
   valve_pump_P401.opening = if state_emptying_tank_B401.active then 1.0 else 0.0;
-  pump_n_in = if state_emptying_tank_B401.active then 150.0 else 0.0;
-  valve_out.opening = if state_bottling.active and mod(time, 4) < 2 then 1.0 else 0.0 + var_valve_out;
+  pump_n_in = if state_emptying_tank_B401.active then 150.0 * var_pump_n else 0.0;
+  valve_out.opening = if state_bottling.active and mod(time, 4) < 2 then 1.0 else 0.0;
 // anomalies
-  leaking_valve.opening = if anom_leaking then 0.2 else 0.0;
-  clogging_valve.opening = if anom_clogging then 0.8 else 1.0;
+  leaking_valve.opening = if (anom_leaking and time >= anom_start) then 0.25 else 0.0;
+  clogging_valve.opening = if (anom_clogging and time >= anom_start) then 0.8 else 1.0;
+  var_valve_in = if(anom_valve_in0 and time >= anom_start) then 0.2 else 0.0;
+  var_pump_n = if (anom_pump50 and time >= anom_start) then 0.5 else if (anom_pump75 and time >= anom_start) then 0.75 else 1.0;
+// connections
   connect(tank_B401.ports[1], pipe0.port_a) annotation(
     Line(points = {{-90, -1}, {-90, -40}}, color = {0, 127, 255}));
   connect(valve_in.port_a, port_in0) annotation(

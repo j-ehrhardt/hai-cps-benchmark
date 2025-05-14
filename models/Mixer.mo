@@ -1,7 +1,7 @@
 model mixerModule
   replaceable package Medium = Modelica.Media.Water.StandardWater;
   parameter Real tankMinVol = 0.1;
-  parameter Real tankMaxVol = 0.9;
+  parameter Real tankMaxVol = 0.45;
   parameter Real pump_P101_V_flow_at_max_head = 0.000122;
   parameter Real pump_P101_V_flow_at_middle_head = 0.0002;
   parameter Real pump_P101_V_flow_at_min_head = 0.00025;
@@ -9,19 +9,18 @@ model mixerModule
   parameter Real pump_P101_head_middle = 1.534;
   parameter Real pump_P101_head_min = 1.022;
   // anomalies
+  parameter Real anom_start = 2500;
   parameter Boolean anom_leaking = false;
   parameter Boolean anom_clogging = false;
-  parameter Boolean anom_valve_in0 = false;
-  parameter Boolean anom_valve_in1 = false;
-  parameter Boolean anom_valve_in2 = false;
-  parameter Boolean anom_valve_out = false;
-  parameter Boolean anom_pump70 = false;
-  parameter Boolean anom_pump90 = false;
-  parameter Real var_valve_in0 = if anom_valve_in0 then 0.2 else 0.0;
-  parameter Real var_valve_in1 = if anom_valve_in1 then 0.2 else 0.0;
-  parameter Real var_valve_in2 = if anom_valve_in2 then 0.2 else 0.0;
-  parameter Real var_valve_out = if anom_valve_out then 0.2 else 0.0;
-  parameter Real var_pump_n = if anom_pump70 then 0.7 else if anom_pump90 then 0.9 else 1.0;
+  parameter Boolean anom_valve_in0 = true;
+  parameter Boolean anom_valve_in1 = true;
+  parameter Boolean anom_valve_in2 = true;
+  parameter Boolean anom_pump50 = false;
+  parameter Boolean anom_pump75 = false;
+  Real var_valve_in0(start = 0.0);
+  Real var_valve_in1(start = 0.0);
+  Real var_valve_in2(start = 0.0);
+  Real var_pump_n(start = 1.0);
   Real pump_n_in;
   // ports
   Modelica.Fluid.Interfaces.FluidPort_a port_in0(redeclare package Medium = Medium) annotation(
@@ -29,36 +28,34 @@ model mixerModule
   Modelica.Fluid.Interfaces.FluidPort_a port_in1(redeclare package Medium = Medium) annotation(
     Placement(transformation(origin = {-50, 110}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {-210, 128}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_in2(redeclare package Medium = Medium) annotation(
-    Placement(transformation(origin = {50, 110}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {90, 20}, extent = {{10, -10}, {-10, 10}})));
+    Placement(transformation(origin = {50, 110}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {-210, -110}, extent = {{10, -10}, {-10, 10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_out0(redeclare package Medium = Medium) annotation(
     Placement(transformation(origin = {180, -110}, extent = {{10, -10}, {-10, 10}}), iconTransformation(origin = {210, 0}, extent = {{10, -10}, {-10, 10}})));
-  Modelica.Fluid.Sources.FixedBoundary anom_sink(redeclare package Medium = Medium, nPorts = 1, p = 0.999e5) annotation(
-    Placement(transformation(origin = {-130, -170}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Fluid.Sources.FixedBoundary anom_sink(redeclare package Medium = Medium, nPorts = 1, p = 1e5) annotation(
+    Placement(transformation(origin = {70, -170}, extent = {{-10, -10}, {10, 10}})));
   // tanks
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B201(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 0.22, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B201(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 0.14, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
     Placement(transformation(origin = {-150, 10}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B202(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, height = 0.22, level_start = 0.01, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, nPorts = 1, nTopPorts = 1, p_ambient(displayUnit = "Pa") = 1e5, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B202(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, height = 0.14, level_start = 0.01, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, nPorts = 1, nTopPorts = 1, p_ambient(displayUnit = "Pa") = 1e5, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false) annotation(
     Placement(transformation(origin = {-50, 10}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B203(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, height = 0.22, level_start = 0.01, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, nPorts = 1, nTopPorts = 1, p_ambient(displayUnit = "Pa") = 1e5, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B203(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, height = 0.14, level_start = 0.01, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, nPorts = 1, nTopPorts = 1, p_ambient(displayUnit = "Pa") = 1e5, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false) annotation(
     Placement(transformation(origin = {50, 10}, extent = {{-20, -20}, {20, 20}})));
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B204(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 1.22, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B204(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 0.22, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
     Placement(transformation(origin = {180, 10}, extent = {{-20, -20}, {20, 20}})));
   // pipes
   Modelica.Fluid.Pipes.StaticPipe pipe0(redeclare package Medium = Medium, length = 1, diameter(displayUnit = "mm") = 0.01) annotation(
     Placement(transformation(origin = {-150, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Fluid.Pipes.StaticPipe pipe1(redeclare package Medium = Medium, diameter(displayUnit = "mm") = 0.01, length = 1, m_flow_start = 0.0005) annotation(
-    Placement(transformation(origin = {110, -30}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
   Modelica.Fluid.Pipes.StaticPipe pipe2(redeclare package Medium = Medium, diameter(displayUnit = "mm") = 0.01, length = 1) annotation(
     Placement(transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Fluid.Pipes.StaticPipe pipe4(redeclare package Medium = Medium, diameter(displayUnit = "mm") = 0.01, length = 1) annotation(
     Placement(transformation(origin = {50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Fluid.Pipes.StaticPipe pipe5(redeclare package Medium = Medium, diameter(displayUnit = "mm") = 0.01, length = 1, m_flow_start = 0.0005) annotation(
-    Placement(transformation(origin = {110, -110}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
+    Placement(transformation(origin = {110, -90}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
   Modelica.Fluid.Pipes.StaticPipe pipe6(redeclare package Medium = Medium, diameter(displayUnit = "mm") = 0.01, length = 1, m_flow_start = 0.0005) annotation(
-    Placement(transformation(origin = {30, -130}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Fluid.Fittings.TeeJunctionVolume tee0(redeclare package Medium = Medium, V = 0.1) annotation(
+    Placement(transformation(origin = {-10, -130}, extent = {{-10, 10}, {10, -10}})));
+  Modelica.Fluid.Fittings.TeeJunctionVolume tee0(redeclare package Medium = Medium, V = 0.001) annotation(
     Placement(transformation(origin = {-130, -110}, extent = {{-10, 10}, {10, -10}})));
-  Modelica.Fluid.Fittings.TeeJunctionVolume tee1(redeclare package Medium = Medium, V = 0.1) annotation(
+  Modelica.Fluid.Fittings.TeeJunctionVolume tee1(redeclare package Medium = Medium, V = 0.001) annotation(
     Placement(transformation(origin = {-50, -110}, extent = {{-10, -10}, {10, 10}})));
   // valves
   Modelica.Fluid.Valves.ValveLinear valve_in0(redeclare package Medium = Medium, dp(start = 1), m_flow(start = 1e-5), dp_nominal = 1, m_flow_nominal = 1e-3) annotation(
@@ -76,22 +73,22 @@ model mixerModule
   Modelica.Fluid.Valves.ValveLinear valve_pump_tank_B203(redeclare package Medium = Medium, dp(start = 1), dp_nominal = 1, m_flow(start = 1e-5), m_flow_nominal = 1e-3) annotation(
     Placement(transformation(origin = {50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Fluid.Valves.ValveLinear valve_pump_tank_B204(redeclare package Medium = Medium, dp(start = 1), dp_nominal = 1, m_flow(start = 1e-5), m_flow_nominal = 1e-3) annotation(
-    Placement(transformation(origin = {110, -70}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
+    Placement(transformation(origin = {110, -50}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
   Modelica.Fluid.Valves.ValveLinear leaking_valve(redeclare package Medium = Medium, dp(start = 1), dp_nominal = 1, m_flow(start = 1e-5), m_flow_nominal = 1e-3) annotation(
-    Placement(transformation(origin = {-90, -150}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
+    Placement(transformation(origin = {110, -150}, extent = {{10, 10}, {-10, -10}}, rotation = 90)));
   Modelica.Fluid.Valves.ValveLinear clogging_valve(redeclare package Medium = Medium, dp(start = 1), dp_nominal = 1, m_flow(start = 1e-5), m_flow_nominal = 1e-3) annotation(
-    Placement(transformation(origin = {-10, -130}, extent = {{10, -10}, {-10, 10}}, rotation = -180)));
+    Placement(transformation(origin = {50, -130}, extent = {{10, -10}, {-10, 10}}, rotation = -180)));
   // machines
   Modelica.Fluid.Machines.PrescribedPump pump_P101(redeclare package Medium = Medium, N_nominal = 166.43, m_flow_start = 0.000001, T_start = 300, V(displayUnit = "m3") = 0.00004398128, checkValve = true, checkValveHomotopy = Modelica.Fluid.Types.CheckValveHomotopyType.Closed, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, redeclare function flowCharacteristic = Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(V_flow_nominal = {pump_P101_V_flow_at_max_head, pump_P101_V_flow_at_middle_head, pump_P101_V_flow_at_min_head}, head_nominal = {pump_P101_head_max, pump_P101_head_middle, pump_P101_head_min}), massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, nParallel = 1, p_a_start = 100000, p_b_start = 100000, use_N_in = true, allowFlowReversal = false) annotation(
-    Placement(transformation(origin = {70, -130}, extent = {{-10, 10}, {10, -10}})));
+    Placement(transformation(origin = {-70, -130}, extent = {{-10, 10}, {10, -10}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T = 1) annotation(
-    Placement(transformation(origin = {30, -170}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-110, -170}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression n_in(y = pump_n_in) annotation(
-    Placement(transformation(origin = {-50, -150}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, -150}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Noise.UniformNoise uniformNoise(samplePeriod = 1, y_max = 0.8, y_min = 1.2) annotation(
-    Placement(transformation(origin = {-50, -170}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-190, -170}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Product product1 annotation(
-    Placement(transformation(origin = {-10, -170}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {-150, -170}, extent = {{-10, -10}, {10, 10}})));
   // sensors
   Modelica.Blocks.Math.RealToBoolean level_to_boolean_tank_B201_low(threshold = 0.1*tank_B201.height) annotation(
     Placement(transformation(origin = {-187, -5}, extent = {{-5, -5}, {5, 5}})));
@@ -158,7 +155,7 @@ model mixerModule
   Modelica.Fluid.Sensors.Pressure sensor_continuous_pressure_tank_B204(replaceable package Medium = Medium) annotation(
     Placement(transformation(origin = {150, -30}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Fluid.Sensors.Pressure pressure_pump_P101(replaceable package Medium = Medium) annotation(
-    Placement(transformation(origin = {110, -150}, extent = {{-10, 10}, {10, -10}})));
+    Placement(transformation(origin = {130, -130}, extent = {{-10, 10}, {10, -10}}, rotation = 90)));
   Modelica.Fluid.Sensors.VolumeFlowRate sensor_continuous_volumeFlowRate(replaceable package Medium = Medium) annotation(
     Placement(transformation(origin = {110, 10}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
   // stategraph
@@ -206,20 +203,23 @@ equation
   condition_is_empty_tank_B202.condition = tank_B202.level <= tank_B202.height*tankMinVol;
   condition_is_empty_tank_B203.condition = tank_B203.level <= tank_B203.height*tankMinVol;
   condition_is_empty_tank_B204.condition = tank_B204.level <= tank_B204.height*tankMinVol;
-  valve_in0.opening = if state_filling_tank_B201.active then 1.0 else var_valve_in0;
-  valve_in1.opening = if state_filling_tank_B202.active then 1.0 else var_valve_in1;
-  valve_in2.opening = if state_filling_tank_B203.active then 1.0 else var_valve_in2;
-  valve_pump_tank_B201.opening = if state_emptying_tank_B201.active then 1.0 else 0.0;
-  valve_pump_tank_B202.opening = if state_emptying_tank_B202.active then 1.0 else 0.0;
-  valve_pump_tank_B203.opening = if state_emptying_tank_B203.active then 1.0 else 0.0;
-  valve_pump_tank_B204.opening = if state_emptying_tank_B201.active then 1.0 elseif state_emptying_tank_B202.active then 1.0
-   elseif state_emptying_tank_B203.active then 1.0 else 0.0;
+  valve_in0.opening = smooth(1, if state_filling_tank_B201.active then 1.0 else var_valve_in0);
+  valve_in1.opening = smooth(1, if state_filling_tank_B202.active then 1.0 else var_valve_in1);
+  valve_in2.opening = smooth(1, if state_filling_tank_B203.active then 1.0 else var_valve_in2);
+  valve_pump_tank_B201.opening = smooth(1, if state_emptying_tank_B201.active then 1.0 else 0.0);
+  valve_pump_tank_B202.opening = smooth(1, if state_emptying_tank_B202.active then 1.0 else 0.0);
+  valve_pump_tank_B203.opening = smooth(1, if state_emptying_tank_B203.active then 1.0 else 0.0);
+  valve_pump_tank_B204.opening = smooth(1, if state_emptying_tank_B201.active then 1.0 elseif state_emptying_tank_B202.active then 1.0 elseif state_emptying_tank_B203.active then 1.0 else 0);
   pump_n_in = if state_emptying_tank_B201.active then 150.0*var_pump_n elseif state_emptying_tank_B202.active then 150.0*var_pump_n
    elseif state_emptying_tank_B203.active then 150.0*var_pump_n else 0.0;
   valve_out.opening = if state_emptying_tank_B204.active then 1.0 else 0.0;
 // anomalies
-  leaking_valve.opening = if anom_leaking then 0.5 else 0.0;
-  clogging_valve.opening = if anom_clogging then 0.8 else 1.0;
+  leaking_valve.opening = if (anom_leaking and time >= anom_start) then 0.25 else 0.0;
+  clogging_valve.opening = if (anom_clogging and time >= anom_start) then 0.8 else 1.0;
+  var_valve_in0 = if (anom_valve_in0 and time >= anom_start) then 0.2 else 0.0;
+  var_valve_in1 = if (anom_valve_in1 and time >= anom_start) then 0.2 else 0.0;
+  var_valve_in2 = if (anom_valve_in2 and time >= anom_start) then 0.2 else 0.0;
+  var_pump_n = if (anom_pump50 and time >= anom_start) then 0.5 else if (anom_pump75 and time >= anom_start) then 0.75 else 1.0;
 // connections
   connect(tank_B201.ports[1], pipe0.port_a) annotation(
     Line(points = {{-150, -11}, {-150, -20}}, color = {0, 127, 255}));
@@ -260,7 +260,7 @@ equation
   connect(state_emptying_tank_B202.outPort[1], condition_is_empty_tank_B202.inPort) annotation(
     Line(points = {{-19.5, 150}, {6.5, 150}}));
   connect(firstOrder.y, pump_P101.N_in) annotation(
-    Line(points = {{41, -170}, {69, -170}, {69, -140}}, color = {0, 0, 127}));
+    Line(points = {{-99, -170}, {-71, -170}, {-71, -140}}, color = {0, 0, 127}));
   connect(valve_pump_tank_B201.port_b, tee0.port_1) annotation(
     Line(points = {{-150, -80}, {-150, -110}, {-140, -110}}, color = {0, 127, 255}));
   connect(condition_is_full_tank_B202.outPort, state_filling_tank_B203.inPort[1]) annotation(
@@ -291,14 +291,6 @@ equation
     Line(points = {{-60, -110}, {-120, -110}}, color = {0, 127, 255}));
   connect(condition_is_empty_tank_B204.outPort, state_initialStep.inPort[1]) annotation(
     Line(points = {{172, 150}, {200, 150}, {200, 130}, {-200, 130}, {-200, 190}, {-191, 190}}));
-  connect(pump_P101.port_b, pipe5.port_a) annotation(
-    Line(points = {{80, -130}, {110, -130}, {110, -120}}, color = {0, 127, 255}));
-  connect(pipe5.port_b, valve_pump_tank_B204.port_a) annotation(
-    Line(points = {{110, -100}, {110, -80}}, color = {0, 127, 255}));
-  connect(valve_pump_tank_B204.port_b, pipe1.port_a) annotation(
-    Line(points = {{110, -60}, {110, -40}}, color = {0, 127, 255}));
-  connect(pipe6.port_b, pump_P101.port_a) annotation(
-    Line(points = {{40, -130}, {60, -130}}, color = {0, 127, 255}));
   connect(tank_B201_level.y, level_to_boolean_tank_B201_high.u) annotation(
     Line(points = {{-193, 36}, {-201, 36}, {-201, 23}, {-193, 23}}, color = {0, 0, 127}));
   connect(tank_B201_level.y, level_to_boolean_tank_B201_medium.u) annotation(
@@ -347,8 +339,6 @@ equation
     Line(points = {{150.5, 9}, {160.5, 9}}, color = {255, 0, 255}));
   connect(level_to_boolean_tank_B204_low.y, sensor_discrete_tank_B204_low.activePort) annotation(
     Line(points = {{150.5, -5}, {160.5, -5}}, color = {255, 0, 255}));
-  connect(pipe1.port_b, sensor_continuous_volumeFlowRate.port_a) annotation(
-    Line(points = {{110, -20}, {110, 0}}, color = {0, 127, 255}));
   connect(sensor_continuous_volumeFlowRate.port_b, tank_B204.topPorts[1]) annotation(
     Line(points = {{110, 20}, {110, 80}, {180, 80}, {180, 31}}, color = {0, 127, 255}));
   connect(sensor_continuous_pressure_tank_B201.port, valve_pump_tank_B201.port_a) annotation(
@@ -359,24 +349,32 @@ equation
     Line(points = {{10, -40}, {10, -60}, {50, -60}}, color = {0, 127, 255}));
   connect(sensor_continuous_pressure_tank_B204.port, valve_out.port_a) annotation(
     Line(points = {{150, -40}, {150, -60}, {180, -60}}, color = {0, 127, 255}));
-  connect(pressure_pump_P101.port, pump_P101.port_b) annotation(
-    Line(points = {{110, -140}, {110, -130}, {80, -130}}, color = {0, 127, 255}));
   connect(uniformNoise.y, product1.u2) annotation(
-    Line(points = {{-39, -170}, {-33, -170}, {-33, -176}, {-23, -176}}, color = {0, 0, 127}));
+    Line(points = {{-179, -170}, {-173, -170}, {-173, -176}, {-163, -176}}, color = {0, 0, 127}));
   connect(n_in.y, product1.u1) annotation(
-    Line(points = {{-39, -150}, {-33, -150}, {-33, -164}, {-23, -164}}, color = {0, 0, 127}));
+    Line(points = {{-179, -150}, {-173, -150}, {-173, -164}, {-163, -164}}, color = {0, 0, 127}));
   connect(product1.y, firstOrder.u) annotation(
-    Line(points = {{1, -170}, {18, -170}}, color = {0, 0, 127}));
-  connect(clogging_valve.port_b, pipe6.port_a) annotation(
-    Line(points = {{0, -130}, {20, -130}}, color = {0, 127, 255}));
+    Line(points = {{-139, -170}, {-122, -170}}, color = {0, 0, 127}));
   connect(leaking_valve.port_b, anom_sink.ports[1]) annotation(
-    Line(points = {{-90, -160}, {-90, -170}, {-120, -170}}, color = {0, 127, 255}));
+    Line(points = {{110, -160}, {110, -170}, {80, -170}}, color = {0, 127, 255}));
   connect(tee0.port_3, pipe7.port_a) annotation(
     Line(points = {{-130, -120}, {-130, -130}, {-120, -130}}, color = {0, 127, 255}));
-  connect(pipe7.port_b, clogging_valve.port_a) annotation(
-    Line(points = {{-100, -130}, {-20, -130}}, color = {0, 127, 255}));
-  connect(pipe7.port_b, leaking_valve.port_a) annotation(
-    Line(points = {{-100, -130}, {-90, -130}, {-90, -140}}, color = {0, 127, 255}));
+  connect(pipe7.port_b, pump_P101.port_a) annotation(
+    Line(points = {{-100, -130}, {-80, -130}}, color = {0, 127, 255}));
+  connect(pump_P101.port_b, pipe6.port_a) annotation(
+    Line(points = {{-60, -130}, {-20, -130}}, color = {0, 127, 255}));
+  connect(pipe6.port_b, clogging_valve.port_a) annotation(
+    Line(points = {{0, -130}, {40, -130}}, color = {0, 127, 255}));
+  connect(clogging_valve.port_b, pressure_pump_P101.port) annotation(
+    Line(points = {{60, -130}, {120, -130}}, color = {0, 127, 255}));
+  connect(clogging_valve.port_b, leaking_valve.port_a) annotation(
+    Line(points = {{60, -130}, {110, -130}, {110, -140}}, color = {0, 127, 255}));
+  connect(clogging_valve.port_b, pipe5.port_a) annotation(
+    Line(points = {{60, -130}, {110, -130}, {110, -100}}, color = {0, 127, 255}));
+  connect(pipe5.port_b, valve_pump_tank_B204.port_a) annotation(
+    Line(points = {{110, -80}, {110, -60}}, color = {0, 127, 255}));
+  connect(valve_pump_tank_B204.port_b, sensor_continuous_volumeFlowRate.port_a) annotation(
+    Line(points = {{110, -40}, {110, 0}}, color = {0, 127, 255}));
   annotation(
     uses(Modelica(version = "4.0.0")),
     Diagram(coordinateSystem(extent = {{-210, -200}, {210, 210}})),

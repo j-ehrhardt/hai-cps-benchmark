@@ -12,20 +12,17 @@ model distillModule
   parameter Real Tmin = 275;
   
   // anomalies
+  parameter Real anom_start = 2500;
   parameter Boolean anom_leaking = false;
   parameter Boolean anom_clogging = false;
   parameter Boolean anom_valve_in0 = false;
-  parameter Boolean anom_valve_out0 = false;
-  parameter Boolean anom_valve_out1 = false;
-  parameter Boolean anom_pump70 = false;
-  parameter Boolean anom_pump90 = false;
-  parameter Boolean anom_heat90 = false;
-  parameter Boolean anom_heat70 = false;
-  parameter Real var_valve_in0 = if anom_valve_in0 then 0.2 else 0.0;
-  parameter Real var_valve_out0 = if anom_valve_out0 then 0.2 else 0.0;
-  parameter Real var_valve_out1 = if anom_valve_out1 then 0.2 else 0.0;
-  parameter Real var_pump_n = if anom_pump70 then 0.7 else if anom_pump90 then 0.9 else 1.0;
-  parameter Real var_heat = if anom_heat70 then 0.7 else if anom_heat90 then 0.9 else 1.0;
+  parameter Boolean anom_pump50 = false;
+  parameter Boolean anom_pump75 = false;
+  parameter Boolean anom_heat75 = false;
+  parameter Boolean anom_heat50 = false;
+  Real var_valve_in0(start=0.0);
+  Real var_pump_n(start=1.0);
+  Real var_heat(start=1.0);
   Real pump_n_in;
 
 
@@ -42,13 +39,13 @@ model distillModule
 
   
   // tanks
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B101(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 1.22, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B101(redeclare package Medium = Medium, V0 = 0.0001, crossArea = 0.01431355, height = 0.22, level_start = 0.01, nPorts = 1, nTopPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0.001, zeta_out = 0, zeta_in = 1)}, stiffCharacteristicForEmptyPort = false, energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial, p_ambient(displayUnit = "Pa") = 1e5) annotation(
     Placement(transformation(origin = {-110, 0}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWith3InletOutletArraysWithEvaporatorCondensor distill(redeclare package Medium = Medium, height = 1.22, n_SidePorts = 1, V0 = 0.001, n_BottomPorts = 1, bottom_pipeArea = {0.0001}, top_pipeArea = {0.0001}, n_TopPorts = 1, min_level_for_heating = 0.0001, level_start = 0.0009, crossArea = 0.01431355, initType = Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.Init.InitialValues, side_pipeArea = {0.0001}, redeclare model HeatTransfer = Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(k = 4.9)) annotation(
     Placement(transformation(origin = {160, 100}, extent = {{-110, -60}, {-30, -20}})));
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B102(redeclare package Medium = Medium, V0 = 0.0001, nTopPorts = 1, height = 1.22, crossArea = 0.01431355, level_start = 0.02, nPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0)}, stiffCharacteristicForEmptyPort = false, use_HeatTransfer = true, T_start = 298, redeclare model HeatTransfer = Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(k = 4.9)) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B102(redeclare package Medium = Medium, V0 = 0.0001, nTopPorts = 1, height = 0.22, crossArea = 0.01431355, level_start = 0.01, nPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0)}, stiffCharacteristicForEmptyPort = false, use_HeatTransfer = true, T_start = 298, redeclare model HeatTransfer = Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(k = 4.9)) annotation(
     Placement(transformation(origin = {130, 20}, extent = {{-80, -80}, {-40, -40}})));
-  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B103(redeclare package Medium = Medium, V0 = 0.0001, nTopPorts = 1, height = 1.22, crossArea = 0.01431355, level_start = 0.02, nPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0)}, stiffCharacteristicForEmptyPort = false, use_HeatTransfer = true, T_start = 298, redeclare model HeatTransfer = Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(k = 4.9)) annotation(
+  Modelica.Fluid.Examples.AST_BatchPlant.BaseClasses.TankWithTopPorts tank_B103(redeclare package Medium = Medium, V0 = 0.0001, nTopPorts = 1, height = 0.22, crossArea = 0.01431355, level_start = 0.01, nPorts = 1, portsData = {Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter = 0.011, height = 0)}, stiffCharacteristicForEmptyPort = false, use_HeatTransfer = true, T_start = 298, redeclare model HeatTransfer = Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(k = 4.9)) annotation(
     Placement(transformation(origin = {208, 20}, extent = {{-80, -80}, {-40, -40}}, rotation = -0)));
   // pipes
   Modelica.Fluid.Pipes.StaticPipe pipe0(redeclare package Medium = Medium, length = 1, diameter(displayUnit = "mm") = 0.01) annotation(
@@ -192,21 +189,26 @@ equation
   condition_is_empty_distill.condition = distill.level <= distill.height*tankMinVol;
   condition_is_empty_output_tanks.condition = tank_B102.level <= tank_B102.height*tankMinVol and tank_B103.level <= tank_B103.height*tankMinVol;
   valve_in.opening = if state_filling_tank_B101.active then 1.0 else var_valve_in0;
-  pump_n_in = if state_emptying_tank_B101.active then 150.0 else 0.0;
+  pump_n_in = if state_emptying_tank_B101.active then 150.0 * var_pump_n else 0.0;
   valve_pump_P101.opening = if state_emptying_tank_B101.active then 1.0 else 0.0;
   valve_distill1.opening = if state_emptying_tank_B101.active then 1.0 else 0.0;
-  heater_distill.Q_flow = if state_destillation.active then 20000*var_heat else 0;
+  heater_distill.Q_flow = if state_destillation.active then 20000 * var_heat else 0;
   cooler_B102.Q_flow = if state_destillation.active then 0 else 0;
 // -2000
   cooler_B103.Q_flow = if state_destillation.active then 0 else 0;
 // -2000
   valve_distill2.opening = if state_emptying_distill.active then 1.0 else 1.0;
   valve_distill3.opening = if state_emptying_distill.active then 1.0 else 0.0;
-  valve_out0.opening = if state_emptying_output_tanks.active then 1.0 else var_valve_out0;
-  valve_out1.opening = if state_emptying_output_tanks.active then 1.0 else var_valve_out1;
+  valve_out0.opening = if state_emptying_output_tanks.active then 1.0 else 0.0;
+  valve_out1.opening = if state_emptying_output_tanks.active then 1.0 else 0.0;
 // anomalies
-  leaking_valve.opening = if anom_leaking then 0.5 else 0.0;
-  clogging_valve.opening = if anom_clogging then 0.8 else 1.0;
+  leaking_valve.opening = if (anom_leaking and time >= anom_start) then 0.25 else 0.0;
+  clogging_valve.opening = if (anom_clogging and time >= anom_start) then 0.8 else 1.0;
+  var_valve_in0 = if (anom_valve_in0 and time >= anom_start) then 0.2 else 0.0;
+  var_pump_n = if (anom_pump50 and time >= anom_start) then 0.5 else if (anom_pump75 and time >= anom_start) then 0.75 else 1.0;
+  var_heat = if (anom_heat50 and time >= anom_start) then 0.5 else if (anom_heat75 and time >= anom_start) then 0.75 else 1.0;
+  
+// connections 
   connect(tank_B101.ports[1], pipe0.port_a) annotation(
     Line(points = {{-110, -21}, {-110, -40}}, color = {0, 127, 255}));
   connect(valve_in.port_a, port_in0) annotation(
