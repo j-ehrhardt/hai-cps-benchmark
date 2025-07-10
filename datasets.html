@@ -102,10 +102,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Datasets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#download">Download</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Datasets</a></li>
 </ul>
 
         </div>
@@ -138,42 +135,50 @@
 <img src="../_static/imgs/cpps-setups.png" alt="HAI-CPS" width="100%" />
 <p>Each dataset is available in four recording modes:</p>
 <ul class="simple">
-<li><p><strong>discrete</strong>: Includes only binary/discrete control and sensor values.</p></li>
-<li><p><strong>continuous</strong>: Includes only real-valued sensor data and process measurements.</p></li>
-<li><p><strong>hybrid</strong>: A combination of discrete and continuous features.</p></li>
-<li><p><strong>including-states</strong>: Hybrid data <strong>plus</strong> automaton states from each module (i.e., internal process states during execution).</p></li>
+<li><p><strong>normal discrete</strong>: Includes only binary/discrete control and sensor values with its states of the normal working system.</p></li>
+<li><p><strong>anomalous discrete</strong>: Includes only binary/discrete control and sensor values with its states of the non-normal working system.</p></li>
+<li><p><strong>normal continuous</strong>: Includes only real-valued sensor data and process measurements with its states of the normal working system.</p></li>
+<li><p><strong>anomalous continuous</strong>: Includes only real-valued sensor data and process measurements with its states of the normal working system.</p></li>
 </ul>
 <p>Within each recording mode all anomalies in all modules and all their permutations are saved as a separate <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, along with a recording of without any anomaly, to foster unsupervised ML methods.</p>
 <p>The naming convention of the channels within the recordings follows the schema <code class="docutils literal notranslate"><span class="pre">&lt;module&gt;&lt;component&gt;&lt;sensor&gt;</span></code>.</p>
 <p>The recordings of HAI-CPS are structured as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>HAI-CPS
-├──<span class="w"> </span>ds1
-<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>discrete
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_normal.csv
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_anom_clogging.csv
+├──<span class="w"> </span>normal-continuous
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds2
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds2_continuous_s.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>sim_setup.json
 ...
-<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>continuous
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_normal.csv
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_anom_clogging.csv
+├──<span class="w"> </span>anomalous-continuous
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_clogging
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_pump50
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_pump50_continuous_s.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>sim_setup.json
 ...
-<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>hybrid
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_normal.csv
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_anom_clogging.csv
+├──<span class="w"> </span>normal-discrete
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds2
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds2_discrete_s.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>sim_setup.json
 ...
-<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>including-states
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_normal.csv
-<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_anom_clogging.csv
+├──<span class="w"> </span>anomalous-discrete
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_clogging
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_pump50
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>ds1_mixer0_anom_pump50_discrete_s.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>sim_setup.json
 ...
-├──<span class="w"> </span>ds2
-...
+
+
+
+<span class="c1">## Download</span>
+
+HAI-CPS<span class="w"> </span>is<span class="w"> </span>hosted<span class="w"> </span>on<span class="w"> </span>IEEE-Dataport.<span class="w"> </span>
+You<span class="w"> </span>can<span class="w"> </span>find<span class="w"> </span>and<span class="w"> </span>download<span class="w"> </span>all<span class="w"> </span>datasets,<span class="w"> </span>follwing<span class="w"> </span>this<span class="w"> </span><span class="o">[</span>link<span class="o">](</span>https://ieee-dataport.org/open-access/hai-cpps-hamburg-ai-benchmark-cyber-physical-production-sytems<span class="o">)</span>.<span class="w"> </span>
+
+&lt;img<span class="w"> </span><span class="nv">src</span><span class="o">=</span><span class="s2">&quot;https://ieee-dataport.org/themes/custom/dataport_bootstrap/logo.svg&quot;</span><span class="w"> </span><span class="nv">alt</span><span class="o">=</span><span class="s2">&quot;Dataport-logo&quot;</span><span class="w"> </span><span class="nv">width</span><span class="o">=</span><span class="s2">&quot;20%&quot;</span><span class="w"> </span>/&gt;
 </pre></div>
 </div>
-<section id="download">
-<h2>Download<a class="headerlink" href="#download" title="Link to this heading"></a></h2>
-<p>HAI-CPS is hosted on IEEE-Dataport.
-You can find and download all datasets, follwing this <a class="reference internal" href="#data-port-link"><span class="xref myst">link</span></a>.</p>
-<img src="https://ieee-dataport.org/themes/custom/dataport_bootstrap/logo.svg" alt="Dataport-logo" width="20%" />
-</section>
 </section>
 
 
