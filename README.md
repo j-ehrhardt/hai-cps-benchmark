@@ -8,32 +8,32 @@
 
 <img title="" src="./figs/logo.png" alt="alt text" width="200">
 
-# Hamburg AI Benchmark for Cyber-Physical Systems (HAI-CPS)
+# Hamburg AI Benchmark for Cyber-Physical Production Systems (HAI-CPPS)
 
-The **Hamburg AI Benchmark for Cyber-Physical Systems (HAI-CPS)** is a comprehensive dataset for evaluating AI models from the domains of **anomaly detection, diagnosis, reconfiguration, and planning** for Cyber-Physical Sytems. 
+The **Hamburg AI Benchmark for Cyber-Physical Production Systems (HAI-CPPS)** is a comprehensive dataset for evaluating AI models from the domains of **anomaly detection, diagnosis, reconfiguration, and planning** for Cyber-Physical Production Sytems. 
 
-HAI-CPS is constructed as a benchmark, consisting of ten different scenarios of a modular process plant showing different functionalities and increasing complexities. This allows you to comprehensively test your algorithm not only on a single use-case but systematically on increasingly complex examples from the same domain. Each scenario can show a range of multiple anomalies occurring in a single or multiple modules of the CPS. 
+HAI-CPPS is constructed as a benchmark, consisting of ten different scenarios of a modular process plant showing different functionalities and increasing complexities. This allows you to comprehensively test your algorithm not only on a single use-case but systematically on increasingly complex examples from the same domain. Each scenario can show a range of multiple anomalies occurring in a single or multiple modules of the CPS. 
 
-HAI-CPS consists of
+HAI-CPPS consists of
 
 - OpenModelica simulation models
 - Pre-simulated datasets for benchmarking
 - Docker integration for easy execution
 
-In addition to the existing setups, you can create and simulate your own simulations and system constellations, using the OpenModelica models and the HAI-CPS python API. 
+In addition to the existing setups, you can create and simulate your own simulations and system constellations, using the OpenModelica models and the HAI-CPPS python API. 
 
-You can find the documentation of HAI-CPS [here](https://j-ehrhardt.github.io/hai-cps-benchmark/)
+You can find the documentation of HAI-CPPS [here](https://j-ehrhardt.github.io/hai-cps-benchmark/)
 
 > [!NOTE]
-> HAI-CPS extends the **Benchmark for Diagnosis, Reconfiguration, and Planning (BeRfiPl)**. You can access the previous version [here](https://github.com/j-ehrhardt/benchmark-for-diagnosis-reconf-planning/tree/benchmark_v1).
+> HAI-CPPS extends the **Benchmark for Diagnosis, Reconfiguration, and Planning (BeRfiPl)**. You can access the previous version [here](https://github.com/j-ehrhardt/benchmark-for-diagnosis-reconf-planning/tree/benchmark_v1).
 
 ### Table of Contents
 
 1. [Introduction](#hamburg-ai-benchmark-for-cyber-physical-systems-hai-cps)
 2. [Requirements](#requirements)
 3. [Installation](#installation)
-4. [HAI-CPS - Overview](#hai-cps-overview)
-   - [CPS - Modules](#cps-modules)
+4. [HAI-CPPS - Overview](#hai-cpps-overview)
+   - [CPPS - Modules](#cpps-modules)
    - [Anomalies](#anomalies)
    - [Benchmark Datasets](#benchmark-datasets)
    - [Access the Benchmark Datasets](#accessing-the-benchmark-datasets)
@@ -77,11 +77,11 @@ Set up the docker container via the `Dockerfile`, by navigating into the directo
 docker compose up -d
 ```
 
-# HAI-CPS - Overview
+# HAI-CPPS - Overview
 
-The HAI-CPS benchmark consists of ten datasets from ten different configurations of a modular Cyber-Physical Process plant. The process plant itself has four different types of modules that can be interchangeably connected. Each dataset in the benchmark is recorded from a different configuration of the Cyber-Physical Process plant.
+The HAI-CPPS benchmark consists of ten datasets from ten different configurations of a modular Cyber-Physical Process plant. The process plant itself has four different types of modules that can be interchangeably connected. Each dataset in the benchmark is recorded from a different configuration of the Cyber-Physical Process plant.
 
-### CPS - Modules
+### CPPS - Modules
 
 The Cyber-Physical Process plant has four different types of modules: **(a) mixing, (b) filtering, (c) distilling, (d) bottling**. In addition there is a source and a sink module. 
 
@@ -93,7 +93,7 @@ You can find the OpenModelica models for the four different modules in the `mode
 
 ### Anomalies
 
-There are eight different anomalies that can be induced in the CPS modules. 
+There are eight different anomalies that can be induced in the CPPS modules. 
 While some anomalies only affect the modules in which they are induced, some propagate directly and indirectly into other modules. 
 
 - **Leaking Anomaly:** The leaking valve is opened and a continuous volume flow is diverted into a separate sink and vanishes from the system.
@@ -114,7 +114,7 @@ While some anomalies only affect the modules in which they are induced, some pro
 
 ## Benchmark Datasets
 
-The idea of HAI-CPS is to offer a comprehensive benchmark for Machine Learning Algorithms for technical system. HAI-CPS is especially suited for algorithms from the domains of **anomaly detection, reconfiguration, and diagnosis**. Therefore HAI-CPS provides ten different datasets that each are recorded from a different, increasingly complex instance of the CPS. The setup allows you to evaluate and compare your algorithms systematically in the dimensions of CPS complexity and problem complexity. 
+The idea of HAI-CPPS is to offer a comprehensive benchmark for Machine Learning Algorithms for technical system. HAI-CPPS is especially suited for algorithms from the domains of **anomaly detection, reconfiguration, and diagnosis**. Therefore HAI-CPPS provides ten different datasets that each are recorded from a different, increasingly complex instance of the CPPS. The setup allows you to evaluate and compare your algorithms systematically in the dimensions of CPPS complexity and problem complexity. 
 
 The benchmark datasets come in four different modes:
 
@@ -123,7 +123,7 @@ The benchmark datasets come in four different modes:
 - **Hybrid mode:** All values from the process plant are recorded. 
 - **Including states:** The states from the automatons running the individual models are included.
 
-Below is an image of ten standard setups of HAI-CPS.
+Below is an image of ten standard setups of HAI-CPPS.
 
 <img src="figs/cpps-setups.png" width="800"/>
 
@@ -152,7 +152,7 @@ The script will automatically select the `benchmark_setup.json` file and run all
 
 ## Create Your Own Simulation
 
-If you want to create your own CPS configurations and simulations, you can either use the OpenModelica Editor (OMEdit) or you use the python interface provided in this repository.
+If you want to create your own CPPS configurations and simulations, you can either use the OpenModelica Editor (OMEdit) or you use the python interface provided in this repository.
 
 When using the OMEdit, simply load the models from the `models` directory and assemble them into new configurations within the `ProcessPlant.mo` file.
 
@@ -161,21 +161,22 @@ You can orient yourself on the setup file for the benchmark `benchmark_setup.jso
 
 # Using the Benchmark
 
-Using HAI-CPS benchmark is pretty self-explanatory. Download or create the datasets yourself. Select the mode (discrete, continuous, hybrid, including states) in which you want to operate. Train your models using the normal data and test them on an anomalous test dataset. All anomalies are induced after 2500 time-steps and occur within the component, within the module that are indicated in the dataset name.
+Using HAI-CPPS benchmark is pretty self-explanatory. Download or create the datasets yourself. Select the mode (discrete, continuous, hybrid, including states) in which you want to operate. Train your models using the normal data and test them on an anomalous test dataset. All anomalies are induced after 2500 time-steps and occur within the component, within the module that are indicated in the dataset name.
 
 As a reference, you can have a look at the following repository [Discret2Di](https://github.com/lmoddemann/Discret2Di). 
 
 # Citation
 
-When using the HAI-CPS benchmark, please use the following citation: 
+When using the HAI-CPPS benchmark, please use the following citation: 
 
 ```bibtex
-@misc{Ehrhardt2025,
-  author = {Ehrhardt, Jonas and Moddemann, Lukas and Niggemann, Oliver},
-  year = {2025},
-  title = {The Hamburg Artificial Intelligence Benchmark for Cyber-Pyhsical Sytems - HAI-CPS},
-  howpublished = {\url=https://github.com/j-ehrhardt/hai-cps-benchmark},
-  doi = {},
+   @data{haicpps,
+   doi = {10.21227/5ewb-cn40},
+   url = {https://dx.doi.org/10.21227/5ewb-cn40},
+   author = {Jonas Ehrhardt and Lukas Moddemann and Alexander Diedrich and Oliver Niggemann},
+   publisher = {IEEE Dataport},
+   title = {HAI-CPPS: The Hamburg AI Benchmark for Cyber-Physical Production Sytems},
+   year = {2025} }
 }
 ```
 
