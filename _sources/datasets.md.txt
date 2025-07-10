@@ -6,10 +6,10 @@ The HAI-CPS benchmark constist of a total of 10 Datasets showing increasing syst
 
 
 Each dataset is available in four recording modes: 
-- **discrete**: Includes only binary/discrete control and sensor values.
-- **continuous**: Includes only real-valued sensor data and process measurements.
-- **hybrid**: A combination of discrete and continuous features.
-- **including-states**: Hybrid data **plus** automaton states from each module (i.e., internal process states during execution).
+- **normal discrete**: Includes only binary/discrete control and sensor values with its states of the normal working system.
+- **anomalous discrete**: Includes only binary/discrete control and sensor values with its states of the non-normal working system.
+- **normal continuous**: Includes only real-valued sensor data and process measurements with its states of the normal working system.
+- **anomalous continuous**: Includes only real-valued sensor data and process measurements with its states of the normal working system.
 
 Within each recording mode all anomalies in all modules and all their permutations are saved as a separate `.csv` file, along with a recording of without any anomaly, to foster unsupervised ML methods. 
 
@@ -19,33 +19,37 @@ The recordings of HAI-CPS are structured as follows:
 ```bash
 
 HAI-CPS
-├── ds1
-|   ├── discrete
-|   |   ├── ds1_normal.csv
-|   |   ├── ds1_anom_clogging.csv
+├── normal-continuous
+|   ├── ds1
+|   ├── ds2
+|   |   ├── ds2_continuous_s.csv
+|   |   ├── sim_setup.json
 ...
-|   ├── continuous
-|   |   ├── ds1_normal.csv
-|   |   ├── ds1_anom_clogging.csv
+├── anomalous-continuous
+|   ├── ds1_mixer0_anom_clogging
+|   ├── ds1_mixer0_anom_pump50
+|   |   ├── ds1_mixer0_anom_pump50_continuous_s.csv
+|   |   ├── sim_setup.json
 ...
-|   ├── hybrid
-|   |   ├── ds1_normal.csv
-|   |   ├── ds1_anom_clogging.csv
+├── normal-discrete
+|   ├── ds1
+|   ├── ds2
+|   |   ├── ds2_discrete_s.csv
+|   |   ├── sim_setup.json
 ...
-|   ├── including-states
-|   |   ├── ds1_normal.csv
-|   |   ├── ds1_anom_clogging.csv
-...
-├── ds2
+├── anomalous-discrete
+|   ├── ds1_mixer0_anom_clogging
+|   ├── ds1_mixer0_anom_pump50
+|   |   ├── ds1_mixer0_anom_pump50_discrete_s.csv
+|   |   ├── sim_setup.json
 ...
 
-```
 
 
 ## Download
 
 HAI-CPS is hosted on IEEE-Dataport. 
-You can find and download all datasets, follwing this [link](data-port-link). 
+You can find and download all datasets, follwing this [link](https://ieee-dataport.org/open-access/hai-cpps-hamburg-ai-benchmark-cyber-physical-production-sytems). 
 
 <img src="https://ieee-dataport.org/themes/custom/dataport_bootstrap/logo.svg" alt="Dataport-logo" width="20%" />
 
